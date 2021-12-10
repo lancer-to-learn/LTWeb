@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+encoding//src/main/java/vn/group/controller/admin/AdminController.java=UTF-8
+encoding//src/main/java/vn/group/controller/web/CartController.java=UTF-8
+encoding//src/main/java/vn/group/controller/web/HomeController.java=UTF-8
+encoding//src/main/java/vn/group/controller/web/LoginController.java=UTF-8
+encoding//src/main/java/vn/group/controller/web/ProductController.java=UTF-8
+encoding//src/main/java/vn/group/controller/web/ProductDetailController.java=UTF-8
+encoding//src/main/java/vn/group/controller/web/RegisterController.java=UTF-8
+encoding//src/main/java/vn/group/dao/impl/BrandDaoImpl.java=UTF-8
+encoding//src/main/java/vn/group/dao/impl/ProductDaoImpl.java=UTF-8

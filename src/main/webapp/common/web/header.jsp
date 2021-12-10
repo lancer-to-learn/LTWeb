@@ -1,0 +1,108 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@include file="/common/taglib.jsp"%>
+
+<!-- BEGIN TOP BAR -->
+    <div class="pre-header">
+        <div class="container">
+            <div class="row">
+                <!-- BEGIN TOP BAR LEFT PART -->
+                <div class="col-md-6 col-sm-6 additional-shop-info">
+                    <ul class="list-unstyled list-inline">
+                        <li><i class="fa fa-phone"></i><span>+1 456 6717</span></li>
+                        <li><i class="fa fa-envelope-o"></i><span>info@keenthemes.com</span></li>
+                    </ul>
+                </div>
+                <!-- END TOP BAR LEFT PART -->
+                <!-- BEGIN TOP BAR MENU -->
+                <c:choose>
+			<c:when test="${sessionScope.acc == null}">
+				<div class="col-md-6 col-sm-6 additional-nav">
+					<ul class="list-unstyled list-inline pull-right">
+						<li><a href="${pageContext.request.contextPath }/login">Đăng nhập</a></li>
+						<li><a href="signup">Đăng ký</a></li>
+					</ul>
+				</div>
+			</c:when>
+			<c:otherwise>
+			<li class="dropdown dropdown-user col-md-4 col-sm-4 additional-nav">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+					<img alt="" class="img-circle" src="https://th.bing.com/th/id/OIP.EkgwTH-cHmdPFfz6UR8ywgHaHa?w=203&h=203&c=7&r=0&o=5&dpr=1.5&pid=1.7"
+					style="width:30px;height:30px;"/>
+					<span class="username username-hide-on-mobile">
+					${ acc.getUser() } </span>
+					<i class="fa fa-angle-down"></i>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-default">
+						<li>
+							<a href="extra_profile.html">
+							<i class="icon-user"></i> My Profile </a>
+						</li>					
+						<li class="divider">
+						</li>
+						
+						<li>
+							<a href="logout">
+							<i class="icon-key"></i> Log Out </a>
+						</li>
+					</ul>
+				</li>
+
+			</c:otherwise>
+			</c:choose>
+                <!-- END TOP BAR MENU -->
+            </div>
+        </div>        
+    </div>
+    <!-- END TOP BAR -->
+<!-- BEGIN HEADER -->
+    <div class="header">
+      <div class="container">
+        <a class="site-logo" href="index.html"><img src="${ url }/frontend/layout/img/logos/logo-corp-red.png" alt="Metronic FrontEnd"></a>
+
+        <a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a>
+
+        <!-- BEGIN NAVIGATION -->
+        <div class="header-navigation pull-right font-transform-inherit">
+          <ul>
+            <li><a href="home">Trang chủ</a></li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#">
+                Thương hiệu              
+	          </a>  
+              <ul class="dropdown-menu">
+              <c:forEach items="${ allBrand }" var="ab">
+                <li class="${tagactive==ab.bId ? "active" : ""}"><a href="product?bid=${ab.bId}">${ab.bName}</a></li>   
+                </c:forEach>          
+              </ul>
+            </li>
+            <li><a href="product?bid=0">Sản phẩm</a></li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#">
+                Giỏ hàng               
+              <span class="badge badge-info">0</span>
+              </a>
+            </li>
+            <!-- BEGIN TOP SEARCH -->
+            <li class="menu-search">
+              <span class="sep"></span>
+              <i class="fa fa-search search-btn"></i>
+              <div class="search-box">
+                <form action="#">
+                  <div class="input-group">
+                    <input type="text" placeholder="Tìm kiếm" class="form-control">
+                    <span class="input-group-btn">
+                      <button class="btn btn-primary" type="submit">Tìm kiếm</button>
+                    </span>
+                  </div>
+                </form>
+              </div> 
+            </li>
+            <!-- END TOP SEARCH -->
+          </ul>
+        </div>
+        <!-- END NAVIGATION -->
+      </div>
+    </div>
+    <!-- Header END -->
+
