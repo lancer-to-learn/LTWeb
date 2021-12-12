@@ -86,5 +86,25 @@ public class UserDaoImpl implements UserDao{
 		}
 		return role;
 	}
+	@Override
+	public AccountModel getUser(int id) {
+		String sql = "select * from Account where id=?";
+		AccountModel acc = null;
+		try {
+			conn = new DBConnect().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				acc = new AccountModel(rs.getInt(1), rs.getString(2),
+						rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7));
+			}
+			return acc;
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return acc;
+	}
 
 }

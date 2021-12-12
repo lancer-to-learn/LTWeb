@@ -26,7 +26,7 @@
 					<div class="row">
 						<div class="col-md-7 col-sm-7">
 
-							<form action="signup" method="post" id="formLogin"
+							<form action="signup" method="post" id="formLogin" enctype="multipart/form-data"
 								class="form-horizontal form-without-legend" role="form">
 								<div class="form-group">
 									<label for="email" class="col-lg-4 control-label">Username
@@ -72,11 +72,11 @@
 								</div>
 								
 								<div class="form-group">
-									<label for="text" class="col-lg-4 control-label">Hình ảnh
+									<label for="text" class="col-lg-4 control-label">Image
 										<span class="require">*</span>
 									</label>
 									<div class="col-lg-8">
-										<input type="file" id="image" name="image">
+										<input type="file" id="image" name="image" required>
 									</div>
 								</div>
 

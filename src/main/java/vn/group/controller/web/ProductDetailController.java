@@ -22,12 +22,8 @@ import vn.group.service.impl.ProductServiceImpl;
 public class ProductDetailController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//Cài đặt cấu hình
 				resp.setContentType("text/html");
-				resp.setCharacterEncoding("UTF-8");
-				req.setCharacterEncoding("UTF-8");
-				
-				String pId = req.getParameter("pid");
+/*				String pId = req.getParameter("pid");
 				int id = Integer.parseInt(pId);
 				
 				//Tạo các biến
@@ -39,7 +35,7 @@ public class ProductDetailController extends HttpServlet{
 				
 				//Truyền dữ liệu lên views
 				req.setAttribute("allBrand", allBrand);
-				req.setAttribute("product", product);
+				req.setAttribute("product", product);*/
 
 				//Khởi tạo DAO
 				RequestDispatcher rq = req.getRequestDispatcher("/views/web/productdetail.jsp");

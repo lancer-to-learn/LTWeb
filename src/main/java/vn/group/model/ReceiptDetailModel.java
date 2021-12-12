@@ -3,27 +3,35 @@ package vn.group.model;
 
 public class ReceiptDetailModel {
 	private int rdId;
-	private int rId;
-	private int pId;
+	private ReceiptModel receipt;
+	private ProductModel product;
 	private int quantity;
 	private float price;
+	private String status;
+	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public int getRdId() {
 		return rdId;
 	}
 	public void setRdId(int rdId) {
 		this.rdId = rdId;
 	}
-	public int getrId() {
-		return rId;
+	public ReceiptModel getReceipt() {
+		return receipt;
 	}
-	public void setrId(int rId) {
-		this.rId = rId;
+	public void setReceipt(ReceiptModel receipt) {
+		this.receipt = receipt;
 	}
-	public int getpId() {
-		return pId;
+	public ProductModel getProduct() {
+		return product;
 	}
-	public void setpId(int pId) {
-		this.pId = pId;
+	public void setProduct(ProductModel product) {
+		this.product = product;
 	}
 	public int getQuantity() {
 		return quantity;
@@ -41,13 +49,16 @@ public class ReceiptDetailModel {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ReceiptDetailModel(int rId, int pId, int quantity, float price) {
+	public ReceiptDetailModel(int id, ReceiptModel receipt, ProductModel product, int quantity, float price, String status) {
 		super();
-		this.rId = rId;
-		this.pId = pId;
+		this.rdId = id;
+		this.receipt = receipt;
+		this.product = product;
 		this.quantity = quantity;
 		this.price = price;
+		this.status = status;
 	}
+	
 	
 	
 }

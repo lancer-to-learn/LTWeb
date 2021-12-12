@@ -10,13 +10,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = {"/admin"})
-public class AdminController extends HttpServlet{
+@WebServlet(urlPatterns = {"/admin/stats-month", "/admin/stats-year"})
+public class StatsController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html");
-		RequestDispatcher rq = req.getRequestDispatcher("/views/admin/admin.jsp");
-		rq.forward(req, resp);
+		String url = req.getRequestURL().toString();
+		if (url.contains("stats-month"))
+		{
+			RequestDispatcher rq = req.getRequestDispatcher("/views/admin/statsmonth.jsp");
+			rq.forward(req, resp);
+		}
+		else {
+			if (url.contains("stats-year"))
+			{
+				RequestDispatcher rq = req.getRequestDispatcher("/views/admin/statsyear.jsp");
+				rq.forward(req, resp);
+			}
+		}
 	}
-
 }

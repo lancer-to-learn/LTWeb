@@ -4,20 +4,19 @@ import java.sql.Date;
 
 public class ReceiptModel {
 	private int rId;
-	private int uId;
+	private AccountModel user;
 	private Date date;
-	private String status;
 	public int getrId() {
 		return rId;
 	}
 	public void setrId(int rId) {
 		this.rId = rId;
 	}
-	public int getuId() {
-		return uId;
+	public AccountModel getUser() {
+		return user;
 	}
-	public void setuId(int uId) {
-		this.uId = uId;
+	public void setUser(AccountModel user) {
+		this.user = user;
 	}
 	public Date getDate() {
 		return date;
@@ -25,22 +24,19 @@ public class ReceiptModel {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	public ReceiptModel(int uId, Date date, String status) {
-		super();
-		this.uId = uId;
-		this.date = date;
-		this.status = status;
-	}
+
 	public ReceiptModel() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	public ReceiptModel(int id, AccountModel user, Date date, String status) {
+		super();
+		this.rId = id;
+		this.user = user;
+		this.date = date;
+	}
+	
+	
 	
 	
 

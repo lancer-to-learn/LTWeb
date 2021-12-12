@@ -8,7 +8,7 @@
 <!-- BEGIN HEAD -->
 <head>
 <meta charset="utf-8"/>
-<title>Quản lý</title>
+<title>Admin</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -27,8 +27,10 @@
 <link rel="stylesheet" type="text/css" href="${ url }/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css"/>
 <link rel="stylesheet" type="text/css" href="${ url }/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css"/>
 <link rel="stylesheet" type="text/css" href="${ url }/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="${ url }/global/plugins/bootstrap-datepicker/css/datepicker.css"/>
 <!-- END PAGE LEVEL STYLES -->
 <!-- BEGIN THEME STYLES -->
+<link href="${ url }/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css">
 <link href="${ url }/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
 <link href="${ url }/global/css/plugins.css" rel="stylesheet" type="text/css"/>
 <link href="${ url }/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
@@ -55,6 +57,8 @@
 <script src="${ url }/global/plugins/respond.min.js"/>"></script>
 <script src="${ url }/global/plugins/excanvas.min.js"/>"></script> 
 <![endif]-->
+<script src="${ url }/global/plugins/respond.min.js"></script>
+<script src="${ url }/global/plugins/excanvas.min.js"></script> 
 <script src="${ url }/global/plugins/jquery.min.js" type="text/javascript"></script>
 <script src="${ url }/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
 <!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
@@ -74,19 +78,40 @@
 <script type="text/javascript" src="${ url }/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js"></script>
 <script type="text/javascript" src="${ url }/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js"></script>
 <script type="text/javascript" src="${ url }/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<script type="text/javascript" src="${ url }/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 <!-- END PAGE LEVEL PLUGINS -->
+<script src="${ url }/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="${ url }/global/plugins/amcharts/amcharts/amcharts.js" type="text/javascript"></script>
+<script src="${ url }/global/plugins/amcharts/amcharts/serial.js" type="text/javascript"></script>
+<script src="${ url }/global/plugins/amcharts/amcharts/pie.js" type="text/javascript"></script>
+<script src="${ url }/global/plugins/amcharts/amcharts/radar.js" type="text/javascript"></script>
+<script src="${ url }/global/plugins/amcharts/amcharts/themes/light.js" type="text/javascript"></script>
+<script src="${ url }/global/plugins/amcharts/amcharts/themes/patterns.js" type="text/javascript"></script>
+<script src="${ url }/global/plugins/amcharts/amcharts/themes/chalk.js" type="text/javascript"></script>
+<script src="${ url }/global/plugins/amcharts/ammap/ammap.js" type="text/javascript"></script>
+<script src="${ url }/global/plugins/amcharts/ammap/maps/js/worldLow.js" type="text/javascript"></script>
+<script src="${ url }/global/plugins/amcharts/amstockcharts/amstock.js" type="text/javascript"></script>
+<script src="${ url }/admin/pages/scripts/charts-amcharts.js"></script>
+
+
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="${ url }/global/scripts/metronic.js" type="text/javascript"></script>
 <script src="${ url }/admin/layout/scripts/layout.js" type="text/javascript"></script>
 <script src="${ url }/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="${ url }/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script src="${ url }/admin/pages/scripts/table-advanced.js"></script>
+<script src="${ url }/global/scripts/datatable.js"></script>
+<script src="${ url }/admin/pages/scripts/ecommerce-orders-view.js"></script>
+<script src="${ url }/admin/pages/scripts/ecommerce-products.js"></script>
 <script>
 jQuery(document).ready(function() {       
    Metronic.init(); // init metronic core components
 Layout.init(); // init current layout
 QuickSidebar.init(); // init quick sidebar
 Demo.init(); // init demo features
+EcommerceOrdersView.init();
+EcommerceProducts.init();
+ChartsAmcharts.init();
    TableAdvanced.init();
 });
 </script>

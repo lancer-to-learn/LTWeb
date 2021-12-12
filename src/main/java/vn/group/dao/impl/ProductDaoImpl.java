@@ -9,24 +9,31 @@ import java.util.List;
 import vn.group.connection.DBConnect;
 import vn.group.dao.ProductDao;
 import vn.group.model.ProductModel;
+import vn.group.service.BrandService;
+import vn.group.service.UserService;
+import vn.group.service.impl.BrandServiceImpl;
+import vn.group.service.impl.UserServiceImpl;
 
 public class ProductDaoImpl implements ProductDao{
 	Connection conn = null;
 	PreparedStatement ps = null;
 	ResultSet rs = null;
+	BrandService brandService = new BrandServiceImpl();
+	UserService userService = new UserServiceImpl();
 
 	@Override
 	//Lấy tất cả sản phẩm
 	public List<ProductModel> getAllProduct() {
 		List<ProductModel> list = new ArrayList<ProductModel>();
 		String sql = "select * from Product;";
+		
 		try {
 			conn = new DBConnect().getConnection();
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();		
 			while (rs.next()) {
-				ProductModel pro  = new ProductModel(rs.getInt(1), rs.getString(2), rs.getFloat(3),
-				rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8));
+				ProductModel pro = new ProductModel(rs.getInt(1), rs.getString(2), rs.getFloat(3),
+						brandService.getBrandById(rs.getInt(4)), rs.getString(5), userService.getUser(rs.getInt(6)), rs.getInt(7), rs.getInt(8));
 				list.add(pro);
 			}
 		} catch (Exception e) {
@@ -45,8 +52,8 @@ public class ProductDaoImpl implements ProductDao{
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();		
 			while (rs.next()) {
-				ProductModel pro  = new ProductModel(rs.getInt(1), rs.getString(2), rs.getFloat(3),
-				rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8));
+				ProductModel pro = new ProductModel(rs.getInt(1), rs.getString(2), rs.getFloat(3),
+						brandService.getBrandById(rs.getInt(4)), rs.getString(5), userService.getUser(rs.getInt(6)), rs.getInt(7), rs.getInt(8));
 				list.add(pro);
 			}
 		} catch (Exception e) {
@@ -65,8 +72,8 @@ public class ProductDaoImpl implements ProductDao{
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();		
 			while (rs.next()) {
-				ProductModel pro  = new ProductModel(rs.getInt(1), rs.getString(2), rs.getFloat(3),
-				rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8));
+				ProductModel pro = new ProductModel(rs.getInt(1), rs.getString(2), rs.getFloat(3),
+						brandService.getBrandById(rs.getInt(4)), rs.getString(5), userService.getUser(rs.getInt(6)), rs.getInt(7), rs.getInt(8));
 				list.add(pro);
 			}
 		} catch (Exception e) {
@@ -90,8 +97,9 @@ public class ProductDaoImpl implements ProductDao{
 			rs = ps.executeQuery();
 			// lấy ResultSet đổ vào List
 			while (rs.next()) {
-				list.add(new ProductModel(rs.getInt(1), rs.getString(2), rs.getFloat(3),
-						rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8)));
+				ProductModel pro = new ProductModel(rs.getInt(1), rs.getString(2), rs.getFloat(3),
+						brandService.getBrandById(rs.getInt(4)), rs.getString(5), userService.getUser(rs.getInt(6)), rs.getInt(7), rs.getInt(8));
+				list.add(pro);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -115,8 +123,9 @@ public class ProductDaoImpl implements ProductDao{
 			rs = ps.executeQuery();
 			// lấy ResultSet đổ vào List
 			while (rs.next()) {
-				list.add(new ProductModel(rs.getInt(1), rs.getString(2), rs.getFloat(3),
-						rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8)));
+				ProductModel pro = new ProductModel(rs.getInt(1), rs.getString(2), rs.getFloat(3),
+						brandService.getBrandById(rs.getInt(4)), rs.getString(5), userService.getUser(rs.getInt(6)), rs.getInt(7), rs.getInt(8));
+				list.add(pro);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -161,8 +170,9 @@ public class ProductDaoImpl implements ProductDao{
 			rs = ps.executeQuery();
 			// lấy ResultSet đổ vào List
 			while (rs.next()) {
-				list.add(new ProductModel(rs.getInt(1), rs.getString(2), rs.getFloat(3),
-						rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8)));
+				ProductModel pro = new ProductModel(rs.getInt(1), rs.getString(2), rs.getFloat(3),
+						brandService.getBrandById(rs.getInt(4)), rs.getString(5), userService.getUser(rs.getInt(6)), rs.getInt(7), rs.getInt(8));
+				list.add(pro);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -205,10 +215,10 @@ public class ProductDaoImpl implements ProductDao{
 			// lấy ResultSet đổ vào List
 			while (rs.next()) {
 				return new ProductModel(rs.getInt(1), rs.getString(2), rs.getFloat(3),
-						rs.getInt(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8));
+						brandService.getBrandById(rs.getInt(4)), rs.getString(5), userService.getUser(rs.getInt(6)), rs.getInt(7), rs.getInt(8));
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.print("Eror:"+e);
 		}
 		return null;
 	}

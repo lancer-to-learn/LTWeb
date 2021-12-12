@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = {"/admin"})
-public class AdminController extends HttpServlet{
+@WebServlet(urlPatterns = {"/admin/order"})
+public class OrderContronller extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html");
-		RequestDispatcher rq = req.getRequestDispatcher("/views/admin/admin.jsp");
+		RequestDispatcher rq = req.getRequestDispatcher("/views/admin/order.jsp");
 		rq.forward(req, resp);
 	}
 

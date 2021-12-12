@@ -14,7 +14,7 @@
               <table summary="Shopping cart">
                 <tr>
                   <th class="goods-page-image">Image</th>
-                  <th class="goods-page-description">Description</th>
+                  <th class="goods-page-description">Name</th>
                   <th class="goods-page-quantity">Quantity</th>
                   <th class="goods-page-price">Unit price</th>
                   <th class="goods-page-total" colspan="2">Total</th>
@@ -27,67 +27,69 @@
                   <c:forEach items="${sessionScope.cart}" var="map">
                 <tr>
                   <td class="goods-page-image">
-                    <a href="/item-detail?product-id={{ item.product_id }}"><img src="{{ item.product_image }}" alt="Berry Lace Dress"></a>
+                    <a href="/productdetail?pid=${ map.value.product.pId }"><img src="${ map.value.product.pImage}" alt="${ map.value.product.pName }"></a>
                   </td>
                   <td class="goods-page-description"> 
-                    <h3><a href="/item-detail?product-id={{ item.product_id }}">{{ item.product_name }}</a></h3>
-                    <p><strong>Chip: </strong>{{ item.product_chip }}</p>
-                    <p><strong>Ram: </strong>{{ item.product_ram }} GB</p>
+                    <h3><a href="/productdetail?pid=${ map.value.product.pId }">${ map.value.product.pName }</a></h3>
                   </td>
                   <td class="goods-page-quantity">
                     <div class="product-quantity">
                         <input type="number" 
-                        value= "{{ item.quantity }}" 
-                        onblur= "updateCartItem(this, {{ item.product_id }})"
+                        value= "${ map.value.quantity }" 
+                        onblur= "updateCartItem(this, ${ map.value.product.pId })"
                         class = "form-control" id="product-quantity">
                       </div> 
                   </td>
                   <td class="goods-page-price">
-                    <strong><span>$</span>{{ item.product_price }}</strong>
+                    <strong><span>$</span>${ map.value.price }</strong>
                   </td>
                   <td class="goods-page-total">
-                    <strong><span>$</span>{{ item.product_price*item.quantity }}</strong>
+                    <strong><span>$</span>${ map.value.price*map.value.quantity }</strong>
                   </td>
-                  <td class="del-goods-col">
-                    <a class="del-goods" value = "Xoa" ONclick= "deleteCartItem({{ item.product_id }})">&nbsp;</a>
-                  </td>
+                  <%-- <td class="del-goods-col">
+                    <button class="del-goods" onclick= "deleteCartItem(${ map.value.product.pId })">&nbsp;</button>
+                  </td> --%>
                 </tr>
                 </c:forEach>
               </table>
             </div>
 
-            <div class="shopping-total">
-              {% if session.get('cart') %}
+            <%-- <div class="shopping-total">
+              <c:if test="${sessionScope.cart == null}">
                 <ul>
                   <li>
                     <em>Number of products</em>
-                    <strong class="price"><span id = "cart_quantity">{{ cart_stats.total_quantity }}</span></strong>
+                    <strong class="price"><span id = "cart_quantity">${ cart_stats.total_quantity }</span></strong>
                   </li>
                   <li class="shopping-total-price">
                     <em>Total</em>
-                    <strong class="price"><span id = "cart_amount">${{ cart_stats.total_amount }}</span></strong>
+                    <strong class="price"><span id = "cart_amount">$${ cart_stats.total_amount }</span></strong>
                   </li>
-                </ul>
-                
-              {% endif %}
-            </div>
+                </ul>             
+             </c:if>
+            </div> --%>
 
           </div>
-          <a href="/product-list"><button class="btn btn-default" type="submit">Continue shopping <i class="fa fa-shopping-cart"></i></button></a>
-          {% if current_user.is_authenticated %}
-            {% if session.get('cart') %}
+          <a href="/product"><button class="btn btn-default" type="submit">Continue shopping <i class="fa fa-shopping-cart"></i></button></a>
+          <c:choose>
+          <c:when test="${sessionScope.acc != null}">
+            <c:if test="${sessionScope.cart != null}">
               <a href="/user-checkout" class="text-light"><button class="btn btn-primary" type="button">Checkout <i class="fa fa-check"></i></button></a> 
-              {% endif %}
-          {% else %}
-            <a href="/user-login?next=/cart">Login to finish payment</a>
-          {% endif %}
+             </c:if>
+          </c:when>
+          <c:otherwise>
+          <div> 
+          <a href="/user-login?next=/cart">Login to finish payment</a>
+          </div>
+          </c:otherwise>
+          </c:choose>
         </div>
       </div>
       <!-- END CONTENT -->
     </div>
     <!-- END SIDEBAR & CONTENT -->
 
-    <!-- BEGIN SIMILAR PRODUCTS -->
+    <%-- <!-- BEGIN SIMILAR PRODUCTS -->
     <div class="row margin-bottom-40">
       <div class="col-md-12 col-sm-12">
         <h2>Most popular products</h2>
@@ -113,6 +115,6 @@
         </div>
       </div>
     </div>
-    <!-- END SIMILAR PRODUCTS -->
+    <!-- END SIMILAR PRODUCTS --> --%>
   </div>
 </div>

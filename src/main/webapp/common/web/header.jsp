@@ -19,8 +19,8 @@
 			<c:when test="${sessionScope.acc == null}">
 				<div class="col-md-6 col-sm-6 additional-nav">
 					<ul class="list-unstyled list-inline pull-right">
-						<li><a href="${pageContext.request.contextPath }/login">Đăng nhập</a></li>
-						<li><a href="signup">Đăng ký</a></li>
+						<li><a href="${pageContext.request.contextPath }/login">Login</a></li>
+						<li><a href="signup">Register</a></li>
 					</ul>
 				</div>
 			</c:when>
@@ -65,10 +65,10 @@
         <!-- BEGIN NAVIGATION -->
         <div class="header-navigation pull-right font-transform-inherit">
           <ul>
-            <li><a href="home">Trang chủ</a></li>
+            <li><a href="home">Home</a></li>
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#">
-                Thương hiệu              
+                Brand             
 	          </a>  
               <ul class="dropdown-menu">
               <c:forEach items="${ allBrand }" var="ab">
@@ -76,11 +76,11 @@
                 </c:forEach>          
               </ul>
             </li>
-            <li><a href="product?bid=0">Sản phẩm</a></li>
+            <li><a href="product?bid=0">Product</a></li>
             <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#">
-                Giỏ hàng               
-              <span class="badge badge-info">0</span>
+              <a href="cart-item">
+                Cart               
+              <span class="badge badge-info" id="cart_quantity">0</span>
               </a>
             </li>
             <!-- BEGIN TOP SEARCH -->
@@ -92,7 +92,7 @@
                   <div class="input-group">
                     <input type="text" placeholder="Tìm kiếm" class="form-control">
                     <span class="input-group-btn">
-                      <button class="btn btn-primary" type="submit">Tìm kiếm</button>
+                      <button class="btn btn-primary" type="submit">Search</button>
                     </span>
                   </div>
                 </form>
@@ -105,4 +105,49 @@
       </div>
     </div>
     <!-- Header END -->
-
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>    
+function AddtoCart(pid) {	
+	/*  tạo viên amount để Gọi và đếm classname là product */
+	var quantity = $('#qty').val();
+	$.ajax({
+		url : "/cart-add",
+		type : "post", //send it through get method
+		data : {
+			quantity : quantity,
+			pid : pid
+		},
+		success : function(data) {
+			//cách 1
+			$('#cart_quantity').val(data);
+			//cách 2
+			//$("#qty").append(data);
+			
+		},
+		error : function(xhr) {
+			alert("Error")
+		}
+	});
+ };
+ function deleteItem() {	
+		/*  tạo viên amount để Gọi và đếm classname là product */
+		var quantity = $('#qty').val();
+		$.ajax({
+			url : "/BanHang/substract-quantity",
+			type : "get", //send it through get method
+			data : {
+				amount : quantity
+			},
+			success : function(data) {
+				//cách 1
+				$('#qty').val(data);
+				//cách 2
+				//$("#qty").append(data);
+				
+			},
+			error : function(xhr) {
+				//Do Something to handle error
+			}
+		});
+	 };
+</script>

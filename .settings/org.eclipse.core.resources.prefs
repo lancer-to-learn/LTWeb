@@ -1,5 +1,7 @@
 eclipse.preferences.version=1
 encoding//src/main/java/vn/group/controller/admin/AdminController.java=UTF-8
+encoding//src/main/java/vn/group/controller/admin/OrderContronller.java=UTF-8
+encoding//src/main/java/vn/group/controller/web/CartAddController.java=UTF-8
 encoding//src/main/java/vn/group/controller/web/CartController.java=UTF-8
 encoding//src/main/java/vn/group/controller/web/HomeController.java=UTF-8
 encoding//src/main/java/vn/group/controller/web/LoginController.java=UTF-8

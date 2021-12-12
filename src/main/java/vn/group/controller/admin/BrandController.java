@@ -10,13 +10,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = {"/admin"})
-public class AdminController extends HttpServlet{
+@WebServlet(urlPatterns = {"/admin/list-brand", "/admin/custom-brand"})
+public class BrandController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html");
-		RequestDispatcher rq = req.getRequestDispatcher("/views/admin/admin.jsp");
-		rq.forward(req, resp);
+		String url = req.getRequestURL().toString();
+		if (url.contains("list-brand"))
+		{
+			RequestDispatcher rq = req.getRequestDispatcher("/views/admin/listbrand.jsp");
+			rq.forward(req, resp);
+		}
+		else {
+			if (url.contains("custom-brand"))
+			{
+				RequestDispatcher rq = req.getRequestDispatcher("/views/admin/custombrand.jsp");
+				rq.forward(req, resp);
+			}
+		}
+		
 	}
-
 }

@@ -27,5 +27,10 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		return user.getRolebyId(id);
 	}
+	@Override
+	public AccountModel getUser(int id) {
+		// TODO Auto-generated method stub
+		return user.getUser(id);
+	}
 
 }

@@ -112,88 +112,77 @@
 
 
 			<!-- BEGIN PAGE HEADER-->
-			<!-- END PAGE HEADER-->
-			<!-- BEGIN PAGE CONTENT-->
 			<h3 class="page-title">
-				Dashboard <small>reports & statistics</small>
+				Brand Edit <small>create & edit brand</small>
 			</h3>
 			<div class="page-bar">
 				<ul class="page-breadcrumb">
-					<li><i class="fa fa-home"></i> <a href="index.html">Home</a> <i
+					<li><i class="fa fa-home"></i> <a href="admin">Admin</a> <i
 						class="fa fa-angle-right"></i></li>
-					<li><a href="#">Dashboard</a></li>
+					<li><a href="admin/list-brand">Ship</a> <i class="fa fa-angle-right"></i>
+					</li>
+					<li><a href="admin/custom-brand">Custom City</a></li>
 				</ul>
-				<div class="page-toolbar">
-					<div id="dashboard-report-range"
-						class="pull-right tooltips btn btn-fit-height grey-salt"
-						data-placement="top"
-						data-original-title="Change dashboard date range">
-						<i class="icon-calendar"></i>&nbsp; <span
-							class="thin uppercase visible-lg-inline-block">&nbsp;</span>&nbsp;
-						<i class="fa fa-angle-down"></i>
-					</div>
+			</div>
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-shopping-cart"></i>Custom City
 				</div>
 			</div>
+
 			<!-- END PAGE HEADER-->
-			<!-- BEGIN DASHBOARD STATS -->
-			<div class="row">
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="dashboard-stat blue-madison">
-						<div class="visual">
-							<i class="fa fa-comments"></i>
+			<!-- BEGIN PAGE CONTENT-->
+			<div class="col-md-9 col-sm-9">
+				<div class="content-form-page">
+					<div class="row">
+						<div class="col-md-7 col-sm-7">
+
+							<form action="signup" method="post" id="formLogin" enctype="multipart/form-data"
+								class="form-horizontal form-without-legend" role="form">
+								<div class="form-group">
+									<label class="col-lg-4 control-label">City Name:
+										<span class="require">*</span>
+									</label>
+									<div class="col-lg-8">
+										<input type="text" class="form-control" id="cityname"
+											name="cityname" class="form-control" placeholder="City Name"
+											required autofocus>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-4 control-label">Ship Price:
+										<span class="require">*</span>
+									</label>
+									<div class="col-lg-8">
+										<input type="text" class="form-control" id="shipprice"
+											name="shipprice" class="form-control" placeholder="Ship Price"
+											required autofocus>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-4 control-label">Ship Time:
+										<span class="require">*</span>
+									</label>
+									<div class="col-lg-8">
+										<input type="text" class="form-control" id="shiptime"
+											name="shiptime" class="form-control" placeholder="Ship Time"
+											required autofocus> <span>Days</span>
+									</div>
+								</div>
+								<div class="row">
+									<div
+										class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20">
+										<button type="submit" class="btn btn-primary">Save</button>
+									</div>
+								</div>
+
+							</form>
 						</div>
-						<div class="details">
-							<div class="number">1349</div>
-							<div class="desc">New Feedbacks</div>
-						</div>
-						<a class="more" href="#"> View more <i
-							class="m-icon-swapright m-icon-white"></i>
-						</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="dashboard-stat red-intense">
-						<div class="visual">
-							<i class="fa fa-bar-chart-o"></i>
-						</div>
-						<div class="details">
-							<div class="number">12,5M$</div>
-							<div class="desc">Total Profit</div>
-						</div>
-						<a class="more" href="#"> View more <i
-							class="m-icon-swapright m-icon-white"></i>
-						</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="dashboard-stat green-haze">
-						<div class="visual">
-							<i class="fa fa-shopping-cart"></i>
-						</div>
-						<div class="details">
-							<div class="number">549</div>
-							<div class="desc">New Orders</div>
-						</div>
-						<a class="more" href="#"> View more <i
-							class="m-icon-swapright m-icon-white"></i>
-						</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="dashboard-stat purple-plum">
-						<div class="visual">
-							<i class="fa fa-globe"></i>
-						</div>
-						<div class="details">
-							<div class="number">+89%</div>
-							<div class="desc">Brand Popularity</div>
-						</div>
-						<a class="more" href="#"> View more <i
-							class="m-icon-swapright m-icon-white"></i>
-						</a>
+						
 					</div>
 				</div>
 			</div>
+			
 			<!-- END PAGE CONTENT-->
 		</div>
 	</div>

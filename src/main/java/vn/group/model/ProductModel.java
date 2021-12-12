@@ -4,17 +4,11 @@ public class ProductModel {
 	private int pId;
 	private String pName;
 	private float pPrice;
-	private int pBrand;
+	private BrandModel brand;
 	private String pImage;
-	private int pSeller;
+	private AccountModel seller;
 	private int pAmount;
 	private int pAmountSelled;
-	
-	
-	public ProductModel() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 	public int getpId() {
 		return pId;
 	}
@@ -33,23 +27,11 @@ public class ProductModel {
 	public void setpPrice(float pPrice) {
 		this.pPrice = pPrice;
 	}
-	public int getpBrand() {
-		return pBrand;
+	public BrandModel getBrand() {
+		return brand;
 	}
-	public ProductModel(int pId, String pName, float pPrice, int pBrand, String pImage, int pSeller, int pAmount,
-			int pAmountSelled) {
-		super();
-		this.pId = pId;
-		this.pName = pName;
-		this.pPrice = pPrice;
-		this.pBrand = pBrand;
-		this.pImage = pImage;
-		this.pSeller = pSeller;
-		this.pAmount = pAmount;
-		this.pAmountSelled = pAmountSelled;
-	}
-	public void setpBrand(int pBrand) {
-		this.pBrand = pBrand;
+	public void setBrand(BrandModel brand) {
+		this.brand = brand;
 	}
 	public String getpImage() {
 		return pImage;
@@ -57,11 +39,11 @@ public class ProductModel {
 	public void setpImage(String pImage) {
 		this.pImage = pImage;
 	}
-	public int getpSeller() {
-		return pSeller;
+	public AccountModel getSeller() {
+		return seller;
 	}
-	public void setpSeller(int pSeller) {
-		this.pSeller = pSeller;
+	public void setSeller(AccountModel seller) {
+		this.seller = seller;
 	}
 	public int getpAmount() {
 		return pAmount;
@@ -75,5 +57,23 @@ public class ProductModel {
 	public void setpAmountSelled(int pAmountSelled) {
 		this.pAmountSelled = pAmountSelled;
 	}
+	public ProductModel() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public ProductModel(int id, String pName, float pPrice, BrandModel brand, String pImage, AccountModel seller, int pAmount,
+			int pAmountSelled) {
+		super();
+		this.pId = id;
+		this.pName = pName;
+		this.pPrice = pPrice;
+		this.brand = brand;
+		this.pImage = pImage;
+		this.seller = seller;
+		this.pAmount = pAmount;
+		this.pAmountSelled = pAmountSelled;
+	}
+	
+	
 
 }
