@@ -2,6 +2,7 @@ package vn.group.dao;
 
 import java.util.List;
 
+import vn.group.model.ProductDetailModel;
 import vn.group.model.ProductModel;
 
 public interface ProductDao {
@@ -14,5 +15,6 @@ public interface ProductDao {
 	int countProduct();
 	List<ProductModel> searchProduct(String kw);
 	ProductModel getProductById(int id);
+	ProductDetailModel getProductDetail(int id);
 }
 

@@ -8,6 +8,7 @@ import java.util.List;
 
 import vn.group.connection.DBConnect;
 import vn.group.dao.ProductDao;
+import vn.group.model.ProductDetailModel;
 import vn.group.model.ProductModel;
 import vn.group.service.BrandService;
 import vn.group.service.UserService;
@@ -20,6 +21,8 @@ public class ProductDaoImpl implements ProductDao{
 	ResultSet rs = null;
 	BrandService brandService = new BrandServiceImpl();
 	UserService userService = new UserServiceImpl();
+	
+	
 
 	@Override
 	//Lấy tất cả sản phẩm
@@ -221,6 +224,37 @@ public class ProductDaoImpl implements ProductDao{
 			System.out.print("Eror:"+e);
 		}
 		return null;
+	}
+
+	@Override
+	public ProductDetailModel getProductDetail(int id) {
+		String sql = "select * from ProductDetail where productId = ?;";
+		try {
+			// mở kết nối database
+			conn = new DBConnect().getConnection();
+			// Ném câu query qua sql
+			ps = conn.prepareStatement(sql);
+			ProductDaoImpl p = new ProductDaoImpl();
+			ps.setInt(1, id);
+			// chạy query và nhận kết quả
+			rs = ps.executeQuery();
+			// lấy ResultSet đổ vào List
+			while (rs.next()) {
+				return new ProductDetailModel(rs.getInt(1), p.getProductById(id), rs.getString(3), 
+						rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getFloat(8), 
+						rs.getString(9), rs.getInt(10));
+			}
+		} catch (Exception e) {
+			System.out.print("Eror:"+e);
+		}
+		return null;
+	}
+	
+	public static void main(String[] args) {
+		ProductDetailModel product = new ProductDetailModel();
+		ProductDaoImpl n = new ProductDaoImpl();
+		product = n.getProductDetail(1);
+		System.out.println(product);
 	}
 	
 

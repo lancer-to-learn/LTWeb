@@ -2,7 +2,7 @@ package vn.group.model;
 
 public class ProductDetailModel {
 	private int pdId;
-	private int pId;
+	private ProductModel product;
 	private String screen;
 	private String os;
 	private String chip;
@@ -17,11 +17,11 @@ public class ProductDetailModel {
 	public void setPdId(int pdId) {
 		this.pdId = pdId;
 	}
-	public int getpId() {
-		return pId;
+	public ProductModel getProduct() {
+		return product;
 	}
-	public void setpId(int pId) {
-		this.pId = pId;
+	public void setProduct(ProductModel product) {
+		this.product = product;
 	}
 	public String getScreen() {
 		return screen;
@@ -75,10 +75,11 @@ public class ProductDetailModel {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ProductDetailModel(int pId, String screen, String os, String chip, String ram, String rom, float weight,
+	public ProductDetailModel(int id, ProductModel product, String screen, String os, String chip, String ram, String rom, float weight,
 			String description, int timeWarranty) {
 		super();
-		this.pId = pId;
+		this.pdId = id;
+		this.product = product;
 		this.screen = screen;
 		this.os = os;
 		this.chip = chip;

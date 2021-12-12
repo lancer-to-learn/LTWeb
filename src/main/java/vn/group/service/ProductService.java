@@ -2,6 +2,7 @@ package vn.group.service;
 
 import java.util.List;
 
+import vn.group.model.ProductDetailModel;
 import vn.group.model.ProductModel;
 
 public interface ProductService {
@@ -14,4 +15,5 @@ public interface ProductService {
 	int countProduct();
 	List<ProductModel> searchProduct(String kw);
 	ProductModel getProductById(int id);
+	ProductDetailModel getProductDetail(int id);
 }

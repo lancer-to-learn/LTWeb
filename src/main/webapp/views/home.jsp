@@ -220,10 +220,6 @@
 			</div>
 		</div>
 		<!-- END BLOCKQUOTE BLOCK -->
-		<div>
-			<p>Những sản phẩm mới nhất sẽ được chúng tôi cập nhật đầy đủ và
-				nhanh nhất.</p>
-		</div>
 		<!-- BEGIN NEWEST PRODUCTS -->
 		<div class="row recent-work margin-bottom-40">
 			<div class="col-md-12 sale-product">
@@ -236,7 +232,7 @@
 										alt="${np.pName}">
 								</div>
 								<h3 class="text-center text-danger">
-									<a href="/productdetail?pid=${np.pId}">${np.pName}</a>
+									<a href="productdetail?pid=${np.pId}">${np.pName}</a>
 								</h3>
 							</div>
 							<div class="sticker sticker-new"></div>
@@ -268,7 +264,7 @@
 										alt="${sp.pName}">
 								</div>
 								<h3 class="text-center text-danger">
-									<a href="/productdetail?pid=${sp.pId}">${sp.pName}</a>
+									<a href="productdetail?pid=${sp.pId}">${sp.pName}</a>
 								</h3>
 								<div class="text-danger">Đã bán: ${sp.pAmountSelled}</div>
 							</div>

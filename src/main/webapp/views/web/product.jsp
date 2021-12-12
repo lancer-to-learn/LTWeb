@@ -220,7 +220,7 @@
 										alt="Berry Lace Dress">
 								</div>
 								<h3>
-									<a href="/productdetail?pid=${p.pId}">${p.pName}</a>
+									<a href="productdetail?pid=${p.pId}">${p.pName}</a>
 								</h3>
 								<div class="pi-price">${p.pPrice}$</div>
 								<a href="cart-add?pid=${p.pId}" class="btn btn-default add2cart">Add to cart</a>
@@ -284,10 +284,10 @@
 									class="img-responsive" alt="${ p.pName }">
 							</div>
 							<h3>
-								<a href="/productdetail?pid=${p.pId }">${ p.pName }</a>
+								<a href="productdetail?pid=${p.pId }">${ p.pName }</a>
 							</h3>
 							<div class="pi-price">${ p.pPrice }$</div>
-							<a href="#" class="btn btn-default add2cart">Thêm vào giỏ</a>
+							<a href="cart-add?pid=${p.pId}" class="btn btn-default add2cart">Thêm vào giỏ</a>
 							<c:forEach items="${sallestProduct}" var="sp">
 								<c:if test="${sp.pId==p.pId}">
 									<div class="sticker sticker-sale"></div>

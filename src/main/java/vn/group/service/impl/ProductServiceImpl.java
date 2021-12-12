@@ -4,6 +4,7 @@ import java.util.List;
 
 import vn.group.dao.ProductDao;
 import vn.group.dao.impl.ProductDaoImpl;
+import vn.group.model.ProductDetailModel;
 import vn.group.model.ProductModel;
 import vn.group.service.ProductService;
 
@@ -62,6 +63,12 @@ public class ProductServiceImpl implements ProductService{
 	public ProductModel getProductById(int id) {
 		// TODO Auto-generated method stub
 		return product.getProductById(id);
+	}
+
+	@Override
+	public ProductDetailModel getProductDetail(int id) {
+		// TODO Auto-generated method stub
+		return product.getProductDetail(id);
 	}
 
 }

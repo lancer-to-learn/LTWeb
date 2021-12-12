@@ -27,17 +27,17 @@
                   <c:forEach items="${sessionScope.cart}" var="map">
                 <tr>
                   <td class="goods-page-image">
-                    <a href="/productdetail?pid=${ map.value.product.pId }"><img src="${ map.value.product.pImage}" alt="${ map.value.product.pName }"></a>
+                    <a href="productdetail?pid=${ map.value.product.pId }"><img src="${ map.value.product.pImage}" alt="${ map.value.product.pName }"></a>
                   </td>
                   <td class="goods-page-description"> 
-                    <h3><a href="/productdetail?pid=${ map.value.product.pId }">${ map.value.product.pName }</a></h3>
+                    <h3><a href="productdetail?pid=${ map.value.product.pId }">${ map.value.product.pName }</a></h3>
                   </td>
                   <td class="goods-page-quantity">
                     <div class="product-quantity">
                         <input type="number" 
                         value= "${ map.value.quantity }" 
                         onblur= "updateCartItem(this, ${ map.value.product.pId })"
-                        class = "form-control" id="product-quantity">
+                        class = "form-control" id="quantity">
                       </div> 
                   </td>
                   <td class="goods-page-price">
@@ -46,9 +46,9 @@
                   <td class="goods-page-total">
                     <strong><span>$</span>${ map.value.price*map.value.quantity }</strong>
                   </td>
-                  <%-- <td class="del-goods-col">
+                  <td class="del-goods-col">
                     <button class="del-goods" onclick= "deleteCartItem(${ map.value.product.pId })">&nbsp;</button>
-                  </td> --%>
+                  </td>
                 </tr>
                 </c:forEach>
               </table>
@@ -118,3 +118,28 @@
     <!-- END SIMILAR PRODUCTS --> --%>
   </div>
 </div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>    
+ function deleteCartItem(pid) {	
+		/*  tạo viên amount để Gọi và đếm classname là product */
+		$.ajax({
+			url : "/BanHang/cart-remove",
+			type : "delete", //send it through get method
+			data : {
+				pid : pid
+			},
+			success : function(data) {
+				//cách 1
+				$('#cart_quantity').val(data);
+				//cách 2
+				//$("#qty").append(data);
+				
+			},
+			error : function(xhr) {
+				//Do Something to handle error
+			}
+		});
+	 };
+</script>
+
