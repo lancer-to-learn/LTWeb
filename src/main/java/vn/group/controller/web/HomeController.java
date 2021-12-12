@@ -37,6 +37,7 @@ public class HomeController extends HttpServlet{
 		List<ProductModel> newestProduct = productService.getTopProduct(); 
 		List<ProductModel> sallestProduct = productService.getSellestProduct();
 		
+		//testing
 		//Truyền dữ liệu lên views
 		req.setAttribute("brandProminent", prominentBrand);
 		req.setAttribute("allBrand", allBrand);
