@@ -77,12 +77,23 @@
               </ul>
             </li>
             <li><a href="product?bid=0">Product</a></li>
+            <c:if test="${ sessionScope.acc != null }">
+            <li><a href="order">Orders</a></li>
+            </c:if>
             <li class="dropdown">
               <a href="cart-item">
-                Cart               
+                Cart     
+               <c:choose>    
+               <c:when test="${ sessionScope.cart_quantity != null }">      
+              <span class="badge badge-info" id="cart_quantity">${ sessionScope.cart_quantity }</span>
+              </c:when>
+              <c:otherwise>
               <span class="badge badge-info" id="cart_quantity">0</span>
+              </c:otherwise>
+              </c:choose>
               </a>
             </li>
+            
             <!-- BEGIN TOP SEARCH -->
             <li class="menu-search">
               <span class="sep"></span>
@@ -105,7 +116,7 @@
       </div>
     </div>
     <!-- Header END -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>    
 function AddtoCart(pid) {	
 	/*  tạo viên amount để Gọi và đếm classname là product */
@@ -151,3 +162,4 @@ function AddtoCart(pid) {
 		});
 	 };
 </script>
+ -->

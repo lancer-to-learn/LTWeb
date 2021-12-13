@@ -47,7 +47,8 @@
                     <strong><span>$</span>${ map.value.price*map.value.quantity }</strong>
                   </td>
                   <td class="del-goods-col">
-                    <button class="del-goods" onclick= "deleteCartItem(${ map.value.product.pId })">&nbsp;</button>
+                    <a class="del-goods" href= "cart-remove?id=${ map.value.product.pId }">&nbsp;</a>
+                    <%-- <button class="del-goods" onclick="deleteCartItem(${ map.value.product.pId })">&nbsp;</button> --%>
                   </td>
                 </tr>
                 </c:forEach>
@@ -70,12 +71,10 @@
             </div> --%>
 
           </div>
-          <a href="/product"><button class="btn btn-default" type="submit">Continue shopping <i class="fa fa-shopping-cart"></i></button></a>
+          <a href="product?bid=0"><button class="btn btn-default" type="submit">Continue shopping <i class="fa fa-shopping-cart"></i></button></a>
           <c:choose>
           <c:when test="${sessionScope.acc != null}">
-            <c:if test="${sessionScope.cart != null}">
-              <a href="/user-checkout" class="text-light"><button class="btn btn-primary" type="button">Checkout <i class="fa fa-check"></i></button></a> 
-             </c:if>
+              <a href="checkout" class="text-light"><button class="btn btn-primary" type="button">Checkout <i class="fa fa-check"></i></button></a> 
           </c:when>
           <c:otherwise>
           <div> 
@@ -123,23 +122,48 @@
 <script>    
  function deleteCartItem(pid) {	
 		/*  tạo viên amount để Gọi và đếm classname là product */
+		var id = pid.value;
 		$.ajax({
-			url : "/BanHang/cart-remove",
+			url : "/Laptop/cart-remove",
 			type : "delete", //send it through get method
 			data : {
-				pid : pid
+				id : id,
 			},
 			success : function(data) {
 				//cách 1
-				$('#cart_quantity').val(data);
+				//$('#cart_quantity').val(data);
 				//cách 2
 				//$("#qty").append(data);
+				alert("ok");
 				
 			},
 			error : function(xhr) {
-				//Do Something to handle error
+				alert("err");
 			}
 		});
 	 };
+	 function updateCartItem(quan, pid) {	
+			/*  tạo viên amount để Gọi và đếm classname là product */
+			var quanti = quan.value;
+			$.ajax({
+				url : "/Laptop/cart-update",
+				type : "put", //send it through get method
+				data : {
+					id : pid,
+					quantity: "1"
+				},
+				success : function(data) {
+					//cách 1
+					var row = document.getElementbyId("cart_quantity")
+					row.innerText = data;
+					//cách 2
+					//$("#qty").append(data);
+					//alert("ok");
+					
+				},
+				error : function(xhr) {
+				}
+			});
+		 };
 </script>
 

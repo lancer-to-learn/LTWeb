@@ -63,9 +63,9 @@
                   </div>
                   <div class="product-page-cart">
                     <div class="product-quantity">
-                        <input id="product-quantity" type="text" value="1" readonly class="form-control input-sm">
+                        <input id="quantity" name="quan" type="text" value="1" readonly class="form-control input-sm">
                     </div>
-                    <button class="btn btn-primary" type="submit">Add to cart</button>
+                    <a href="cart-add?pid=${product.pId}&quantity=('#quantity').val()" class="btn btn-primary">Add to cart</a>
                   </div>
                 </div>
 

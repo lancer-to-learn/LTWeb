@@ -16,7 +16,7 @@ import vn.group.service.UserService;
 import vn.group.service.impl.UserServiceImpl;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = {"/login","/dang-nhap"})
+@WebServlet(urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

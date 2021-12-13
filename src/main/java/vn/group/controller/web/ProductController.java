@@ -18,7 +18,7 @@ import vn.group.service.impl.BrandServiceImpl;
 import vn.group.service.impl.ProductServiceImpl;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = {"/product","/san-pham"})
+@WebServlet(urlPatterns = {"/product"})
 public class ProductController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{

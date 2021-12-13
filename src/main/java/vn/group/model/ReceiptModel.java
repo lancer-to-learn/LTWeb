@@ -29,7 +29,7 @@ public class ReceiptModel {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ReceiptModel(int id, AccountModel user, Date date, String status) {
+	public ReceiptModel(int id, AccountModel user, Date date) {
 		super();
 		this.rId = id;
 		this.user = user;

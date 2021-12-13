@@ -3,11 +3,12 @@ package vn.group.controller.web;
 import java.io.IOException;
 //import java.io.PrintWriter;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.RequestDispatcher;
+//import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,42 +37,79 @@ public class CartAddController extends HttpServlet implements Serializable {
 		// Truyền dữ liệu lên views
 		req.setAttribute("allBrand", allBrand);
 		String pId = req.getParameter("pid");
-		/*
-		 * String quantity = req.getParameter("quantity"); if (quantity==null) quantity
-		 * = "1";
-		 */
+
+		String quantity = req.getParameter("quantity");
+		if (quantity == null || Integer.parseInt(quantity)<1)
+			quantity = "1";
+
 		ProductService productService = new ProductServiceImpl();
 		ProductModel product = productService.getProductById(Integer.parseInt(pId));
 		ReceiptDetailModel cartItem = new ReceiptDetailModel();
 		// cartItem.setQuantity(Integer.parseInt(quantity));
-		cartItem.setQuantity(1);
+		cartItem.setQuantity(Integer.parseInt(quantity));
 		cartItem.setPrice(product.getpPrice());
 		cartItem.setProduct(product);
 		HttpSession httpSession = req.getSession();
 		Object obj = httpSession.getAttribute("cart");
+		Map<Integer, ReceiptDetailModel> map;
 		if (obj == null) {
-			Map<Integer, ReceiptDetailModel> map = new HashMap<Integer, ReceiptDetailModel>();
-			map.put(product.getpId(), cartItem);
-			httpSession.setAttribute("cart", map);
-		} else {
-			Map<Integer, ReceiptDetailModel> map = extracted(obj);
-			ReceiptDetailModel existedCartItem = map.get(Integer.valueOf(pId));
-			if (existedCartItem == null) {
+			if (product.getpAmount() >= Integer.parseInt(quantity)) {
+				map = new HashMap<Integer, ReceiptDetailModel>();
 				map.put(product.getpId(), cartItem);
-			} else {
-				existedCartItem.setQuantity(existedCartItem.getQuantity() + 1);
-			}
-			httpSession.setAttribute("cart", map);
-		}
-		RequestDispatcher rq = req.getRequestDispatcher("/views/web/cart.jsp");
-		rq.forward(req, resp);
-//				PrintWriter out = resp.getWriter();
-//		        out.print(cartItem.getQuantity());
+				httpSession.setAttribute("cart", map);
+				Collection<ReceiptDetailModel> items = map.values();
+				int cart_quantity = 0;
+				for (ReceiptDetailModel item : items) {
+					cart_quantity += item.getQuantity();
+				}
 
+				httpSession.setAttribute("cart_quantity", cart_quantity);
+				resp.sendRedirect("cart-item");
+			}
+
+		} else {
+
+			map = extracted(obj);
+			ReceiptDetailModel existedCartItem = map.get(Integer.valueOf(pId));
+				if (existedCartItem == null) {
+					if (product.getpAmount() >= Integer.parseInt(quantity)) {
+						map.put(product.getpId(), cartItem);
+						httpSession.setAttribute("cart", map);
+						Collection<ReceiptDetailModel> items = map.values();
+						int cart_quantity = 0;
+						for (ReceiptDetailModel item : items) {
+							cart_quantity += item.getQuantity();
+						}
+
+						httpSession.setAttribute("cart_quantity", cart_quantity);
+						resp.sendRedirect("cart-item");
+					}
+				} else {
+					if (product.getpAmount() >= Integer.parseInt(quantity)) {
+						existedCartItem.setQuantity(existedCartItem.getQuantity() + Integer.parseInt(quantity));
+						httpSession.setAttribute("cart", map);
+						Collection<ReceiptDetailModel> items = map.values();
+						int cart_quantity = 0;
+						for (ReceiptDetailModel item : items) {
+							cart_quantity += item.getQuantity();
+						}
+
+						httpSession.setAttribute("cart_quantity", cart_quantity);
+						resp.sendRedirect("cart-item");	
+					}
+				}
+				
+			
+		}
+	
+
+		
+		
 	}
 
 	@SuppressWarnings("unchecked")
 	private Map<Integer, ReceiptDetailModel> extracted(Object obj) {
 		return (Map<Integer, ReceiptDetailModel>) obj;
 	}
+	
 }
