@@ -34,10 +34,10 @@
                   </td>
                   <td class="goods-page-quantity">
                     <div class="product-quantity">
-                        <input type="number" 
+                        <input type="number" id="quantity"
                         value= "${ map.value.quantity }" 
                         onblur= "updateCartItem(this, ${ map.value.product.pId })"
-                        class = "form-control" id="quantity">
+                        class = "form-control" >
                       </div> 
                   </td>
                   <td class="goods-page-price">
@@ -47,8 +47,8 @@
                     <strong><span>$</span>${ map.value.price*map.value.quantity }</strong>
                   </td>
                   <td class="del-goods-col">
-                    <a class="del-goods" href= "cart-remove?id=${ map.value.product.pId }">&nbsp;</a>
-                    <%-- <button class="del-goods" onclick="deleteCartItem(${ map.value.product.pId })">&nbsp;</button> --%>
+                    <%-- <a class="del-goods" href= "cart-remove?id=${ map.value.product.pId }">&nbsp;</a> --%>
+                    <button class="del-goods" onclick="deleteCartItem(${ map.value.product.pId })">&nbsp;</button>
                   </td>
                 </tr>
                 </c:forEach>
@@ -78,7 +78,7 @@
           </c:when>
           <c:otherwise>
           <div> 
-          <a href="/user-login?next=/cart">Login to finish payment</a>
+          <a href="login">Login to finish payment</a>
           </div>
           </c:otherwise>
           </c:choose>
@@ -121,20 +121,18 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>    
  function deleteCartItem(pid) {	
-		/*  tạo viên amount để Gọi và đếm classname là product */
-		var id = pid.value;
 		$.ajax({
 			url : "/Laptop/cart-remove",
-			type : "delete", //send it through get method
+			type : "get", //send it through get method
 			data : {
-				id : id,
+				pid : pid
 			},
 			success : function(data) {
 				//cách 1
 				//$('#cart_quantity').val(data);
 				//cách 2
 				//$("#qty").append(data);
-				alert("ok");
+				location.reload();
 				
 			},
 			error : function(xhr) {
@@ -143,22 +141,27 @@
 		});
 	 };
 	 function updateCartItem(quan, pid) {	
-			/*  tạo viên amount để Gọi và đếm classname là product */
+			/*  tạo viên amount để Gọi và đếm classname là pr,oduct */
 			var quanti = quan.value;
 			$.ajax({
 				url : "/Laptop/cart-update",
-				type : "put", //send it through get method
+				type : "get", //send it through get method
 				data : {
 					id : pid,
-					quantity: "1"
+					quantity: quanti
 				},
 				success : function(data) {
 					//cách 1
-					var row = document.getElementbyId("cart_quantity")
-					row.innerText = data;
+					/* var row = document.getElementbyId("cart_quantity")
+					row.innerText = data; */
 					//cách 2
 					//$("#qty").append(data);
-					//alert("ok");
+					if (data=="404")
+						alert("There are not enough products!");
+					else
+						location.reload();
+						//alert("updated");
+					
 					
 				},
 				error : function(xhr) {

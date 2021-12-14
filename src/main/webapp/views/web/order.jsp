@@ -174,15 +174,18 @@
 							<div class="tabbable">
 								<ul class="nav nav-tabs nav-tabs-lg">
 									<li class="active"><a href="#tab_1" data-toggle="tab">
-											All </a></li>
+											All <span
+											class="badge badge-success"> ${ quantity.allQuantity } </span></a></li>
 									<li><a href="#tab_2" data-toggle="tab"> Bought <span
-											class="badge badge-success"> 4 </span>
+											class="badge badge-success"> ${ quantity.soldQuantity } </span>
 									</a></li>
-									<li><a href="#tab_3" data-toggle="tab"> Pending </a></li>
+									<li><a href="#tab_3" data-toggle="tab"> Pending <span
+											class="badge badge-danger"> ${ quantity.waitingQuantity } </span></a></li>
 									<li><a href="#tab_4" data-toggle="tab"> Shipping <span
-											class="badge badge-danger"> 2 </span>
+											class="badge badge-danger"> ${ quantity.shippingQuantity } </span>
 									</a></li>
-									<li><a href="#tab_5" data-toggle="tab"> Canceled </a></li>
+									<li><a href="#tab_5" data-toggle="tab"> Canceled <span
+											class="badge badge-danger"> ${ quantity.canceledQuantity } </span></a></li>
 								</ul>
 								<div class="tab-content">
 									<div class="tab-pane active" id="tab_1">
@@ -214,12 +217,12 @@
 																		<th width="10%">Total</th>
 																		<th width="10%">Date Create</th>
 																		<th width="10%">Status</th>
-
 																	</tr>
+																	
 																	<c:forEach items="${ listDetail }" var="re">
 																		<tr role="row" class="filter">
 																			<td>${ re.rdId }</td>
-																			<td>${ re.product.pName }</td>
+																			<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
 																			<td><a
 																				href="productdetail?pid=${ re.product.pId }"
 																				class="fancybox-button" data-rel="fancybox-button">
@@ -232,9 +235,21 @@
 																			<td>${ re.quantity }</td>
 																			<td>${ re.price * re.quantity}</td>
 																			<td>${ re.receipt.date }</td>
-																			<td>${ re.status }</td>
+																			<c:if test="${ re.status=='Sold' }">
+																			<td><a href="#tab_2" data-toggle="tab"> ${ re.status }</a></td>
+																			</c:if>
+																			<c:if test="${ re.status=='Waiting'}">
+																			<td><a href="#tab_3" data-toggle="tab"> ${ re.status }</a></td>
+																			</c:if>
+																			<c:if test="${ re.status=='Shipping' }">
+																			<td><a href="#tab_4" data-toggle="tab"> ${ re.status }</a></td>
+																			</c:if>
+																			<c:if test="${ re.status=='Canceled' }">
+																			<td><a href="#tab_5" data-toggle="tab"> ${ re.status }</a></td>
+																			</c:if>
 																		</tr>
 																	</c:forEach>
+																	
 																</thead>
 																<tbody>
 																</tbody>
@@ -250,11 +265,11 @@
 												<div class="well">
 													<div class="row static-info align-reverse">
 														<div class="col-md-8 name">Total Order:</div>
-														<div class="col-md-3 value">1</div>
+														<div class="col-md-3 value">${ quantity.allQuantity }</div>
 													</div>
 													<div class="row static-info align-reverse">
-														<div class="col-md-8 name">Total Money</div>
-														<div class="col-md-3 value">$40.50</div>
+														<div class="col-md-8 name">Total Money: </div>
+														<div class="col-md-3 value">${ total.allTotal } $</div>
 													</div>
 												</div>
 											</div>
@@ -294,7 +309,7 @@
 																	<c:if test="${ re.status == 'Sold' }">
 																		<tr role="row" class="filter">
 																			<td>${ re.rdId }</td>
-																			<td>${ re.product.pName }</td>
+																			<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
 																			<td><a
 																				href="productdetail?pid=${ re.product.pId }"
 																				class="fancybox-button" data-rel="fancybox-button">
@@ -308,10 +323,10 @@
 																			<td>${ re.price * re.quantity}</td>
 																			<td>${ re.receipt.date }</td>
 																			<td><div class="margin-bottom-5">
-																					<a href="cart-add?pid=${ re.product.pId }"
+																					<button onclick="AddtoCart(${ re.product.pId })"
 																						class="btn btn-sm yellow">
-																						<i class="fa fa-search"></i> Buy again
-																					</a>
+																						<i class="fa"></i> Buy again
+																					</button>
 																				</div></td>
 																		</tr>
 																		</c:if>
@@ -331,11 +346,11 @@
 												<div class="well">
 													<div class="row static-info align-reverse">
 														<div class="col-md-8 name">Total Order:</div>
-														<div class="col-md-3 value">1</div>
+														<div class="col-md-3 value">${ quantity.soldQuantity }</div>
 													</div>
 													<div class="row static-info align-reverse">
-														<div class="col-md-8 name">Total Money</div>
-														<div class="col-md-3 value">$40.50</div>
+														<div class="col-md-8 name">Total Money: </div>
+														<div class="col-md-3 value">${ total.soldTotal } $</div>
 													</div>
 												</div>
 											</div>
@@ -376,7 +391,7 @@
 																	<c:if test="${ re.status == 'Waiting' }">
 																		<tr role="row" class="filter">
 																			<td>${ re.rdId }</td>
-																			<td>${ re.product.pName }</td>
+																			<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
 																			<td><a
 																				href="productdetail?pid=${ re.product.pId }"
 																				class="fancybox-button" data-rel="fancybox-button">
@@ -390,10 +405,10 @@
 																			<td>${ re.price * re.quantity}</td>
 																			<td>${ re.receipt.date }</td>
 																			<td><div class="margin-bottom-5">
-																					<a href="cart-add?pid=${ re.product.pId }"
+																					<button onclick="Cancel(${ re.rdId })"
 																						class="btn btn-sm yellow">
-																						<i class="fa fa-search"></i> Buy again
-																					</a>
+																						<i class="fa fa-search"></i> Cancel
+																					</button>
 																				</div></td>
 																		</tr>
 																		</c:if>
@@ -413,11 +428,11 @@
 												<div class="well">
 													<div class="row static-info align-reverse">
 														<div class="col-md-8 name">Total Order:</div>
-														<div class="col-md-3 value">1</div>
+														<div class="col-md-3 value">${ quantity.waitingQuantity }</div>
 													</div>
 													<div class="row static-info align-reverse">
-														<div class="col-md-8 name">Total Money</div>
-														<div class="col-md-3 value">$40.50</div>
+														<div class="col-md-8 name">Total Money: </div>
+														<div class="col-md-3 value">${ total.waitingTotal } $</div>
 													</div>
 												</div>
 											</div>
@@ -458,7 +473,7 @@
 																	<c:if test="${ re.status == 'Shipping' }">
 																		<tr role="row" class="filter">
 																			<td>${ re.rdId }</td>
-																			<td>${ re.product.pName }</td>
+																			<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
 																			<td><a
 																				href="productdetail?pid=${ re.product.pId }"
 																				class="fancybox-button" data-rel="fancybox-button">
@@ -472,10 +487,10 @@
 																			<td>${ re.price * re.quantity}</td>
 																			<td>${ re.receipt.date }</td>
 																			<td><div class="margin-bottom-5">
-																					<a href="cart-add?pid=${ re.product.pId }"
+																					<button onclick="AddtoCart(${ re.product.pId })"
 																						class="btn btn-sm yellow">
-																						<i class="fa fa-search"></i> Buy again
-																					</a>
+																						<i class="fa"></i> Buy again
+																					</button>
 																				</div></td>
 																		</tr>
 																		</c:if>
@@ -495,11 +510,11 @@
 												<div class="well">
 													<div class="row static-info align-reverse">
 														<div class="col-md-8 name">Total Order:</div>
-														<div class="col-md-3 value">1</div>
+														<div class="col-md-3 value">${ quantity.shippingQuantity }</div>
 													</div>
 													<div class="row static-info align-reverse">
-														<div class="col-md-8 name">Total Money</div>
-														<div class="col-md-3 value">$40.50</div>
+														<div class="col-md-8 name">Total Money:</div>
+														<div class="col-md-3 value">${ total.shippingTotal } $	</div>
 													</div>
 												</div>
 											</div>
@@ -539,7 +554,7 @@
 																	<c:if test="${ re.status == 'Canceled' }">
 																		<tr role="row" class="filter">
 																			<td>${ re.rdId }</td>
-																			<td>${ re.product.pName }</td>
+																			<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
 																			<td><a
 																				href="productdetail?pid=${ re.product.pId }"
 																				class="fancybox-button" data-rel="fancybox-button">
@@ -553,10 +568,10 @@
 																			<td>${ re.price * re.quantity}</td>
 																			<td>${ re.receipt.date }</td>
 																			<td><div class="margin-bottom-5">
-																					<a href="cart-add?pid=${ re.product.pId }"
+																					<button onclick="AddtoCart(${ re.product.pId })"
 																						class="btn btn-sm yellow">
-																						<i class="fa fa-search"></i> Buy again
-																					</a>
+																						<i class="fa"></i> Buy again
+																					</button>
 																				</div></td>
 																		</tr>
 																		</c:if>
@@ -576,11 +591,11 @@
 												<div class="well">
 													<div class="row static-info align-reverse">
 														<div class="col-md-8 name">Total Order:</div>
-														<div class="col-md-3 value">1</div>
+														<div class="col-md-3 value">${ quantity.canceledQuantity }</div>
 													</div>
 													<div class="row static-info align-reverse">
-														<div class="col-md-8 name">Total Money</div>
-														<div class="col-md-3 value">$40.50</div>
+														<div class="col-md-8 name">Total Money:</div>
+														<div class="col-md-3 value">${ total.canceledTotal } $</div>
 													</div>
 												</div>
 											</div>
@@ -598,6 +613,64 @@
 		</div>
 	</div>
 </div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>    
+function Cancel(id) {	
+	/*  tạo viên amount để Gọi và đếm classname là product */
+	$.ajax({
+		url : "/Laptop/order-canceled",
+		type : "get", //send it through get method
+		data : {
+			rid : id
+		},
+		success : function(data) {
+			//cách 1
+			//$('#cart_quantity').val(data);
+			//cách 2
+			//$("#cart_quantity").append(data);
+			//var row = document.getElementById('cart_quantity');
+			//row.innerText = data; 
+			if (data=="404")
+				alert("Some error occur!");
+			else
+				location.reload();
+			//alert("ok");
+			
+		},
+		error : function(xhr) {
+			alert("Error")
+		}
+	});
+ };
+ function AddtoCart(pid) {	
+		/*  tạo viên amount để Gọi và đếm classname là product */
+		$.ajax({
+			url : "/Laptop/cart-add",
+			type : "get", //send it through get method
+			data : {
+				quantity : 1,
+				pid : pid
+			},
+			success : function(data) {
+				//cách 1
+				//$('#cart_quantity').val(data);
+				//cách 2
+				//$("#cart_quantity").append(data);
+				//var row = document.getElementById('cart_quantity');
+				//row.innerText = data; 
+				if (data=="404")
+					alert("There are not enough products!");
+				else
+					location.reload();
+				//alert("ok");
+				
+			},
+			error : function(xhr) {
+				alert("Error")
+			}
+		});
+	 };
+</script>
 <script src=".${ url }/global/plugins/jquery.min.js"
 	type="text/javascript"></script>
 <script src=".${ url }/global/plugins/jquery-migrate.min.js"
@@ -660,4 +733,3 @@
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->
-</html>

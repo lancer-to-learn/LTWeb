@@ -96,7 +96,7 @@ public class ReceiptDaoImpl implements ReceiptDao {
 		ProductService pro = new ProductServiceImpl();
 		CityService city = new CityServiceImpl();
 		List<ReceiptDetailModel> list = new ArrayList<ReceiptDetailModel>();
-		String sql = "select * from Receipt, ReceiptDetail where Receipt.id=ReceiptDetail.receiptId and Receipt.userId=?";
+		String sql = "select * from Receipt, ReceiptDetail where Receipt.id=ReceiptDetail.receiptId and Receipt.userId=? order by (Receipt.createDate) desc";
 		
 		try {
 			conn = new DBConnect().getConnection();
@@ -154,6 +154,61 @@ public class ReceiptDaoImpl implements ReceiptDao {
 			System.out.println(e);
 		}
 		return null;
+	}
+
+	@Override
+	public int getQuantityReceipt(List<ReceiptDetailModel> listReceipt, String status) {
+		if (status.contains("All"))
+			return listReceipt.size();
+		else
+		{
+			int quantity = 0;
+			for (ReceiptDetailModel item: listReceipt)
+				if (item.getStatus().contains(status))
+					quantity += 1;
+			return quantity;
+			
+		}
+	}
+
+	@Override
+	public float getTotalMoney(List<ReceiptDetailModel> listReceipt, String status) {
+		if (status.contains("All")) {
+			float total = 0;
+			for (ReceiptDetailModel item: listReceipt)
+				total += item.getPrice()*item.getQuantity();
+			return total;
+		}
+		else
+		{
+			float total = 0;
+			for (ReceiptDetailModel item: listReceipt)
+				if (item.getStatus().contains(status))
+					total += item.getPrice()*item.getQuantity();
+			return total;
+			
+		}
+	}
+
+	@Override
+	public Boolean editReceipt(ReceiptDetailModel receipt, String status) {
+		String sql = "update ReceiptDetail set status=? where id=?";
+		try {
+
+			conn = new DBConnect().getConnection();
+
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, status);
+			ps.setInt(2, receipt.getReceipt().getrId());
+
+			rs = ps.executeQuery();
+
+			return true;
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return false;
 	}
 
 

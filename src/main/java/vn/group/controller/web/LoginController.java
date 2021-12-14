@@ -1,6 +1,5 @@
 package vn.group.controller.web;
 
-
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -16,16 +15,40 @@ import vn.group.service.UserService;
 import vn.group.service.impl.UserServiceImpl;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = {"/login"})
+@WebServlet(urlPatterns = { "/login", "/myaccount" })
 public class LoginController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html");
-		//Khởi tạo DAO
-		RequestDispatcher rq = req.getRequestDispatcher("/views/login/login.jsp");
-		rq.forward(req, resp);
+		String url = req.getRequestURL().toString();
+		if (url.contains("login")) {
+			RequestDispatcher rq = req.getRequestDispatcher("/views/login/login.jsp");
+			rq.forward(req, resp);
+		}
+		else
+		{
+			HttpSession session = req.getSession();
+			Object obj = session.getAttribute("acc");
+			if (obj != null) {
+				AccountModel acc = (AccountModel) obj;
+				String role = "Admin";
+				if (acc.getRole()==2)
+					role = "Seller";
+				else
+					role = "Customer";
+				
+				req.setAttribute("mess", req.getParameter("mess"));
+				req.setAttribute("mess1", req.getParameter("mess1"));
+				req.setAttribute("mess4", req.getParameter("mess4"));
+				req.setAttribute("mess5", req.getParameter("mess5"));
+				req.setAttribute("mess6", req.getParameter("mess6"));
+				req.setAttribute("role", role);
+				RequestDispatcher rq = req.getRequestDispatcher("/views/login/myaccount.jsp");
+				rq.forward(req, resp);
+			}
+		}
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html");
@@ -39,13 +62,14 @@ public class LoginController extends HttpServlet {
 			req.setAttribute("message", "Sai tài khoản hoặc mật khẩu");
 			req.getRequestDispatcher("/views/login/login.jsp").forward(req, resp);
 		} else {
+			account.setUser(username);
+			account.setPass(password);
 			HttpSession session = req.getSession();
 			session.setAttribute("acc", account);
 			if (account.getRole() == 1) {
 				resp.sendRedirect("admin");
-			}
-			else {
-			// session.setMaxInactiveInterval(1000);
+			} else {
+				// session.setMaxInactiveInterval(1000);
 				resp.sendRedirect("home");
 			}
 		}

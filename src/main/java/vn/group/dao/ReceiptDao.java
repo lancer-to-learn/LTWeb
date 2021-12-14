@@ -12,5 +12,8 @@ public interface ReceiptDao {
 	List<ReceiptDetailModel> getReceiptByUser(int id);
 	List<ReceiptModel> getReceipt(int id);
 	ReceiptModel getReceipt();
+	int getQuantityReceipt(List<ReceiptDetailModel> listReceipt, String status);
+	float getTotalMoney(List<ReceiptDetailModel> listReceipt, String status);
+	Boolean editReceipt(ReceiptDetailModel receipt, String status);
 	
 }

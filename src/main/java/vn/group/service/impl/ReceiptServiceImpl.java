@@ -46,4 +46,22 @@ public class ReceiptServiceImpl implements ReceiptService {
 		return r.getReceipt();
 	}
 
+	@Override
+	public int getQuantityReceipt(List<ReceiptDetailModel> listReceipt, String status) {
+		// TODO Auto-generated method stub
+		return r.getQuantityReceipt(listReceipt, status);
+	}
+
+	@Override
+	public float getTotalMoney(List<ReceiptDetailModel> listReceipt, String status) {
+		// TODO Auto-generated method stub
+		return r.getTotalMoney(listReceipt, status);
+	}
+
+	@Override
+	public Boolean editReceipt(ReceiptDetailModel receipt, String status) {
+		// TODO Auto-generated method stub
+		return r.editReceipt(receipt, status);
+	}
+
 }
