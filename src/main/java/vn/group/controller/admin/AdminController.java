@@ -18,5 +18,5 @@ public class AdminController extends HttpServlet{
 		RequestDispatcher rq = req.getRequestDispatcher("/views/admin/admin.jsp");
 		rq.forward(req, resp);
 	}
-
+	//sdfsfsfsf
 }
