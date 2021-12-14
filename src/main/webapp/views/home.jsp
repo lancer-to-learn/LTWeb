@@ -128,7 +128,7 @@
 					<div class="caption lfl slide_item_left" data-x="30" data-y="95"
 						data-speed="400" data-start="1500" data-easing="easeOutBack">
 						<iframe src="http://player.vimeo.com/video/56974716?portrait=0"
-							width="420" height="240" style="border: 0" allowFullScreen></iframe>
+							width="420" height="240" style="border: 0"></iframe>
 					</div>
 					<div class="caption lfr slide_title" data-x="470" data-y="100"
 						data-speed="400" data-start="2000" data-easing="easeOutExpo">
@@ -192,7 +192,7 @@
 		<div class="row margin-bottom-40">
 			<!-- BEGIN SALE PRODUCT -->
 			<div class="col-md-12">
-				<h2>Thương hiệu nổi bật</h2>
+				<h2>Prominent Brands</h2>
 				<div class="owl-carousel owl-carousel4">
 					<c:forEach items="${ brandProminent }" var="b">
 						<div>
@@ -201,7 +201,7 @@
 									<img src="${b.bImage}" class="img-responsive" alt="${b.bName}">
 								</div>
 								<h3 class="text-center text-danger">
-									<a href="shop-item.html">${b.bName}</a>
+									<a href="product?bid=${ b.bId }">${b.bName}</a>
 								</h3>
 							</div>
 
@@ -216,7 +216,7 @@
 		<!-- BEGIN BLOCKQUOTE BLOCK -->
 		<div class="row quote-v1 margin-bottom-30">
 			<div class="col-md-9">
-				<span>Sản phẩm mới nhất</span>
+				<span>Newest Products</span>
 			</div>
 		</div>
 		<!-- END BLOCKQUOTE BLOCK -->
@@ -247,7 +247,7 @@
 		<!-- BEGIN BLOCKQUOTE BLOCK -->
 		<div class="row quote-v1 margin-bottom-30">
 			<div class="col-md-9">
-				<span>Sản phẩm bán chạy nhất</span>
+				<span>Sellest Products</span>
 			</div>
 		</div>
 		<!-- END BLOCKQUOTE BLOCK -->

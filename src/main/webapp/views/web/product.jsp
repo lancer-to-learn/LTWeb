@@ -216,15 +216,15 @@
 						<div>
 							<div class="product-item">
 								<div class="pi-img-wrapper">
-									<img src="${ p.pImage }" class="img-responsive"
+									<img src="${ p.pImage }" class="img-responsive width:60px;  height:100px;"
 										alt="Berry Lace Dress">
 								</div>
 								<h3>
 									<a href="productdetail?pid=${p.pId}">${p.pName}</a>
 								</h3>
 								<div class="pi-price">${p.pPrice}$</div>
-								<a href="cart-add?pid=${p.pId}" class="btn btn-default add2cart">Add to cart</a>
-								<%-- <button onclick="AddtoCart(${p.pId})" class="btn btn-default add2cart">Add to cart</button> --%>
+								<%-- <a href="cart-add?pid=${p.pId}" class="btn btn-default add2cart">Add to cart</a> --%>
+								<button onclick="AddtoCart(${p.pId})" class="btn btn-default add2cart">Add to cart</button>
 								<c:forEach items="${sallestProduct}" var="sp">
 								<c:if test="${sp.pId==p.pId}">
 									<div class="sticker sticker-sale"></div>
@@ -287,7 +287,8 @@
 								<a href="productdetail?pid=${p.pId }">${ p.pName }</a>
 							</h3>
 							<div class="pi-price">${ p.pPrice }$</div>
-							<a href="cart-add?pid=${p.pId}" class="btn btn-default add2cart">Thêm vào giỏ</a>
+							<%-- <a href="cart-add?pid=${p.pId}" class="btn btn-default add2cart">Thêm vào giỏ</a> --%>
+							<button onclick="AddtoCart(${p.pId})" class="btn btn-default add2cart">Add to cart</button>
 							<c:forEach items="${sallestProduct}" var="sp">
 								<c:if test="${sp.pId==p.pId}">
 									<div class="sticker sticker-sale"></div>
@@ -371,3 +372,34 @@
 	</div>
 </div>
 <!-- END STEPS -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>    
+function AddtoCart(pid) {	
+	/*  tạo viên amount để Gọi và đếm classname là product */
+	$.ajax({
+		url : "/Laptop/cart-add",
+		type : "get", //send it through get method
+		data : {
+			quantity : 1,
+			pid : pid
+		},
+		success : function(data) {
+			//cách 1
+			//$('#cart_quantity').val(data);
+			//cách 2
+			//$("#cart_quantity").append(data);
+			//var row = document.getElementById('cart_quantity');
+			//row.innerText = data; 
+			if (data=="404")
+				alert("There are not enough products!");
+			else
+				location.reload();
+			//alert("ok");
+			
+		},
+		error : function(xhr) {
+			alert("Error")
+		}
+	});
+ };
+</script>

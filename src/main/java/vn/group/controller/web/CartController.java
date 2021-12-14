@@ -26,49 +26,53 @@ import vn.group.service.impl.BrandServiceImpl;
 
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = { "/cart-item", "/cart-remove" })
+@WebServlet(urlPatterns = { "/cart-item"})
 
 public class CartController extends HttpServlet implements Serializable {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html");
 		String url = req.getRequestURL().toString();
-		BrandService brandService = new BrandServiceImpl(); // làm việc với Brand
+		BrandService brandService = new BrandServiceImpl(); 
 		List<BrandModel> allBrand = brandService.getAllBrand();
 
-		// Truyền dữ liệu lên views
 		req.setAttribute("allBrand", allBrand);
 		if (url.contains("cart-item")) {
-			// Khởi tạo DAO
+
 			RequestDispatcher rq = req.getRequestDispatcher("/views/web/cart.jsp");
 			rq.forward(req, resp);
 		}
+		/*else {
+			if (url.contains("cart-remove")) {
+				HttpSession httpSession = req.getSession();
+				Object obj = httpSession.getAttribute("cart");
+				
+				String pId = req.getParameter("id");
+				
+				if (obj != null) {
+					Map<Integer, ReceiptDetailModel> map = (Map<Integer, ReceiptDetailModel>) obj; // ep ve kieu cua no
+					// Xoa san pham trong map
+					map.remove(Integer.parseInt(pId));
+					
+					// Cap nhat lai Session
+					httpSession.setAttribute("cart", map);
+					int cart_quantity = 0;
+					Collection<ReceiptDetailModel> items = map.values();
+					for(ReceiptDetailModel item: items) {
+						cart_quantity += item.getQuantity();
+					}
+					
+					httpSession.setAttribute("cart_quantity", cart_quantity);
+					resp.sendRedirect("cart-item");
+					
+					PrintWriter out = resp.getWriter();
+			        out.print(cart_quantity);
+				}	
+			}
+		}*/
 	}
-	@SuppressWarnings("unchecked")
-	@Override
-	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String url = req.getRequestURL().toString();
-		if (url.contains("cart-remove")) {
-			HttpSession httpSession = req.getSession();
-			Object obj = httpSession.getAttribute("cart");// Doc tu Session ra
-			
-			String pId = req.getParameter("pid");
-			
-			if (obj != null) {
-				Map<Integer, ReceiptDetailModel> map = (Map<Integer, ReceiptDetailModel>) obj; // ep ve kieu cua no
-				// Xoa san pham trong map
-				map.remove(Integer.parseInt(pId));
-				int cart_quantity = 0;
-				// Cap nhat lai Session
-				httpSession.setAttribute("cart", map);
-				for(ReceiptDetailModel item: (List<ReceiptDetailModel>) map) {
-					cart_quantity += item.getQuantity();
-				}
-				PrintWriter out = resp.getWriter();
-		        out.print(cart_quantity);
-			}	
-		}
-	}
-		
-		
+
+	
 }
+		
+		

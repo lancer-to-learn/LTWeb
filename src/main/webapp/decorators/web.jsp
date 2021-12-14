@@ -22,7 +22,31 @@
 <meta property="og:image" content="-CUSTOMER VALUE-">
 <!-- link to image for socio -->
 <meta property="og:url" content="-CUSTOMER VALUE-">
-
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
+<link href="${ url }/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link href="${ url }/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+<link href="${ url }/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="${ url }/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+<link href="${ url }/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+<!-- END GLOBAL MANDATORY STYLES -->
+<!-- BEGIN PAGE LEVEL STYLES -->
+<link href="${ url }/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css"/>
+<link href="${ url }/admin/pages/css/profile.css" rel="stylesheet" type="text/css"/>
+<link href="${ url }/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" type="text/css" href="${ url }/global/plugins/select2/select2.css"/>
+<link rel="stylesheet" type="text/css" href="${ url }/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css"/>
+<link rel="stylesheet" type="text/css" href="${ url }/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css"/>
+<link rel="stylesheet" type="text/css" href="${ url }/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="${ url }/global/plugins/bootstrap-datepicker/css/datepicker.css"/>
+<!-- END PAGE LEVEL STYLES -->
+<!-- BEGIN THEME STYLES -->
+<link href="${ url }/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css">
+<link href="${ url }/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+<link href="${ url }/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+<link href="${ url }/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+<link id="style_color" href="${ url }/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
+<link href="${ url }/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
 <link rel="shortcut icon" href="favicon.ico">
 
 <!-- Fonts START -->
@@ -110,13 +134,7 @@
 	<%@ include file="/common/web/footer.jsp"%>
 	<!--end footer-->
 
-
-	<!-- JS -->
-	<!-- Load javascripts at bottom, this will reduce page load time -->
-	<!-- BEGIN CORE PLUGINS (REQUIRED FOR ALL PAGES) -->
-	<!--[if lt IE 9]>
-    <script src="${ url }/global/plugins/respond.min.js"></script>
-    <![endif]-->
+<!-- END CORE PLUGINS -->
 	<script src="${ url }/global/plugins/jquery.min.js"
 		type="text/javascript"></script>
 	<script src="${ url }/global/plugins/jquery-migrate.min.js"
@@ -128,7 +146,21 @@
 	<script
 		src="${ url }/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js"
 		type="text/javascript"></script>
+<script src="${ url }/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="${ url }/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="${ url }/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="${ url }/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="${ url }/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="${ url }/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+<script src="${ url }/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 	<!-- END CORE PLUGINS -->
+<script src="${ url }/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
+<script src="${ url }/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
+<script src="${ url }/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="${ url }/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="${ url }/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+<script src="${ url }/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="${ url }/admin/pages/scripts/profile.js" type="text/javascript"></script>
 
 	<!-- BEGIN PAGE LEVEL JAVASCRIPTS (REQUIRED ONLY FOR CURRENT PAGE) -->
 	<script
@@ -190,12 +222,14 @@
 	<script
 		src="${ url }/global/plugins/slider-layer-slider/js/layerslider.transitions.js"
 		type="text/javascript"></script>
+		<script src="${ url }/admin/pages/scripts/ecommerce-orders-view.js"></script>
 	<!-- LayerSlider script files -->
 	<script
 		src="${ url }/global/plugins/slider-layer-slider/js/layerslider.kreaturamedia.jquery.js"
 		type="text/javascript"></script>
 	<!-- LayerSlider script files -->
 	<script src="${ url }/frontend/pages/scripts/layerslider-init.js"
+	
 		type="text/javascript"></script>
 	<!-- END LayerSlider -->
 	<script type="text/javascript">
@@ -206,6 +240,7 @@
 			Layout.initImageZoom();
 			Layout.initTouchspin();
 			Layout.initTwitter();
+			EcommerceOrdersView.init();
 		});
 	</script>
 </body>

@@ -49,7 +49,7 @@ public class ReceiptDetailModel {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ReceiptDetailModel(int id, ReceiptModel receipt, ProductModel product, int quantity, float price, String status) {
+	public ReceiptDetailModel(int id, ReceiptModel receipt, ProductModel product, int quantity, float price, String status, CityModel city) {
 		super();
 		this.rdId = id;
 		this.receipt = receipt;
@@ -57,6 +57,7 @@ public class ReceiptDetailModel {
 		this.quantity = quantity;
 		this.price = price;
 		this.status = status;
+		this.city = city;
 	}
 	
 	
