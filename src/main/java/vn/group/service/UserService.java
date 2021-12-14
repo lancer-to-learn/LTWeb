@@ -8,4 +8,7 @@ public interface UserService {
 	void addUser(AccountModel acc);
 	boolean checkUser(String username);
 	String getRolebyId(String id);
+	void editUser(AccountModel acc);
+	void changPassword(AccountModel acc);
+	void changToSeller(AccountModel acc);
 }

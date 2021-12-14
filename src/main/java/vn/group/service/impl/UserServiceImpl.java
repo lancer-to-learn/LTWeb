@@ -32,5 +32,20 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		return user.getUser(id);
 	}
+	@Override
+	public void editUser(AccountModel acc) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void changPassword(AccountModel acc) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void changToSeller(AccountModel acc) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

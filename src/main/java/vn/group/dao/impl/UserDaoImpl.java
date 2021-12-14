@@ -106,5 +106,48 @@ public class UserDaoImpl implements UserDao{
 		}
 		return acc;
 	}
+	@Override
+	public void editUser(AccountModel acc) {
+		String sql = "Update Account set  email=?, phone=? where id=?;";
+		try {
+			conn = new DBConnect().getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, acc.getEmail());
+			ps.setString(2, acc.getPhone());
+			ps.setInt(3, acc.getId());
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	@Override
+	public void changPassword(AccountModel acc) {
+		String sql = "Update Account set password=? where id=?;";
+		try {
+			conn = new DBConnect().getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, acc.getPass());
+			ps.setInt(2, acc.getId());
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	@Override
+	public void changToSeller(AccountModel acc) {
+		String sql = "Update Account set role=? where id=?;";
+		try {
+			conn = new DBConnect().getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, 2);
+			ps.setInt(2, acc.getId());
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 
 }

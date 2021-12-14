@@ -8,7 +8,13 @@ public class ReceiptDetailModel {
 	private int quantity;
 	private float price;
 	private String status;
-	
+	private CityModel city;
+	public CityModel getCity() {
+		return city;
+	}
+	public void setCity(CityModel city) {
+		this.city = city;
+	}
 	public String getStatus() {
 		return status;
 	}
