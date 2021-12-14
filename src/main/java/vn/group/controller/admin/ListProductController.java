@@ -1,6 +1,8 @@
 package vn.group.controller.admin;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -30,8 +32,16 @@ public class ListProductController extends HttpServlet{
 			resp.setContentType("text/html");
 			ProductService productservice = new ProductServiceImpl();
 			List<ProductModel> products = productservice.getAllProduct();
+			List<ProductModel> pros = new ArrayList<ProductModel>();
 			
-			req.setAttribute("products", products);
+			for (int i = 0; i < products.size(); i++) {
+			    ProductModel pro1 = products.get(i);
+			    if (pro1.getSeller().getRole() == 1) {
+			        pros.add(pro1);
+			    }
+			}
+			
+			req.setAttribute("products", pros);
 			RequestDispatcher rq = req.getRequestDispatcher("/views/admin/listproduct.jsp");
 			rq.forward(req, resp);
 		}		

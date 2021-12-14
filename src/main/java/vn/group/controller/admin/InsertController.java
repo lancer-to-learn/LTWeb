@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -143,8 +144,11 @@ public class InsertController extends HttpServlet{
 						item.write(file);
 						product.setpImage("product/" + fileName);
 					}
-					UserService userservice = new UserServiceImpl();
-					AccountModel account = userservice.getUser(1);
+					HttpSession session = req.getSession();
+					Object user = session.getAttribute("acc");
+					AccountModel account = new AccountModel();
+					if (user != null)
+						account = (AccountModel)user;
 					product.setSeller(account);
 				}
 				productservice.insret(product);
