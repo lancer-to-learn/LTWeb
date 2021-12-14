@@ -75,4 +75,80 @@ public class BrandDaoImpl implements BrandDao{
 		return brand;
 	}
 
+	@Override
+	public boolean insert(BrandModel bm) {
+		String sql = "INSERT INTO Laptop.dbo.Brand(name, image) "
+				+ "VALUES (?,?)";
+
+		try {
+			conn = new DBConnect().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, bm.getbName());
+			ps.setString(2, bm.getbImage());
+			
+			ps.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean delete(int id) {
+		String sql = "DELETE FROM Laptop.dbo.Brand WHERE id = ?";
+
+		try {
+			conn = new DBConnect().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean edit(BrandModel bm) {
+		String sql = "UPDATE Laptop.dbo.Brand SET name = ?, image = ? WHERE id = ?";
+		try {
+//			System.out.println(bm.getbId());
+//			System.out.println(bm.getbName());
+//			System.out.println(bm.getbImage());
+			
+			conn = new DBConnect().getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, bm.getbName());
+			ps.setString(2, bm.getbImage());
+			ps.setInt(3, bm.getbId());
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public BrandModel getBrandByName(String name) {
+		BrandModel brand = new BrandModel();
+		String sql = "select top 1 * from Brand where name = ?;";
+		try {
+			conn = new DBConnect().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, name);
+			rs = ps.executeQuery();		
+			while (rs.next()) {
+				brand =  new BrandModel(rs.getInt(1), rs.getString(2), rs.getString(3));
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return brand;
+	}
+
 }

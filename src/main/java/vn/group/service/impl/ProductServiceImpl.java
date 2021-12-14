@@ -71,4 +71,45 @@ public class ProductServiceImpl implements ProductService{
 		return product.getProductDetail(id);
 	}
 
+	@Override
+	public boolean insret(ProductModel bm) {
+		// TODO Auto-generated method stub
+		return product.insret(bm);
+	}
+
+	@Override
+	public boolean delete(int id) {
+		// TODO Auto-generated method stub
+		return product.delete(id);
+	}
+
+	@Override
+	public boolean edit(ProductModel bm) {
+		// TODO Auto-generated method stub
+		return product.edit(bm);
+	}
+
+	@Override
+	public boolean insertDetail(ProductDetailModel dm) {
+		return product.insertDetail(dm);
+	}
+
+	@Override
+	public boolean deleteDetail(int id) {
+		// TODO Auto-generated method stub
+		return product.deleteDetail(id);
+	}
+
+	@Override
+	public boolean editDetail(ProductDetailModel dm) {
+		// TODO Auto-generated method stub
+		return product.editDetail(dm);
+	}
+
+	@Override
+	public ProductModel getLastestProduct() {
+		// TODO Auto-generated method stub
+		return product.getLastestProduct();
+	}
+
 }

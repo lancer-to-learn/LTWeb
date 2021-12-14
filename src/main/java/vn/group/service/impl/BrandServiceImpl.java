@@ -27,5 +27,30 @@ public class BrandServiceImpl implements BrandService{
 		// TODO Auto-generated method stub
 		return brand.getBrandById(bId);
 	}
+
+	
+
+	@Override
+	public boolean delete(int id) {
+		// TODO Auto-generated method stub
+		return brand.delete(id);
+	}
+
+	@Override
+	public boolean edit(BrandModel bm) {
+		// TODO Auto-generated method stub
+		return brand.edit(bm);
+	}
+
+	@Override
+	public boolean insret(BrandModel bm) {
+		// TODO Auto-generated method stub
+		return brand.insert(bm);
+	}
+
+	@Override
+	public BrandModel getBrandByName(String name) {
+		return brand.getBrandByName(name);
+	}
 	
 }

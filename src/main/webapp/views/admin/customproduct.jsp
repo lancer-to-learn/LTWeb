@@ -1,108 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
-	<!-- BEGIN SIDEBAR -->
-	<div class="page-sidebar-wrapper">
-		<!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-		<!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-		<div class="page-sidebar navbar-collapse collapse">
-			<!-- BEGIN SIDEBAR MENU -->
-			<ul class="page-sidebar-menu" data-keep-expanded="false"
-				data-auto-scroll="true" data-slide-speed="200">
-				<!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
-				<li class="sidebar-toggler-wrapper">
-					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-					<div class="sidebar-toggler"></div> <!-- END SIDEBAR TOGGLER BUTTON -->
-				</li>
-				<!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
-				<li class="sidebar-search-wrapper">
-					<!-- BEGIN RESPONSIVE QUICK SEARCH FORM --> <!-- DOC: Apply "sidebar-search-bordered" class the below search form to have bordered search box -->
-					<!-- DOC: Apply "sidebar-search-bordered sidebar-search-solid" class the below search form to have bordered & solid search box -->
-					<form class="sidebar-search " action="#" method="POST">
-						<a href="javascript:;" class="remove"> <i class="icon-close"></i>
-						</a>
-						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Search...">
-							<span class="input-group-btn"> <a href="javascript:;"
-								class="btn submit"><i class="icon-magnifier"></i></a>
-							</span>
-						</div>
-					</form> <!-- END RESPONSIVE QUICK SEARCH FORM -->
-				</li>
-				<li class="start "><a href="admin"> <i
-						class="icon-home"></i> Home</a>
-				</li>
-				<li class="start "><a href="javascript:;"> <i
-						class="icon-home"></i> <span class="title">Brand Manager</span> <span
-						class="arrow "></span>
-				</a>
-					<ul class="sub-menu">
-						<li><a href="${pageContext.request.contextPath}/admin/list-brand"> <i class="icon-bar-chart"></i>
-								Brand List
-						</a></li>
-						<li><a href="${pageContext.request.contextPath}/admin/custom-brand"> <i class="icon-bulb"></i>
-								Add Brand
-						</a></li>					
-					</ul>
-					</li>
-				<li class="start"><a href="javascript:;"> <i
-						class="icon-home"></i> <span class="title">Product Manager</span> <span
-						class="arrow "></span>
-				</a>
-					<ul class="sub-menu">
-						<li><a href="${pageContext.request.contextPath}/admin/list-product"> <i class="icon-bar-chart"></i>
-								List Product
-						</a></li>
-						<li><a href="${pageContext.request.contextPath}/admin/custom"> <i class="icon-bulb"></i>
-								Add Product
-						</a></li>
-					</ul></li>
-				<li class="start "><a href="javascript:;"> <i
-						class="icon-home"></i> <span class="title">Order Manager</span> <span
-						class="arrow "></span>
-				</a>
-					<ul class="sub-menu">
-						<li><a href="${pageContext.request.contextPath}/admin/order"> <i class="icon-bar-chart"></i>
-								List Order
-						</a></li>
-						<li><a href="${pageContext.request.contextPath}/admin/order"> <i class="icon-bulb"></i>
-								Canceled Order
-						</a></li>
-					</ul></li>
-					<li class="start "><a href="javascript:;"> <i
-						class="icon-home"></i> <span class="title">Shipping</span> <span
-						class="arrow "></span>
-				</a>
-					<ul class="sub-menu">
-						<li><a href="${pageContext.request.contextPath}/admin/list-city"> <i class="icon-bar-chart"></i>
-								List City
-						</a></li>
-						<li><a href="${pageContext.request.contextPath}/admin/custom-city"> <i class="icon-bulb"></i>
-								Add City
-						</a></li>
-					</ul></li>
-					<li class="start "><a href="javascript:;"> <i
-						class="icon-home"></i> <span class="title">Income</span> <span
-						class="arrow "></span>
-				</a>
-					<ul class="sub-menu">
-						<li><a href="${pageContext.request.contextPath}/admin/stats-month"> <i class="icon-bar-chart"></i>
-								Month
-						</a></li>
-						<li><a href="${pageContext.request.contextPath}/admin/stats-year"> <i class="icon-bulb"></i>
-								Year
-						</a></li>
-
-						
-					</ul>
-					</li>
-				
-			</ul>
-
-			<!-- END SIDEBAR MENU -->
-		</div>
-	</div>
-	<!-- END SIDEBAR -->
+	
+	<%@include file = "/common/admin/sidebar.jsp" %> 
+		
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
 	<div class="page-content">
@@ -216,35 +117,227 @@
 		</h3>
 		<div class="page-bar">
 			<ul class="page-breadcrumb">
-				<li><i class="fa fa-home"></i> <a href="index.html">Home</a> <i
+				<li><i class="fa fa-home"></i> <a href="${pageContext.request.contextPath}/admin">Home</a> <i
 					class="fa fa-angle-right"></i></li>
-				<li><a href="#">eCommerce</a> <i class="fa fa-angle-right"></i>
-				</li>
-				<li><a href="#">Product Custom</a></li>
+				<li><a href="">Product Custom</a></li>
 			</ul>
 		</div>
 		<!-- END PAGE HEADER-->
 		<!-- BEGIN PAGE CONTENT-->
+		<c:choose>
+		<c:when test="${not empty product}">
 		<div class="row">
 			<div class="col-md-12">
-				<form class="form-horizontal form-row-seperated" action="#">
+				<form class="form-horizontal form-row-seperated" method="post" action="${pageContext.request.contextPath}/admin/edit/list-product" enctype="multipart/form-data">
 					<div class="portlet">
 						<div class="portlet-title">
 							<div class="caption">
 								<i class="fa fa-shopping-cart"></i>Custom Product
 							</div>
 							<div class="actions btn-set">
-								<button type="button" name="back" class="btn default">
-									<i class="fa fa-angle-left"></i> Back
-								</button>
-								<button class="btn default">
+								<button class="btn default" type = "reset">
 									<i class="fa fa-reply"></i> Reset
 								</button>
-								<button class="btn green">
+								<button class="btn green" type = "submit">
 									<i class="fa fa-check"></i> Save
 								</button>
-								<button class="btn green">
-									<i class="fa fa-check-circle"></i> Save & Continue Edit
+							</div>
+						</div>
+						<div class="portlet-body">
+							<div class="tabbable">
+								<ul class="nav nav-tabs">
+									<li class="active"><a href="#tab_general"
+										data-toggle="tab"> General </a></li>
+									<li><a href="#tab_meta" data-toggle="tab"> Detail </a></li>
+
+								</ul>
+								<div class="tab-content no-space">
+									<div class="tab-pane active" id="tab_general">
+										<div class="form-body">
+										<div class="form-group">
+												<label class="col-md-2 control-label">ID: <span
+													class="required"> * </span>
+												</label>
+												<div class="col-md-10">
+													<input type="number" class="form-control" value="${product.pId}"
+														name="productid" readonly>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-2 control-label">Name: <span
+													class="required"> * </span>
+												</label>
+												<div class="col-md-10">
+													<input type="text" class="form-control" value="${product.pName}"
+														name="name" placeholder="Enter product's name">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-2 control-label">Price: <span
+													class="required"> * </span>
+												</label>
+												<div class="col-md-10">
+													<input type="text" class="form-control" value="${product.pPrice}"
+														name="price" placeholder="Enter product's price">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-2 control-label">Brand: <span
+													class="required"> * </span>
+												</label>
+												<div class="col-md-10">
+													<select
+														class="table-group-action-input form-control input-medium"
+														name="brand">
+														<option value="">Select...</option>
+														<c:forEach items="${brands}" var="br">
+															<c:if test="${product.brand.bName == br.bName}">
+																<option value="${br.bName}" selected="selected">${br.bName}</option>
+															</c:if>
+															<option value="${br.bName}">${br.bName}</option>
+														</c:forEach>
+													</select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-2 control-label">Amount: <span
+													class="required"> * </span>
+												</label>
+												<div class="col-md-10">
+													<input type="number" class="form-control" value="${product.pAmount}"
+														name="amount" placeholder="Enter product's amount">
+												</div>
+											</div>
+											<div class="form-group">
+									<label class="col-md-2 control-label">Image:
+										<span class="require">*</span>
+									</label>
+									<div class="col-lg-8">
+										<input type="file" id="image" name="image"  value="" required>
+									</div>
+								</div>
+										</div>
+									</div>
+									<div class="tab-pane" id="tab_meta">
+										<div class="form-body">
+										<div class="form-group">
+												<label class="col-md-2 control-label">ID: <span
+													class="required"> * </span>
+												</label>
+												<div class="col-md-10">
+													<input type="number" class="form-control" value="${detail.pdId}"
+														name="detailid" placeholder="Enter product's screen" readonly>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-2 control-label">Product ID: <span
+													class="required"> * </span>
+												</label>
+												<div class="col-md-10">
+													<input type="number" class="form-control" value="${detail.product.pId}"
+														name="detailproductid" placeholder="Enter product's screen" readonly>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-2 control-label">Screen: <span
+													class="required"> * </span>
+												</label>
+												<div class="col-md-10">
+													<input type="text" class="form-control" value="${detail.screen}"
+														name="screen" placeholder="Enter product's screen">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-2 control-label">OS: <span
+													class="required"> * </span>
+												</label>
+												<div class="col-md-10">
+													<input type="text" class="form-control" value="${detail.os}"
+														name="os" placeholder="Enter product's OS">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-2 control-label">Chip: <span
+													class="required"> * </span>
+												</label>
+												<div class="col-md-10">
+													<input type="text" class="form-control" value="${detail.chip}"
+														name="chip" placeholder="Enter product's chip">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-2 control-label">RAM: <span
+													class="required"> * </span>
+												</label>
+												<div class="col-md-10">
+													<input type="text" class="form-control" value="${detail.ram}"
+														name="ram" placeholder="Enter product's RAM">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-2 control-label">ROM: <span
+													class="required"> * </span>
+												</label>
+												<div class="col-md-10">
+													<input type="text" class="form-control" value="${detail.rom}"
+														name="rom" placeholder="Enter product's ROM">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-2 control-label">Weight: <span
+													class="required"> * </span>
+												</label>
+												<div class="col-md-10">
+													<input type="text" class="form-control" value = "${detail.weight}"
+														name="weight" placeholder="Enter product's weight">
+												</div>
+											</div>
+										
+											<div class="form-group">
+												<label class="col-md-2 control-label">Description:</label>
+												<div class="col-md-10">
+													<textarea class="form-control maxlength-handler" rows="8" 
+														name="description" maxlength="1000" >${detail.description}</textarea>
+													<span class="help-block"> max 1000 chars </span>
+												</div>
+											</div>
+										<div class="form-group">
+												<label class="col-md-2 control-label">Warranty: <span
+													class="required"> * </span>
+												</label>
+												<div class="col-md-10">
+													<input type="text" class="form-control" value="${detail.timeWarranty}"
+														name="warranty" placeholder="Enter time warranty">
+												</div>
+											</div>
+										
+										</div>
+									</div>
+									<div class="table-container"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+
+		</div>
+		</c:when>
+		<c:otherwise>
+		<div class="row">
+			<div class="col-md-12">
+				<form class="form-horizontal form-row-seperated" method="post" action="${pageContext.request.contextPath}/admin/insert/list-product" enctype="multipart/form-data">
+					<div class="portlet">
+						<div class="portlet-title">
+							<div class="caption">
+								<i class="fa fa-shopping-cart"></i>Custom Product
+							</div>
+							<div class="actions btn-set">
+								<button class="btn default" type = "reset">
+									<i class="fa fa-reply"></i> Reset
+								</button>
+								<button class="btn green" type = "submit">
+									<i class="fa fa-check"></i> Save
 								</button>
 							</div>
 						</div>
@@ -286,10 +379,9 @@
 														class="table-group-action-input form-control input-medium"
 														name="brand">
 														<option value="">Select...</option>
-														<option value="1">None</option>
-														<option value="0">Taxable Goods</option>
-														<option value="0">Shipping</option>
-														<option value="0">USA</option>
+														<c:forEach items="${brands}" var="brand">
+															<option value="${brand.bName}">${brand.bName}</option>
+														</c:forEach>
 													</select>
 												</div>
 											</div>
@@ -298,7 +390,7 @@
 													class="required"> * </span>
 												</label>
 												<div class="col-md-10">
-													<input type="text" class="form-control" value=""
+													<input type="number" class="form-control" value=""
 														name="amount" placeholder="Enter product's amount">
 												</div>
 											</div>
@@ -382,7 +474,7 @@
 													class="required"> * </span>
 												</label>
 												<div class="col-md-10">
-													<input type="text" class="form-control" value=""
+													<input type="number" class="form-control" value=""
 														name="warranty" placeholder="Enter time warranty">
 												</div>
 											</div>
@@ -398,6 +490,8 @@
 			</div>
 
 		</div>
+		</c:otherwise>
+		</c:choose>
 
 	</div>
 	<!-- END PAGE CONTENT-->

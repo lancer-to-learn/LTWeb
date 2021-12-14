@@ -256,6 +256,160 @@ public class ProductDaoImpl implements ProductDao{
 		product = n.getProductDetail(1);
 		System.out.println(product);
 	}
+
+	@Override
+	public boolean insret(ProductModel bm) {
+		// TODO Auto-generated method stub
+		String sql = "INSERT INTO Laptop.dbo.Product(name, price, brand, image, sellerId, amount, amountSelled) "
+				+ "VALUES (?,?,?,?,?,?,?)";
+		
+		try {
+			conn = new DBConnect().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, bm.getpName());
+			ps.setFloat(2, bm.getpPrice());
+			ps.setInt(3, bm.getBrand().getbId());
+			ps.setString(4, bm.getpImage());
+			ps.setInt(5, bm.getSeller().getId());
+			ps.setInt(6, bm.getpAmount());
+			ps.setInt(7, 0);
+			ps.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean delete(int id) {
+		// TODO Auto-generated method stub
+		String sql = "DELETE FROM Laptop.dbo.Product WHERE id = ?";
+
+		try {
+			conn = new DBConnect().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean edit(ProductModel bm) {
+		// TODO Auto-generated method stub
+		String sql = "UPDATE Laptop.dbo.Product SET name = ?, price = ?, "
+				+ "brand = ?, image = ?, amount = ? WHERE id = ?";
+		try {
+			conn = new DBConnect().getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, bm.getpName());
+			ps.setFloat(2, bm.getpPrice());
+			ps.setInt(3, bm.getBrand().getbId());
+			ps.setString(4, bm.getpImage());
+			ps.setInt(5, bm.getpAmount());
+			ps.setInt(6, bm.getpId());
+			
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean insertDetail(ProductDetailModel dm) {
+		String sql = "INSERT INTO Laptop.dbo.ProductDetail(productId, screen, os, chip, ram, rom, weight, description, timeWarranty) "
+				+ "VALUES (?,?,?,?,?,?,?,?,?)";
+		
+		try {
+			conn = new DBConnect().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, dm.getProduct().getpId());
+			ps.setString(2, dm.getScreen());
+			ps.setString(3, dm.getOs());
+			ps.setString(4, dm.getChip());
+			ps.setString(5, dm.getRam());
+			ps.setString(6, dm.getRom());
+			ps.setFloat(7, dm.getWeight());
+			ps.setString(8, dm.getDescription());
+			ps.setInt(9, dm.getTimeWarranty());
+			ps.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean deleteDetail(int id) {
+		// TODO Auto-generated method stub
+		String sql = "DELETE FROM Laptop.dbo.ProductDetail WHERE productId = ?";
+
+		try {
+			conn = new DBConnect().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean editDetail(ProductDetailModel dm) {
+		String sql = "UPDATE Laptop.dbo.ProductDetail SET screen = ?, os = ?, chip = ?, ram = ? "
+				+ ",rom = ?, weight = ?, description = ?, timeWarranty = ? where id = ?";
+		try {
+			conn = new DBConnect().getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, dm.getScreen());
+			ps.setString(2, dm.getOs());
+			ps.setString(3, dm.getChip());
+			ps.setString(4, dm.getRam());
+			ps.setString(5, dm.getRom());
+			ps.setFloat(6, dm.getWeight());
+			ps.setString(7, dm.getDescription());
+			ps.setInt(8, dm.getTimeWarranty());
+			ps.setInt(9, dm.getPdId());
+			
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public ProductModel getLastestProduct() {
+		String sql = "SELECT * FROM Laptop.dbo.Product WHERE id=(SELECT max(id) FROM Laptop.dbo.Product)";
+		try {
+			conn = new DBConnect().getConnection();
+			ps = conn.prepareStatement(sql);
+			
+			BrandDaoImpl p = new BrandDaoImpl();
+			UserDaoImpl u = new UserDaoImpl();
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				return new ProductModel(rs.getInt(1), rs.getString(2), rs.getFloat(3), p.getBrandById(rs.getInt(4)), rs.getString(5), u.getUser(rs.getInt(6)), rs.getInt(7), rs.getInt(8));
+			}
+		} catch (Exception e) {
+			System.out.print("Eror:"+e);
+		}
+		return null;
+	}
 	
 
 }

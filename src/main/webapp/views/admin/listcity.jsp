@@ -3,108 +3,9 @@
 <%@include file="/common/taglib.jsp"%>
 <!-- BEGIN CONTAINER -->
 <div class="page-container">
-	<!-- BEGIN SIDEBAR -->
-	<div class="page-sidebar-wrapper">
-		<!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-		<!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-		<div class="page-sidebar navbar-collapse collapse">
-			<!-- BEGIN SIDEBAR MENU -->
-			<ul class="page-sidebar-menu" data-keep-expanded="false"
-				data-auto-scroll="true" data-slide-speed="200">
-				<!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
-				<li class="sidebar-toggler-wrapper">
-					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-					<div class="sidebar-toggler"></div> <!-- END SIDEBAR TOGGLER BUTTON -->
-				</li>
-				<!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
-				<li class="sidebar-search-wrapper">
-					<!-- BEGIN RESPONSIVE QUICK SEARCH FORM --> <!-- DOC: Apply "sidebar-search-bordered" class the below search form to have bordered search box -->
-					<!-- DOC: Apply "sidebar-search-bordered sidebar-search-solid" class the below search form to have bordered & solid search box -->
-					<form class="sidebar-search " action="#" method="POST">
-						<a href="javascript:;" class="remove"> <i class="icon-close"></i>
-						</a>
-						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Search...">
-							<span class="input-group-btn"> <a href="javascript:;"
-								class="btn submit"><i class="icon-magnifier"></i></a>
-							</span>
-						</div>
-					</form> <!-- END RESPONSIVE QUICK SEARCH FORM -->
-				</li>
-				<li class="start "><a href="admin"> <i
-						class="icon-home"></i> Home</a>
-				</li>
-				<li class="start "><a href="javascript:;"> <i
-						class="icon-home"></i> <span class="title">Brand Manager</span> <span
-						class="arrow "></span>
-				</a>
-					<ul class="sub-menu">
-						<li><a href="${pageContext.request.contextPath}/admin/list-brand"> <i class="icon-bar-chart"></i>
-								Brand List
-						</a></li>
-						<li><a href="${pageContext.request.contextPath}/admin/custom-brand"> <i class="icon-bulb"></i>
-								Add Brand
-						</a></li>					
-					</ul>
-					</li>
-				<li class="start"><a href="javascript:;"> <i
-						class="icon-home"></i> <span class="title">Product Manager</span> <span
-						class="arrow "></span>
-				</a>
-					<ul class="sub-menu">
-						<li><a href="${pageContext.request.contextPath}/admin/list-product"> <i class="icon-bar-chart"></i>
-								List Product
-						</a></li>
-						<li><a href="${pageContext.request.contextPath}/admin/custom"> <i class="icon-bulb"></i>
-								Add Product
-						</a></li>
-					</ul></li>
-				<li class="start "><a href="javascript:;"> <i
-						class="icon-home"></i> <span class="title">Order Manager</span> <span
-						class="arrow "></span>
-				</a>
-					<ul class="sub-menu">
-						<li><a href="${pageContext.request.contextPath}/admin/order"> <i class="icon-bar-chart"></i>
-								List Order
-						</a></li>
-						<li><a href="${pageContext.request.contextPath}/admin/order"> <i class="icon-bulb"></i>
-								Canceled Order
-						</a></li>
-					</ul></li>
-					<li class="start "><a href="javascript:;"> <i
-						class="icon-home"></i> <span class="title">Shipping</span> <span
-						class="arrow "></span>
-				</a>
-					<ul class="sub-menu">
-						<li><a href="${pageContext.request.contextPath}/admin/list-city"> <i class="icon-bar-chart"></i>
-								List City
-						</a></li>
-						<li><a href="${pageContext.request.contextPath}/admin/custom-city"> <i class="icon-bulb"></i>
-								Add City
-						</a></li>
-					</ul></li>
-					<li class="start "><a href="javascript:;"> <i
-						class="icon-home"></i> <span class="title">Income</span> <span
-						class="arrow "></span>
-				</a>
-					<ul class="sub-menu">
-						<li><a href="${pageContext.request.contextPath}/admin/stats-month"> <i class="icon-bar-chart"></i>
-								Month
-						</a></li>
-						<li><a href="${pageContext.request.contextPath}/admin/stats-year"> <i class="icon-bulb"></i>
-								Year
-						</a></li>
-
-						
-					</ul>
-					</li>
-				
-			</ul>
-
-			<!-- END SIDEBAR MENU -->
-		</div>
-	</div>
-	<!-- END SIDEBAR -->
+	
+	<%@include file = "/common/admin/sidebar.jsp" %> 
+	
 	<!-- BEGIN CONTENT -->
 	<div class="page-content-wrapper">
 		<div class="page-content">
@@ -224,21 +125,17 @@
 			<!-- END STYLE CUSTOMIZER -->
 			<!-- BEGIN PAGE HEADER-->
 			<h3 class="page-title">
-			Products <small>product listing</small>
+			Shipping City <small>city listing</small>
 			</h3>
 			<div class="page-bar">
 				<ul class="page-breadcrumb">
 					<li>
 						<i class="fa fa-home"></i>
-						<a href="index.html">Home</a>
+						<a href="${pageContext.request.contextPath}/admin">Home</a>
 						<i class="fa fa-angle-right"></i>
 					</li>
 					<li>
-						<a href="#">eCommerce</a>
-						<i class="fa fa-angle-right"></i>
-					</li>
-					<li>
-						<a href="#">Products</a>
+						<a href="list-city">Shipping</a>
 					</li>
 				</ul>
 				<div class="page-toolbar">
@@ -273,7 +170,7 @@
 					<div class="portlet">
 						<div class="portlet-title">
 							<div class="caption">
-								<i class="fa fa-gift"></i>Products
+								<i class="fa fa-gift"></i>Cities
 							</div>
 						</div>
 						<div class="portlet-body">
@@ -308,28 +205,32 @@
 										 Actions
 									</th>
 								</tr>
-								<tr role="row" class="filter">
-									<td>
-									1
-									</td>
-									<td>
-										Ho Chi Minh City
-									</td>
-									<td>
-										3$
-									</td>
-									<td>
-										7 days
-									</td>
-									<td>
-										<div class="margin-bottom-5">
-											<button class="btn btn-sm yellow filter-submit margin-bottom"><i class="fa fa-search"></i> Edit </button>
-										</div>
-										<button class="btn btn-sm red filter-cancel"><i class="fa fa-times"></i> Remove </button>
-									</td>
-								</tr>
 								</thead>
 								<tbody>
+								<c:forEach items="${ships}" var = "ship">
+								<tr role="row" class="filter">
+									<td>
+										${ship.sId}
+									</td>
+									<td>
+										${ship.sName} city
+									</td>
+									<td>
+										${ship.sPrice}
+									</td>
+									<td>
+										${ship.sTime} days
+									</td>
+									<td>
+									<a class="center"
+													href="${pageContext.request.contextPath}/admin/edit/list-city?id=${ship.sId}">
+										<button class="btn btn-sm yellow filter-submit margin-bottom"><i class="fa fa-search"></i>Edit</button></a>
+									<a class="center"
+													href="${pageContext.request.contextPath}/admin/delete/list-city?id=${ship.sId}">
+										<button class="btn btn-sm red filter-cancel"><i class="fa fa-times"></i> Remove </button></a>
+									</td>
+								</tr>
+								</c:forEach>
 								</tbody>
 								</table>
 							</div>
@@ -344,12 +245,10 @@
 	
 </div>
 <script>
-        jQuery(document).ready(function() {    
-           Metronic.init(); // init metronic core components
-Layout.init(); // init current layout
-QuickSidebar.init(); // init quick sidebar
-Demo.init(); // init demo features
-           EcommerceProducts.init();
-        });
-    </script>
+$(document).ready(function() {
+	var table = $('#datatable_products').DataTable({
+		fixedHeader : true
+	});
+});
+</script>
 <!-- END CONTAINER -->
