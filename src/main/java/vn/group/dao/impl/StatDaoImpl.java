@@ -8,7 +8,11 @@ import java.util.List;
 
 import vn.group.connection.DBConnect;
 import vn.group.dao.StatDao;
+import vn.group.model.BrandModel;
+import vn.group.model.ProductModel;
 import vn.group.model.StatModel;
+import vn.group.service.BrandService;
+import vn.group.service.impl.BrandServiceImpl;
 
 public class StatDaoImpl implements StatDao{
 	Connection conn = null;
@@ -66,15 +70,50 @@ public class StatDaoImpl implements StatDao{
 	}
 
 	@Override
-	public List<StatModel> modifyBrandStat() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<StatModel> modifyBrandStat(List<StatModel> stat) {
+		BrandService brandservice = new BrandServiceImpl();
+		List<BrandModel> allbrand = brandservice.getAllBrand();
+		List<StatModel> pros = new ArrayList<StatModel>();
+		
+		for (int i = 0; i < allbrand.size(); i++) 
+		{
+			BrandModel bm = allbrand.get(i);
+			int flag = 0;
+			for (int j=0;j< stat.size(); j++)
+			{
+				StatModel sm = stat.get(j);
+				if (bm.getbName().trim().equals(sm.getBrandName().trim())) {
+					flag = 1;
+					pros.add(sm);
+				}
+			}
+			if (flag == 0) {
+				pros.add(new StatModel(bm.getbName(), (float) 0, 0, 0));
+			}
+		}
+		return pros;
 	}
 
 	@Override
-	public List<StatModel> modifYearStat() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<StatModel> modifYearStat(List<StatModel> stat) {
+		List<StatModel> pros = new ArrayList<StatModel>();
+		StatModel sm = new StatModel();
+		for (int i = 1; i < 13; i++) 
+		{
+			int flag = 0;
+			for (int j=0;j< stat.size(); j++)
+			{
+				sm = stat.get(j);
+				if (i == sm.getMonth()) {
+					flag = 1;
+					pros.add(sm);
+				}
+			}
+			if (flag == 0) {
+				pros.add(new StatModel("", (float) 0, i, sm.getYear()));
+			}
+		}
+		return pros;
 	}
 
 	@Override

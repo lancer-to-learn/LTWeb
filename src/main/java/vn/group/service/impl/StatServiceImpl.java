@@ -23,15 +23,15 @@ public class StatServiceImpl implements StatService{
 	}
 
 	@Override
-	public List<StatModel> modifyBrandStat() {
+	public List<StatModel> modifyBrandStat(List<StatModel> stat) {
 		// TODO Auto-generated method stub
-		return statdao.modifyBrandStat();
+		return statdao.modifyBrandStat(stat);
 	}
 
 	@Override
-	public List<StatModel> modifYearStat() {
+	public List<StatModel> modifYearStat(List<StatModel> stat) {
 		// TODO Auto-generated method stub
-		return statdao.modifYearStat();
+		return statdao.modifYearStat(stat);
 	}
 
 	@Override

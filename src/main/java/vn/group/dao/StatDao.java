@@ -8,8 +8,8 @@ public interface StatDao {
 	List<StatModel> getBrandStatById(int id);
 	List<StatModel> getMonthYearStat(int id);
 	
-	List<StatModel> modifyBrandStat();
-	List<StatModel> modifYearStat();
+	List<StatModel> modifyBrandStat(List<StatModel> stat);
+	List<StatModel> modifYearStat(List<StatModel> stat);
 	
 	List<StatModel> getStatByYear(List<StatModel> stat, int year);
 }

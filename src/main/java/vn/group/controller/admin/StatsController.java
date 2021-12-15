@@ -37,6 +37,8 @@ public class StatsController extends HttpServlet{
 				account = (AccountModel)user;
 			
 			List<StatModel> stat = statservice.getBrandStatById(account.getId());
+			stat = statservice.modifyBrandStat(stat);
+			
 			List<MyColorModel> mycolor = new ArrayList<MyColorModel>();
 			for (int i=0; i<stat.size();i++)
 			{
@@ -61,8 +63,8 @@ public class StatsController extends HttpServlet{
 				if (user != null)
 					account = (AccountModel)user;
 				
-				
 				List<StatModel> stat = statservice.getMonthYearStat(account.getId());
+				stat = statservice.modifYearStat(stat);
 				try {
 				int year = 0; 
 				year = Integer.parseInt(req.getParameter("year"));
