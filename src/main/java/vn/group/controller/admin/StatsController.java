@@ -54,6 +54,33 @@ public class StatsController extends HttpServlet{
 		else {
 			if (url.contains("stats-year"))
 			{
+				StatService statservice = new StatServiceImpl();
+				HttpSession session = req.getSession();
+				Object user = session.getAttribute("acc");
+				AccountModel account = new AccountModel();
+				if (user != null)
+					account = (AccountModel)user;
+				
+				
+				List<StatModel> stat = statservice.getMonthYearStat(account.getId());
+				try {
+				int year = 0; 
+				year = Integer.parseInt(req.getParameter("year"));
+				}catch (Exception e) {
+					// TODO: handle exception
+				}
+				
+				List<MyColorModel> mycolor = new ArrayList<MyColorModel>();
+				for (int i=0; i<stat.size();i++)
+				{
+					int r = (int) Math.round(Math.random()*255);
+					int g = (int) Math.round(Math.random()*255);
+					int b = (int) Math.round(Math.random()*255);
+					mycolor.add(new MyColorModel(r, g, b));
+				}
+				req.setAttribute("color", mycolor);
+				req.setAttribute("stat", stat);
+				
 				RequestDispatcher rq = req.getRequestDispatcher("/views/admin/statsyear.jsp");
 				rq.forward(req, resp);
 			}

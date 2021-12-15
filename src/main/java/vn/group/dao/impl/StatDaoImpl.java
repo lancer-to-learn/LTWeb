@@ -64,4 +64,22 @@ public class StatDaoImpl implements StatDao{
 		}
 		return list;
 	}
+
+	@Override
+	public List<StatModel> modifyBrandStat() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<StatModel> modifYearStat() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<StatModel> getStatByYear(List<StatModel> stat, int year) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -21,5 +21,23 @@ public class StatServiceImpl implements StatService{
 		// TODO Auto-generated method stub
 		return statdao.getMonthYearStat(id);
 	}
+
+	@Override
+	public List<StatModel> modifyBrandStat() {
+		// TODO Auto-generated method stub
+		return statdao.modifyBrandStat();
+	}
+
+	@Override
+	public List<StatModel> modifYearStat() {
+		// TODO Auto-generated method stub
+		return statdao.modifYearStat();
+	}
+
+	@Override
+	public List<StatModel> getStatByYear(List<StatModel> stat, int year) {
+		// TODO Auto-generated method stub
+		return statdao.getStatByYear(stat, year);
+	}
 	
 }
