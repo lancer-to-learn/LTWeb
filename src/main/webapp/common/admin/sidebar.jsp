@@ -82,16 +82,16 @@
 								Add City
 						</a></li>
 					</ul></li>
-					<li class="start "><a href="javascript:;"> <i
+					<li class="start "><a href=""> <i
 						class="icon-home"></i> <span class="title">Income</span> <span
 						class="arrow "></span>
 				</a>
 					<ul class="sub-menu">
 						<li><a href="${pageContext.request.contextPath}/admin/stats-month"> <i class="icon-bar-chart"></i>
-								Month
+								Brand
 						</a></li>
 						<li><a href="${pageContext.request.contextPath}/admin/stats-year"> <i class="icon-bulb"></i>
-								Year
+								Month & Year
 						</a></li>
 
 						

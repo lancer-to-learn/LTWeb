@@ -3,84 +3,118 @@
 <%@include file="/common/taglib.jsp"%>
 <div class="clearfix"></div>
 
+<<<<<<< HEAD
 	<c:if test="${ sessionScope.acc.getRole()==1 }"><li><%@include file = "/common/admin/sidebar.jsp" %></li></c:if>
 	  <c:if test="${ sessionScope.acc.getRole()==2 }"><li><%@include file = "/common/seller/sidebar.jsp" %></li></c:if>min/sidebar.jsp" %> 
+=======
+<%@include file="/common/admin/sidebar.jsp"%>
+>>>>>>> cc6e60dea1c6bdb090ab730353f4c73ea7a659c4
 
 
-	<!-- BEGIN CONTENT -->
-	<div class="page-content-wrapper">
-		<div class="page-content">
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+	<div class="page-content">
 
 
-			<!-- BEGIN PAGE HEADER-->
-			<h3 class="page-title">
-				Income 
-			</h3>
-			<div class="page-bar">
-				<ul class="page-breadcrumb">
-					<li><i class="fa fa-home"></i> <a href="admin">Admin</a> <i
-						class="fa fa-angle-right"></i></li>
-					<li><a href="admin/list-brand">Income</a> <i class="fa fa-angle-right"></i>
-					</li>
-					<li><a href="admin/custom-brand">Month</a></li>
-				</ul>
-			</div>
-			
+		<!-- BEGIN PAGE HEADER-->
+		<h3 class="page-title">Income</h3>
+		<div class="page-bar">
+			<ul class="page-breadcrumb">
+				<li><i class="fa fa-home"></i> <a
+					href="${pageContext.request.contextPath}/admin">Admin</a> <i
+					class="fa fa-angle-right"></i></li>
+				<li><a href="">Income</a> <i class="fa fa-angle-right"></i></li>
+				<li><a href="">Month & Year</a></li>
+			</ul>
+		</div>
 
-			<!-- END PAGE HEADER-->
-			<div class="row">
-						<div class="col-md-12">
-							<!-- BEGIN CHART PORTLET-->
-							<div class="portlet light bordered">
-								<div class="portlet-title">
-									<div class="caption">
-										<i class="icon-bar-chart font-green-haze"></i>
-										<span class="caption-subject bold uppercase font-green-haze"> 3D Chart</span>
-										<span class="caption-helper">3d cylinder chart</span>
-									</div>
-									<div class="tools">
-										<a href="javascript:;" class="collapse">
-										</a>
-										<a href="#portlet-config" data-toggle="modal" class="config">
-										</a>
-										<a href="javascript:;" class="reload">
-										</a>
-										<a href="javascript:;" class="fullscreen">
-										</a>
-										<a href="javascript:;" class="remove">
-										</a>
-									</div>
-								</div>
-								<div class="portlet-body">
-									<div id="chart_5" class="chart" style="height: 400px;">
-									</div>
-									<div class="well margin-top-20">
-										<div class="row">
-											<div class="col-sm-3">
-												<label class="text-left">Top Radius:</label>
-												<input class="chart_5_chart_input" data-property="topRadius" type="range" min="0" max="1.5" value="1" step="0.01"/>
-											</div>
-											<div class="col-sm-3">
-												<label class="text-left">Angle:</label>
-												<input class="chart_5_chart_input" data-property="angle" type="range" min="0" max="89" value="30" step="1"/>
-											</div>
-											<div class="col-sm-3">
-												<label class="text-left">Depth:</label>
-												<input class="chart_5_chart_input" data-property="depth3D" type="range" min="1" max="120" value="40" step="1"/>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- END CHART PORTLET-->
+
+		<!-- END PAGE HEADER-->
+		<div class="row">
+			<div class="col-md-12">
+				<!-- BEGIN CHART PORTLET-->
+				<div class="portlet light bordered">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="icon-bar-chart font-green-haze"></i> <span
+								class="caption-subject bold uppercase font-green-haze">
+								2D Chart</span> <span class="caption-helper">2d bar chart</span>
 						</div>
 					</div>
-			<!-- BEGIN PAGE CONTENT-->
-			
-			<!-- END PAGE CONTENT-->
-		</div>
-	</div>
-	<!-- END CONTENT -->
+					<div class="row">
+						<div class="col-md-5 col-xs-12">
+							<table class="table">
+								<tr>
+									<th>Year</th>
+									<th>Month</th>
+									<th>Total</th>
+								</tr>
+								<c:forEach items = "${stat}" var = "st">
+								<tr>
+									<td>${st.year}</td>
+									<td>${st.month}</td>
+									<td>${st.total}</td>
+								</tr>
+								</c:forEach>
+							</table>
+						</div>
+						<div class="col-md-7 col-xs-12">
+							<form action="${pageContext.request.contextPath}/admin/stats-year">
+								<div class="row">
+									<div class="col-md-3">
+										<input type="submit" value="Calculate" class="btn btn-danger">
+									</div>
+									<div class="col-md-9">
+										<input type="number" name="year"
+											placeholder="Enter a year...." class="form-control" />
+									</div>
+								</div>
+							</form>
+							<canvas id="productStatsId"></canvas>
+						</div>
+					</div>
 
+				</div>
+				<!-- END CHART PORTLET-->
+			</div>
+		</div>
+		<!-- BEGIN PAGE CONTENT-->
+
+		<!-- END PAGE CONTENT-->
+	</div>
 </div>
-<!-- END CONTAINER -->
+<!-- END CONTENT -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+let labels = [], info = [];
+
+<c:forEach items = "${stat}" var = "st">
+	labels.push("${st.month}")
+	info.push("${st.total}")
+</c:forEach>
+
+let colors = []
+<c:forEach items = "${color}" var = "cl">
+	colors.push(`rgb(${cl.color1}, ${cl.color2}, ${cl.color3})`)
+</c:forEach>
+
+const data = {
+    labels: labels,
+    datasets: [{
+      label: 'Month & Year Stat',
+      data: info,
+      backgroundColor: colors,
+      hoverOffset: 4
+    }]
+  };
+
+  const config = {
+  type: 'bar',
+  data: data,
+};
+
+window.onload = function() {
+  let ctx = document.getElementById("productStatsId").getContext('2d')
+  new Chart(ctx, config)
+}
+</script>
