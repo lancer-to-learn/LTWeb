@@ -174,18 +174,23 @@
 							<div class="tabbable">
 								<ul class="nav nav-tabs nav-tabs-lg">
 									<li class="active"><a href="#tab_1" data-toggle="tab">
-											All <span
-											class="badge badge-success"> ${ quantity.allQuantity } </span></a></li>
+											All <span class="badge badge-success"> ${ quantity.allQuantity }
+										</span>
+									</a></li>
 									<li><a href="#tab_2" data-toggle="tab"> Bought <span
-											class="badge badge-success"> ${ quantity.soldQuantity } </span>
+											class="badge badge-success"> ${ quantity.soldQuantity }
+										</span>
 									</a></li>
 									<li><a href="#tab_3" data-toggle="tab"> Pending <span
-											class="badge badge-danger"> ${ quantity.waitingQuantity } </span></a></li>
+											class="badge badge-danger"> ${ quantity.waitingQuantity }
+										</span></a></li>
 									<li><a href="#tab_4" data-toggle="tab"> Shipping <span
-											class="badge badge-danger"> ${ quantity.shippingQuantity } </span>
+											class="badge badge-danger"> ${ quantity.shippingQuantity }
+										</span>
 									</a></li>
 									<li><a href="#tab_5" data-toggle="tab"> Canceled <span
-											class="badge badge-danger"> ${ quantity.canceledQuantity } </span></a></li>
+											class="badge badge-danger"> ${ quantity.canceledQuantity }
+										</span></a></li>
 								</ul>
 								<div class="tab-content">
 									<div class="tab-pane active" id="tab_1">
@@ -203,56 +208,85 @@
 														</div>
 													</div>
 													<div class="portlet-body">
-														<div class="table-responsive">
+														<div class="table-container">
 															<table
 																class="table table-striped table-bordered table-hover"
 																id="datatable_products">
 																<thead>
 																	<tr role="row" class="heading">
 																		<th width="5%">ID</th>
+																		<th width="8%">Customer</th>
+																		<th width="10%">Address</th>
 																		<th width="15%">Product&nbsp;Name</th>
-																		<th width="10%">Image</th>
-																		<th width="10%">Price</th>
+																		<th width="5%">Price</th>
 																		<th width="5%">Quantity</th>
 																		<th width="10%">Total</th>
-																		<th width="10%">Date Create</th>
-																		<th width="10%">Status</th>
+																		<th width="10%">Create Date</th>
+																		<th width="10%">Product Status</th>
+																		<th width="10%">Receipt Status</th>
+
 																	</tr>
-																	
+
+
+																</thead>
+																<tbody>
 																	<c:forEach items="${ listDetail }" var="re">
 																		<tr role="row" class="filter">
 																			<td>${ re.rdId }</td>
+																			<td>${ re.receipt.user.user }</td>
+																			<td>${ re.city.name }</td>
+
 																			<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
-																			<td><a
-																				href="productdetail?pid=${ re.product.pId }"
-																				class="fancybox-button" data-rel="fancybox-button">
-																					<img class="img-responsive"
-																					src="${ re.product.pImage }"
-																					alt="${ re.product.pName }"
-																					style="width: 50px; height: 50px;">
-																			</a></td>
+																			<%-- <td><a
+																		href="productdetail?pid=${ re.product.pId }"
+																		class="fancybox-button" data-rel="fancybox-button">
+																			<img class="img-responsive"
+																			src="${ re.product.pImage }"
+																			alt="${ re.product.pName }"
+																			style="width: 50px; height: 50px;">
+																	</a></td> --%>
 																			<td>${ re.price }</td>
 																			<td>${ re.quantity }</td>
 																			<td>${ re.price * re.quantity}</td>
 																			<td>${ re.receipt.date }</td>
-																			<c:if test="${ re.status=='Sold' }">
-																			<td><a href="#tab_2" data-toggle="tab"> ${ re.status }</a></td>
+
+																			<c:if test="${ re.product.pAmount>=re.quantity }">
+																				<td><span class="label label-sm label-success">
+																						Available </span></td>
 																			</c:if>
-																			<c:if test="${ re.status=='Waiting'}">
-																			<td><a href="#tab_3" data-toggle="tab"> ${ re.status }</a></td>
+																			<c:if test="${ re.product.pAmount<re.quantity }">
+																				<td><span class="label label-sm label-danger">
+																						Unavailable </span></td>
 																			</c:if>
-																			<c:if test="${ re.status=='Shipping' }">
-																			<td><a href="#tab_4" data-toggle="tab"> ${ re.status }</a></td>
+
+																			<c:if test="${re.status=='Sold' }">
+																				<td>Sold</td>
 																			</c:if>
-																			<c:if test="${ re.status=='Canceled' }">
-																			<td><a href="#tab_5" data-toggle="tab"> ${ re.status }</a></td>
+																			<c:if test="${re.status=='Waiting' }">
+																				<td>Waiting for Confirm</td>
 																			</c:if>
+																			<c:if test="${re.status=='Shipping' }">
+																				<td>Shipping</td>
+																			</c:if>
+																			<c:if test="${re.status=='Confirm' }">
+																				<td>Waiting for Receive</td>
+																			</c:if>
+																			<c:if test="${re.status=='Canceled' }">
+																				<td>Canceled</td>
+																			</c:if>
+																			<%-- <c:if
+																				test="${re.status=='Waiting' &&  re.product.pAmount>=re.quantity }">
+																				<td><div class="margin-bottom-5">
+																						<button onclick="Cancel(${ re.product.pId })"
+																							class="btn btn-sm red">
+																							<i class="fa"></i> Cancel
+																						</button>
+																					</div></td>
+																			</c:if> --%>
 																		</tr>
 																	</c:forEach>
-																	
-																</thead>
-																<tbody>
 																</tbody>
+
 															</table>
 														</div>
 													</div>
@@ -268,12 +302,13 @@
 														<div class="col-md-3 value">${ quantity.allQuantity }</div>
 													</div>
 													<div class="row static-info align-reverse">
-														<div class="col-md-8 name">Total Money: </div>
-														<div class="col-md-3 value">${ total.allTotal } $</div>
+														<div class="col-md-8 name">Total Money:</div>
+														<div class="col-md-3 value">${ total.allTotal }$</div>
 													</div>
 												</div>
 											</div>
 										</div>
+
 									</div>
 									<div class="tab-pane" id="tab_2">
 										<div class="row">
@@ -281,7 +316,7 @@
 												<div class="portlet grey-cascade box">
 													<div class="portlet-title">
 														<div class="caption">
-															<i class="fa fa-cogs"></i>Bought Oders
+															<i class="fa fa-cogs"></i>Sold Orders
 														</div>
 														<div class="actions">
 															<a href="#" class="btn btn-default btn-sm"> <i
@@ -290,7 +325,7 @@
 														</div>
 													</div>
 													<div class="portlet-body">
-														<div class="table-responsive">
+														<div class="table-container">
 															<table
 																class="table table-striped table-bordered table-hover"
 																id="datatable_products">
@@ -305,35 +340,38 @@
 																		<th width="10%">Date Create</th>
 																		<th width="10%">Action</th>
 																	</tr>
+
+																</thead>
+
+																<tbody>
 																	<c:forEach items="${ listDetail }" var="re">
-																	<c:if test="${ re.status == 'Sold' }">
-																		<tr role="row" class="filter">
-																			<td>${ re.rdId }</td>
-																			<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
-																			<td><a
-																				href="productdetail?pid=${ re.product.pId }"
-																				class="fancybox-button" data-rel="fancybox-button">
-																					<img class="img-responsive"
-																					src="${ re.product.pImage }"
-																					alt="${ re.product.pName }"
-																					style="width: 50px; height: 50px;">
-																			</a></td>
-																			<td>${ re.price }</td>
-																			<td>${ re.quantity }</td>
-																			<td>${ re.price * re.quantity}</td>
-																			<td>${ re.receipt.date }</td>
-																			<td><div class="margin-bottom-5">
-																					<button onclick="AddtoCart(${ re.product.pId })"
-																						class="btn btn-sm yellow">
-																						<i class="fa"></i> Buy again
-																					</button>
-																				</div></td>
-																		</tr>
+																		<c:if test="${ re.status == 'Sold' }">
+																			<tr role="row" class="filter">
+																				<td>${ re.rdId }</td>
+																				<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
+																				<td><a
+																					href="productdetail?pid=${ re.product.pId }"
+																					class="fancybox-button" data-rel="fancybox-button">
+																						<img class="img-responsive"
+																						src="${ re.product.pImage }"
+																						alt="${ re.product.pName }"
+																						style="width: 50px; height: 50px;">
+																				</a></td>
+																				<td>${ re.price }</td>
+																				<td>${ re.quantity }</td>
+																				<td>${ re.price * re.quantity}</td>
+																				<td>${ re.receipt.date }</td>
+																				<td><div class="margin-bottom-5">
+																						<button onclick="AddtoCart(${ re.product.pId })"
+																							class="btn btn-sm yellow">
+																							<i class="fa"></i> Buy again
+																						</button>
+																					</div></td>
+																			</tr>
 																		</c:if>
 																	</c:forEach>
-																</thead>
-																<tbody>
 																</tbody>
+
 															</table>
 														</div>
 													</div>
@@ -349,96 +387,14 @@
 														<div class="col-md-3 value">${ quantity.soldQuantity }</div>
 													</div>
 													<div class="row static-info align-reverse">
-														<div class="col-md-8 name">Total Money: </div>
-														<div class="col-md-3 value">${ total.soldTotal } $</div>
+														<div class="col-md-8 name">Total Money:</div>
+														<div class="col-md-3 value">${ total.soldTotal }$</div>
 													</div>
 												</div>
 											</div>
 										</div>
-
 									</div>
-									<div class="tab-pane" id="tab_3">
-										<div class="row">
-											<div class="col-md-12 col-sm-12">
-												<div class="portlet grey-cascade box">
-													<div class="portlet-title">
-														<div class="caption">
-															<i class="fa fa-cogs"></i>Pending Orders
-														</div>
-														<div class="actions">
-															<a href="#" class="btn btn-default btn-sm"> <i
-																class="fa fa-pencil"></i> Edit
-															</a>
-														</div>
-													</div>
-													<div class="portlet-body">
-														<div class="table-responsive">
-															<table
-																class="table table-striped table-bordered table-hover"
-																id="datatable_products">
-																<thead>
-																	<tr role="row" class="heading">
-																		<th width="5%">ID</th>
-																		<th width="15%">Product&nbsp;Name</th>
-																		<th width="10%">Image</th>
-																		<th width="10%">Price</th>
-																		<th width="5%">Quantity</th>
-																		<th width="10%">Total</th>
-																		<th width="10%">Date Create</th>
-																		<th width="10%">Action</th>
-																	</tr>
-																	<c:forEach items="${ listDetail }" var="re">
-																	<c:if test="${ re.status == 'Waiting' }">
-																		<tr role="row" class="filter">
-																			<td>${ re.rdId }</td>
-																			<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
-																			<td><a
-																				href="productdetail?pid=${ re.product.pId }"
-																				class="fancybox-button" data-rel="fancybox-button">
-																					<img class="img-responsive"
-																					src="${ re.product.pImage }"
-																					alt="${ re.product.pName }"
-																					style="width: 50px; height: 50px;">
-																			</a></td>
-																			<td>${ re.price }</td>
-																			<td>${ re.quantity }</td>
-																			<td>${ re.price * re.quantity}</td>
-																			<td>${ re.receipt.date }</td>
-																			<td><div class="margin-bottom-5">
-																					<button onclick="Cancel(${ re.rdId })"
-																						class="btn btn-sm yellow">
-																						<i class="fa fa-search"></i> Cancel
-																					</button>
-																				</div></td>
-																		</tr>
-																		</c:if>
-																	</c:forEach>
-																</thead>
-																<tbody>
-																</tbody>
-															</table>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-md-6"></div>
-											<div class="col-md-6">
-												<div class="well">
-													<div class="row static-info align-reverse">
-														<div class="col-md-8 name">Total Order:</div>
-														<div class="col-md-3 value">${ quantity.waitingQuantity }</div>
-													</div>
-													<div class="row static-info align-reverse">
-														<div class="col-md-8 name">Total Money: </div>
-														<div class="col-md-3 value">${ total.waitingTotal } $</div>
-													</div>
-												</div>
-											</div>
-										</div>
 
-									</div>
 									<div class="tab-pane" id="tab_4">
 										<div class="row">
 											<div class="col-md-12 col-sm-12">
@@ -454,7 +410,7 @@
 														</div>
 													</div>
 													<div class="portlet-body">
-														<div class="table-responsive">
+														<div class="table-container">
 															<table
 																class="table table-striped table-bordered table-hover"
 																id="datatable_products">
@@ -467,37 +423,66 @@
 																		<th width="5%">Quantity</th>
 																		<th width="10%">Total</th>
 																		<th width="10%">Date Create</th>
-																		<th width="10%">Action</th>
+																		<th width="8%">Status</th>
+																		<th width="5%">Action</th>
 																	</tr>
-																	<c:forEach items="${ listDetail }" var="re">
-																	<c:if test="${ re.status == 'Shipping' }">
-																		<tr role="row" class="filter">
-																			<td>${ re.rdId }</td>
-																			<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
-																			<td><a
-																				href="productdetail?pid=${ re.product.pId }"
-																				class="fancybox-button" data-rel="fancybox-button">
-																					<img class="img-responsive"
-																					src="${ re.product.pImage }"
-																					alt="${ re.product.pName }"
-																					style="width: 50px; height: 50px;">
-																			</a></td>
-																			<td>${ re.price }</td>
-																			<td>${ re.quantity }</td>
-																			<td>${ re.price * re.quantity}</td>
-																			<td>${ re.receipt.date }</td>
-																			<td><div class="margin-bottom-5">
-																					<button onclick="AddtoCart(${ re.product.pId })"
-																						class="btn btn-sm yellow">
-																						<i class="fa"></i> Buy again
-																					</button>
-																				</div></td>
-																		</tr>
-																		</c:if>
-																	</c:forEach>
+
 																</thead>
 																<tbody>
+																	<c:forEach items="${ listDetail }" var="re">
+																		<c:if test="${ re.status == 'Shipping' }">
+																			<tr role="row" class="filter">
+																				<td>${ re.rdId }</td>
+																				<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
+																				<td><a
+																					href="productdetail?pid=${ re.product.pId }"
+																					class="fancybox-button" data-rel="fancybox-button">
+																						<img class="img-responsive"
+																						src="${ re.product.pImage }"
+																						alt="${ re.product.pName }"
+																						style="width: 50px; height: 50px;">
+																				</a></td>
+																				<td>${ re.price }</td>
+																				<td>${ re.quantity }</td>
+																				<td>${ re.price * re.quantity}</td>
+																				<td>${ re.receipt.date }</td>
+																				<td>Shipping</td>
+																				<td><div class="margin-bottom-5">
+																						<button onclick="AddtoCart(${ re.product.pId })"
+																							class="btn btn-sm yellow">
+																							<i class="fa"></i> Buy again
+																						</button>
+																					</div></td>
+																			</tr>
+																		</c:if>
+																		<c:if test="${ re.status == 'Confirm' }">
+																			<tr role="row" class="filter">
+																				<td>${ re.rdId }</td>
+																				<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
+																				<td><a
+																					href="productdetail?pid=${ re.product.pId }"
+																					class="fancybox-button" data-rel="fancybox-button">
+																						<img class="img-responsive"
+																						src="${ re.product.pImage }"
+																						alt="${ re.product.pName }"
+																						style="width: 50px; height: 50px;">
+																				</a></td>
+																				<td>${ re.price }</td>
+																				<td>${ re.quantity }</td>
+																				<td>${ re.price * re.quantity}</td>
+																				<td>${ re.receipt.date }</td>
+																				<td>Wait for Receive</td>
+																				<td><div class="margin-bottom-5">
+																						<button onclick="Confirm(${ re.rdId })"
+																							class="btn btn-sm yellow">
+																							<i class="fa"></i> Received
+																						</button>
+																					</div></td>
+																			</tr>
+																		</c:if>
+																	</c:forEach>
 																</tbody>
+
 															</table>
 														</div>
 													</div>
@@ -514,7 +499,91 @@
 													</div>
 													<div class="row static-info align-reverse">
 														<div class="col-md-8 name">Total Money:</div>
-														<div class="col-md-3 value">${ total.shippingTotal } $	</div>
+														<div class="col-md-3 value">${ total.shippingTotal }$</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane" id="tab_3">
+										<div class="row">
+											<div class="col-md-12 col-sm-12">
+												<div class="portlet grey-cascade box">
+													<div class="portlet-title">
+														<div class="caption">
+															<i class="fa fa-cogs"></i>Pending Orders
+														</div>
+														<div class="actions">
+															<a href="#" class="btn btn-default btn-sm"> <i
+																class="fa fa-pencil"></i> Edit
+															</a>
+														</div>
+													</div>
+													<div class="portlet-body">
+														<div class="table-container">
+															<table
+																class="table table-striped table-bordered table-hover"
+																id="datatable_products">
+																<thead>
+																	<tr role="row" class="heading">
+																		<th width="5%">ID</th>
+																		<th width="15%">Product&nbsp;Name</th>
+																		<th width="10%">Image</th>
+																		<th width="10%">Price</th>
+																		<th width="5%">Quantity</th>
+																		<th width="10%">Total</th>
+																		<th width="10%">Date Create</th>
+																		<th width="10%">Action</th>
+																	</tr>
+
+																</thead>
+																<tbody>
+																	<c:forEach items="${ listDetail }" var="re">
+																		<c:if test="${ re.status == 'Waiting' }">
+																			<tr role="row" class="filter">
+																				<td>${ re.rdId }</td>
+																				<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
+																				<td><a
+																					href="productdetail?pid=${ re.product.pId }"
+																					class="fancybox-button" data-rel="fancybox-button">
+																						<img class="img-responsive"
+																						src="${ re.product.pImage }"
+																						alt="${ re.product.pName }"
+																						style="width: 50px; height: 50px;">
+																				</a></td>
+																				<td>${ re.price }</td>
+																				<td>${ re.quantity }</td>
+																				<td>${ re.price * re.quantity}</td>
+																				<td>${ re.receipt.date }</td>
+																				<td><div class="margin-bottom-5">
+																						<button onclick="Cancel(${ re.rdId })"
+																							class="btn btn-sm red">
+																							Cancel
+																						</button>
+																					</div></td>
+																			</tr>
+																		</c:if>
+																	</c:forEach>
+																</tbody>
+
+															</table>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-6"></div>
+											<div class="col-md-6">
+												<div class="well">
+													<div class="row static-info align-reverse">
+														<div class="col-md-8 name">Total Order:</div>
+														<div class="col-md-3 value">${ quantity.waitingQuantity }</div>
+													</div>
+													<div class="row static-info align-reverse">
+														<div class="col-md-8 name">Total Money:</div>
+														<div class="col-md-3 value">${ total.waitingTotal }
+															$</div>
 													</div>
 												</div>
 											</div>
@@ -535,7 +604,7 @@
 														</div>
 													</div>
 													<div class="portlet-body">
-														<div class="table-responsive">
+														<div class="table-container">
 															<table
 																class="table table-striped table-bordered table-hover"
 																id="datatable_products">
@@ -550,35 +619,37 @@
 																		<th width="10%">Date Create</th>
 																		<th width="10%">Action</th>
 																	</tr>
-																	<c:forEach items="${ listDetail }" var="re">
-																	<c:if test="${ re.status == 'Canceled' }">
-																		<tr role="row" class="filter">
-																			<td>${ re.rdId }</td>
-																			<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
-																			<td><a
-																				href="productdetail?pid=${ re.product.pId }"
-																				class="fancybox-button" data-rel="fancybox-button">
-																					<img class="img-responsive"
-																					src="${ re.product.pImage }"
-																					alt="${ re.product.pName }"
-																					style="width: 50px; height: 50px;">
-																			</a></td>
-																			<td>${ re.price }</td>
-																			<td>${ re.quantity }</td>
-																			<td>${ re.price * re.quantity}</td>
-																			<td>${ re.receipt.date }</td>
-																			<td><div class="margin-bottom-5">
-																					<button onclick="AddtoCart(${ re.product.pId })"
-																						class="btn btn-sm yellow">
-																						<i class="fa"></i> Buy again
-																					</button>
-																				</div></td>
-																		</tr>
-																		</c:if>
-																	</c:forEach>
+
 																</thead>
 																<tbody>
+																	<c:forEach items="${ listDetail }" var="re">
+																		<c:if test="${ re.status == 'Canceled' }">
+																			<tr role="row" class="filter">
+																				<td>${ re.rdId }</td>
+																				<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
+																				<td><a
+																					href="productdetail?pid=${ re.product.pId }"
+																					class="fancybox-button" data-rel="fancybox-button">
+																						<img class="img-responsive"
+																						src="${ re.product.pImage }"
+																						alt="${ re.product.pName }"
+																						style="width: 50px; height: 50px;">
+																				</a></td>
+																				<td>${ re.price }</td>
+																				<td>${ re.quantity }</td>
+																				<td>${ re.price * re.quantity}</td>
+																				<td>${ re.receipt.date }</td>
+																				<td><div class="margin-bottom-5">
+																						<button onclick="AddtoCart(${ re.product.pId })"
+																							class="btn btn-sm yellow">
+																							<i class="fa"></i> Buy again
+																						</button>
+																					</div></td>
+																			</tr>
+																		</c:if>
+																	</c:forEach>
 																</tbody>
+
 															</table>
 														</div>
 													</div>
@@ -595,13 +666,13 @@
 													</div>
 													<div class="row static-info align-reverse">
 														<div class="col-md-8 name">Total Money:</div>
-														<div class="col-md-3 value">${ total.canceledTotal } $</div>
+														<div class="col-md-3 value">${ total.canceledTotal }$</div>
 													</div>
 												</div>
 											</div>
 										</div>
-
 									</div>
+
 								</div>
 							</div>
 						</div>
@@ -613,10 +684,19 @@
 		</div>
 	</div>
 </div>
+<script>
+	$(document).ready(function() {
+		var table = $('#datatable_products').DataTable({
+			fixedHeader : true
+		});
+	});
+</script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script>    
 function Cancel(id) {	
 	/*  tạo viên amount để Gọi và đếm classname là product */
+	if (confirm("Do you want to cancel this order?") == true) {
 	$.ajax({
 		url : "/Laptop/order-canceled",
 		type : "get", //send it through get method
@@ -641,7 +721,35 @@ function Cancel(id) {
 			alert("Error")
 		}
 	});
+	};
  };
+ function Confirm(id) {	
+		/*  tạo viên amount để Gọi và đếm classname là product */
+		$.ajax({
+			url : "/Laptop/order-confirm",
+			type : "get", //send it through get method
+			data : {
+				rid : id
+			},
+			success : function(data) {
+				//cách 1
+				//$('#cart_quantity').val(data);
+				//cách 2
+				//$("#cart_quantity").append(data);
+				//var row = document.getElementById('cart_quantity');
+				//row.innerText = data; 
+				if (data=="404")
+					alert("Some error occur!");
+				else
+					location.reload();
+				//alert("ok");
+				
+			},
+			error : function(xhr) {
+				alert("Error")
+			}
+		});
+	 };
  function AddtoCart(pid) {	
 		/*  tạo viên amount để Gọi và đếm classname là product */
 		$.ajax({
@@ -671,65 +779,7 @@ function Cancel(id) {
 		});
 	 };
 </script>
-<script src=".${ url }/global/plugins/jquery.min.js"
-	type="text/javascript"></script>
-<script src=".${ url }/global/plugins/jquery-migrate.min.js"
-	type="text/javascript"></script>
-<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
-<script
-	src=".${ url }/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js"
-	type="text/javascript"></script>
-<script src=".${ url }/global/plugins/bootstrap/js/bootstrap.min.js"
-	type="text/javascript"></script>
-<script
-	src=".${ url }/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"
-	type="text/javascript"></script>
-<script
-	src=".${ url }/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js"
-	type="text/javascript"></script>
-<script src=".${ url }/global/plugins/jquery.blockui.min.js"
-	type="text/javascript"></script>
-<script src=".${ url }/global/plugins/jquery.cokie.min.js"
-	type="text/javascript"></script>
-<script src=".${ url }/global/plugins/uniform/jquery.uniform.min.js"
-	type="text/javascript"></script>
-<script
-	src=".${ url }/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js"
-	type="text/javascript"></script>
-<!-- END CORE PLUGINS -->
-<!-- BEGIN PAGE LEVEL PLUGINS -->
-<script type="text/javascript"
-	src=".${ url }/global/plugins/select2/select2.min.js"></script>
-<script type="text/javascript"
-	src=".${ url }/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript"
-	src=".${ url }/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
-<script type="text/javascript"
-	src=".${ url }/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-<script type="text/javascript"
-	src=".${ url }/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-<!-- END PAGE LEVEL PLUGINS -->
-<!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script src=".${ url }/global/scripts/metronic.js"
-	type="text/javascript"></script>
-<script src=".${ url }/admin/layout/scripts/layout.js"
-	type="text/javascript"></script>
-<script src=".${ url }/admin/layout/scripts/quick-sidebar.js"
-	type="text/javascript"></script>
-<script src=".${ url }/admin/layout/scripts/demo.js"
-	type="text/javascript"></script>
-<script src=".${ url }/global/scripts/datatable.js"></script>
-<script src=".${ url }/admin/pages/scripts/ecommerce-orders-view.js"></script>
-<!-- END PAGE LEVEL SCRIPTS -->
-<script>
-	jQuery(document).ready(function() {
-		Metronic.init(); // init metronic core components
-		Layout.init(); // init current layout
-		QuickSidebar.init(); // init quick sidebar
-		Demo.init(); // init demo features
-		EcommerceOrdersView.init();
-	});
-</script>
+
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

@@ -91,8 +91,8 @@
 						</div>
 						<div class="col-md-4 col-sm-4 pull-right">
 							<div class="form-info">
-								<c:if test="${not empty message}">
-									<div class="alert alert-${alert}">${message}</div>
+								<c:if test="${message != null}">
+									<div class="alert alert-infor">${message}</div>
 								</c:if>
 							</div>
 						</div>

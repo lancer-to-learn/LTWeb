@@ -64,4 +64,16 @@ public class ReceiptServiceImpl implements ReceiptService {
 		return r.editReceipt(receipt, status);
 	}
 
+	@Override
+	public List<ReceiptDetailModel> getReceiptBySeller(int sellerId) {
+		// TODO Auto-generated method stub
+		return r.getReceiptBySeller(sellerId);
+	}
+
+	@Override
+	public List<ReceiptDetailModel> getReceiptByAdmin() {
+		// TODO Auto-generated method stub
+		return r.getReceiptByAdmin();
+	}
+
 }

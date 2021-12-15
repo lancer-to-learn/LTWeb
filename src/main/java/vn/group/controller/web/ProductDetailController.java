@@ -33,11 +33,14 @@ public class ProductDetailController extends HttpServlet{
 				ProductModel product = productService.getProductById(id);
 				ProductDetailModel productDetail = productService.getProductDetail(id);
 				List<BrandModel> allBrand = brandService.getAllBrand(); 
+				List<ProductModel> list = productService.getSellestProduct();
+				
 				
 				//Truyền dữ liệu lên views
 				req.setAttribute("allBrand", allBrand);
 				req.setAttribute("product", product);
 				req.setAttribute("productdetail", productDetail );
+				req.setAttribute("list", list );
 
 				//Khởi tạo DAO
 				RequestDispatcher rq = req.getRequestDispatcher("/views/web/productdetail.jsp");

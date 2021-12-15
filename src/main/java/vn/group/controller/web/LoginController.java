@@ -39,10 +39,6 @@ public class LoginController extends HttpServlet {
 					role = "Customer";
 				
 				req.setAttribute("mess", req.getParameter("mess"));
-				req.setAttribute("mess1", req.getParameter("mess1"));
-				req.setAttribute("mess4", req.getParameter("mess4"));
-				req.setAttribute("mess5", req.getParameter("mess5"));
-				req.setAttribute("mess6", req.getParameter("mess6"));
 				req.setAttribute("role", role);
 				RequestDispatcher rq = req.getRequestDispatcher("/views/login/myaccount.jsp");
 				rq.forward(req, resp);

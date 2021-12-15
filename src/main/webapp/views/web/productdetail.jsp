@@ -20,22 +20,16 @@
 
             <div class="sidebar-products clearfix">
               <h2>Bestsellers</h2>
+              <c:forEach items="${ list }" var="item">
               <div class="item">
-                <a href="shop-item.html"><img src="${ url }/frontend/pages/img/products/k1.jpg" alt="Some Shoes in Animal with Cut Out"></a>
-                <h3><a href="shop-item.html">Some Shoes in Animal with Cut Out</a></h3>
-                <div class="price">$31.00</div>
+                <a href="productdetail?${ item.pId }"><img src="${ item.pImage }" alt="${ item.pName }"></a>
+                <div class="sticker sticker-sale"></div>
+                <h3><a href="productdetail?${ item.pId }">${ item.pName }</a></h3>
+                <div class="price">${ item.pPrice }</div>
+                
               </div>
-              <div class="item">
-                <a href="shop-item.html"><img src="${ url }/frontend/pages/img/products/k4.jpg" alt="Some Shoes in Animal with Cut Out"></a>
-                <h3><a href="shop-item.html">Some Shoes in Animal with Cut Out</a></h3>
-                <div class="price">$23.00</div>
-              </div>
-              <div class="item">
-                <a href="shop-item.html"><img src="${ url }/frontend/pages/img/products/k3.jpg" alt="Some Shoes in Animal with Cut Out"></a>
-                <h3><a href="shop-item.html">Some Shoes in Animal with Cut Out</a></h3>
-                <div class="price">$86.00</div>
-              </div>
-            </div>
+              </c:forEach>
+             </div>
           </div>
           <!-- END SIDEBAR -->
 
@@ -73,7 +67,7 @@
                 <div class="product-page-content">
                   <ul id="myTab" class="nav nav-tabs">
                     <li><a href="#Description" data-toggle="tab">Description</a></li>
-                    <li><a class="active" href="#Information" data-toggle="tab">Information</a></li>
+                    <li class="active"><a  href="#Information" data-toggle="tab">Information</a></li>
                   </ul>
                   <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade" id="Description">

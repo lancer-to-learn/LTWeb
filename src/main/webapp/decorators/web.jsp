@@ -191,8 +191,6 @@
 		type="text/javascript"></script>
 	<script type="text/javascript">
 		jQuery(document).ready(function() {
-			Layout.init();
-			Layout.initOWL();
 			RevosliderInit.initRevoSlider();
 			Layout.initTwitter();
 			Layout.initFixHeaderWithPreHeader(); /* Switch On Header Fixing (only if you have pre-header) */
@@ -229,8 +227,20 @@
 		type="text/javascript"></script>
 	<!-- LayerSlider script files -->
 	<script src="${ url }/frontend/pages/scripts/layerslider-init.js"
-	
 		type="text/javascript"></script>
+		<script src="${ url }/admin/pages/scripts/table-advanced.js"></script>
+	<script src="${ url }/global/scripts/datatable.js"></script>
+		<script src="${ url }/admin/pages/scripts/ecommerce-products.js"></script>
+		<script type="text/javascript"
+		src="${ url }/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript"
+		src="${ url }/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+	<script type="text/javascript"
+		src="${ url }/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js"></script>
+	<script type="text/javascript"
+		src="${ url }/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js"></script>
+	<script type="text/javascript"
+		src="${ url }/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 	<!-- END LayerSlider -->
 	<script type="text/javascript">
 		jQuery(document).ready(function() {
@@ -240,7 +250,10 @@
 			Layout.initImageZoom();
 			Layout.initTouchspin();
 			Layout.initTwitter();
+			Demo.init();
+			EcommerceProducts.init();
 			EcommerceOrdersView.init();
+			TableAdvanced.init();
 		});
 	</script>
 </body>

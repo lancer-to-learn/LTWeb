@@ -179,18 +179,19 @@
 		$.ajax({
 			url : "/Laptop/ship",
 			type : "get", //send it through get method
+			dataType: "text",
 			data : ({
 				cityName : city,
 				total: tt
 			}),
-			success : function(data) {
+			success : function(res) {
 				//cách 1
 				//$('#totalPay').val(data);
 				//alert("ok");
 				//cách 2
 				var row = document.getElementById('totalPay');
-				row.innerText = data.value;
-				alert("ok");
+				row.innerText = res.total;
+				window.alert(res.total)
 				
 			},
 			error : function(xhr) {

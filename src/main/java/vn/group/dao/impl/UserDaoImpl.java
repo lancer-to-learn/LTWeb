@@ -35,7 +35,7 @@ public class UserDaoImpl implements UserDao{
 	}
 	@Override
 	public void addUser(AccountModel acc) {
-		String sql = "INSERT INTO Account(username, password, role) VALUES (?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO Account(username, password, phone, email, role, image) VALUES (?,?,?,?,?,?)";
 		try {
 			conn = new DBConnect().getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -44,7 +44,7 @@ public class UserDaoImpl implements UserDao{
 			ps.setString(3, acc.getPhone());
 			ps.setString(4, acc.getEmail());
 			ps.setInt(5, acc.getRole());
-			ps.setString(4, acc.getImage());
+			ps.setString(6, acc.getImage());
 			ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -149,5 +149,19 @@ public class UserDaoImpl implements UserDao{
 		}
 		
 	}
+	@Override
+	public void changeAvatar(AccountModel acc) {
+		String sql = "Update Account set image=? where id=?;";
+		try {
+			conn = new DBConnect().getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, acc.getImage());
+			ps.setInt(2, acc.getId());
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 }

@@ -3,7 +3,8 @@
 <%@include file="/common/taglib.jsp"%>
 <div class="clearfix"></div>
 
-	<%@include file = "/common/admin/sidebar.jsp" %> 
+	<c:if test="${ sessionScope.acc.getRole()==1 }"><li><%@include file = "/common/admin/sidebar.jsp" %></li></c:if>
+	  <c:if test="${ sessionScope.acc.getRole()==2 }"><li><%@include file = "/common/seller/sidebar.jsp" %></li></c:if>min/sidebar.jsp" %> 
 
 
 	<!-- BEGIN CONTENT -->

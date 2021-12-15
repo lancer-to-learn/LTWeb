@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
 	
-	<%@include file = "/common/admin/sidebar.jsp" %> 
+	<c:if test="${ sessionScope.acc.getRole()==1 }"><li><%@include file = "/common/admin/sidebar.jsp" %></li></c:if>
+	  <c:if test="${ sessionScope.acc.getRole()==2 }"><li><%@include file = "/common/seller/sidebar.jsp" %></li></c:if>
 		
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">

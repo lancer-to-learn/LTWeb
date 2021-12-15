@@ -38,10 +38,10 @@ public class ReceiptDaoImpl implements ReceiptDao {
 			ps.setFloat(4, receipt.getPrice());
 			ps.setString(5, receipt.getStatus());
 			ps.setInt(6, receipt.getCity().getId());
-
-			rs = ps.executeQuery();
-
+			if (ps.execute())
+				return true;
 			return true;
+			
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -79,8 +79,7 @@ public class ReceiptDaoImpl implements ReceiptDao {
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, receipt.getUser().getId());
 
-			rs = ps.executeQuery();
-
+			ps.execute();
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -200,15 +199,65 @@ public class ReceiptDaoImpl implements ReceiptDao {
 			ps = conn.prepareStatement(sql);
 			
 			ps.setString(1, status);
-			ps.setInt(2, receipt.getReceipt().getrId());
+			ps.setInt(2, receipt.getRdId());
 
-			rs = ps.executeQuery();
+			return ps.execute();
 
-			return true;
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 		return false;
+	}
+
+	@Override
+	public List<ReceiptDetailModel> getReceiptBySeller(int sellerId) {
+		ReceiptDaoImpl re = new ReceiptDaoImpl();
+		ProductService pro = new ProductServiceImpl();
+		CityService city = new CityServiceImpl();
+		List<ReceiptDetailModel> list = new ArrayList<ReceiptDetailModel>();
+		String sql = "select * from (select ReceiptDetail.id, receiptId, productId, quantity, unitPrice, status, city\r\n" + 
+				"from ReceiptDetail, Product where ReceiptDetail.productId=Product.id and Product.sellerId=?) \r\n" + 
+				"as Q inner join Receipt on Q.receiptId=Receipt.id order by (Receipt.createDate) desc;";
+		
+		try {
+			conn = new DBConnect().getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, sellerId);
+			rs = ps.executeQuery();		
+			while (rs.next()) {
+				ReceiptDetailModel rec = new ReceiptDetailModel(rs.getInt(1), re.getReceiptById(rs.getInt(2)),
+						pro.getProductById(rs.getInt(3)), rs.getInt(4), rs.getFloat(5), rs.getString(6), city.getCity(rs.getInt(7)));
+				list.add(rec);
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return list;
+	}
+
+	@Override
+	public List<ReceiptDetailModel> getReceiptByAdmin() {
+		ReceiptDaoImpl re = new ReceiptDaoImpl();
+		ProductService pro = new ProductServiceImpl();
+		CityService city = new CityServiceImpl();
+		List<ReceiptDetailModel> list = new ArrayList<ReceiptDetailModel>();
+		String sql = "select * from (select ReceiptDetail.id, receiptId, productId, quantity, unitPrice, status, city\r\n" + 
+				"from ReceiptDetail, Product, Account where ReceiptDetail.productId=Product.id and Product.sellerId=Account.id and Account.role=1) \r\n" + 
+				"as Q inner join Receipt on Q.receiptId=Receipt.id order by (Receipt.createDate) desc;";
+		
+		try {
+			conn = new DBConnect().getConnection();
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();		
+			while (rs.next()) {
+				ReceiptDetailModel rec = new ReceiptDetailModel(rs.getInt(1), re.getReceiptById(rs.getInt(2)),
+						pro.getProductById(rs.getInt(3)), rs.getInt(4), rs.getFloat(5), rs.getString(6), city.getCity(rs.getInt(7)));
+				list.add(rec);
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return list;
 	}
 
 

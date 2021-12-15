@@ -75,8 +75,8 @@
 						<!-- SIDEBAR BUTTONS -->
 						<c:if test="${ role == 'Customer' }">
 							<div class="profile-userbuttons">
-								<button type="button" class="btn btn-circle green-haze btn-sm">Register
-									For Seller</button>
+								<a type="button" class="btn btn-circle green-haze btn-sm" href="user-to-seller">Register
+									For Seller</a>
 							</div>
 							<div class="profile-usermenu">
 								<ul class="nav">
@@ -159,14 +159,14 @@
 													${mess2}</div>
 											</c:if>
 
-											<form action="user-edit-image" role="form">
+											<form action="user-image" method="post" role="form" enctype="multipart/form-data">
 												<div class="form-group">
 													<div class="fileinput fileinput-new"
 														data-provides="fileinput">
 														<div class="fileinput-new thumbnail"
 															style="width: 200px; height: 150px;">
 															<img
-																src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image"
+																src="${ sessionScope.acc.image }"
 																alt="" />
 														</div>
 														<div class="fileinput-preview fileinput-exists thumbnail"

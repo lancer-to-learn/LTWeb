@@ -15,4 +15,6 @@ public interface ReceiptService {
 	int getQuantityReceipt(List<ReceiptDetailModel> listReceipt, String status);
 	float getTotalMoney(List<ReceiptDetailModel> listReceipt, String status);
 	Boolean editReceipt(ReceiptDetailModel receipt, String status);
+	List<ReceiptDetailModel> getReceiptBySeller(int sellerId);
+	List<ReceiptDetailModel> getReceiptByAdmin();
 }

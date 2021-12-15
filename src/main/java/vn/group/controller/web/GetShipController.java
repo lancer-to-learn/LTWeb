@@ -35,5 +35,6 @@ public class GetShipController  extends HttpServlet{
 		}
 		PrintWriter out = resp.getWriter();
         out.print(total);
+        System.out.print(total);
 	}
 }

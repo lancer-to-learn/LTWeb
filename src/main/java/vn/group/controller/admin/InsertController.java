@@ -152,6 +152,7 @@ public class InsertController extends HttpServlet{
 					product.setSeller(account);
 				}
 				productservice.insret(product);
+				
 				product = productservice.getLastestProduct();
 				
 				for (FileItem item : items) {
@@ -189,7 +190,10 @@ public class InsertController extends HttpServlet{
 					detail.setProduct(product);
 				}
 				productservice.insertDetail(detail);
-				resp.sendRedirect(req.getContextPath() + "/admin/list-product");	
+				if (product.getSeller().getRole()==1)
+					resp.sendRedirect(req.getContextPath() + "/admin/list-product");
+				else
+					resp.sendRedirect(req.getContextPath() + "/seller/list-product");
 			} catch (FileUploadException e) {
 				e.printStackTrace();
 			} catch (Exception e) {

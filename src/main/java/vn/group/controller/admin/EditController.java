@@ -241,7 +241,10 @@ public class EditController extends HttpServlet {
 					detail.setProduct(product);
 				}
 				productservice.editDetail(detail);
-				resp.sendRedirect(req.getContextPath() + "/admin/list-product");	
+				if (product.getSeller().getRole()==1)
+					resp.sendRedirect(req.getContextPath() + "/admin/list-product");
+				else
+					resp.sendRedirect(req.getContextPath() + "/seller/list-product");	
 			} catch (FileUploadException e) {
 				e.printStackTrace();
 			} catch (Exception e) {

@@ -45,8 +45,10 @@ public class CartUpdateController extends HttpServlet {
 				int cart_quantity = (int) ob;
 				cart_quantity -= item.getQuantity();
 				item.setQuantity(quantity);
+				
 				cart_quantity += item.getQuantity();
 				httpSession.setAttribute("cart_quantity", cart_quantity);
+				httpSession.setAttribute("cart", map);
 				PrintWriter out = resp.getWriter();
 		        out.print(cart_quantity);
 			}

@@ -1,4 +1,4 @@
-package vn.group.controller.admin;
+/*package vn.group.controller.admin;
 
 import java.io.IOException;
 
@@ -20,3 +20,4 @@ public class OrderContronller extends HttpServlet{
 	}
 
 }
+*/

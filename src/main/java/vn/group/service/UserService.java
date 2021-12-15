@@ -11,4 +11,5 @@ public interface UserService {
 	void editUser(AccountModel acc);
 	void changPassword(AccountModel acc);
 	void changToSeller(AccountModel acc);
+	void changeAvatar(AccountModel acc);
 }

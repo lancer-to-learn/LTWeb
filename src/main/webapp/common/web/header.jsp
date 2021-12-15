@@ -79,7 +79,9 @@
             <li><a href="product?bid=0">Product</a></li>
             <c:if test="${ sessionScope.acc != null }">
             <li><a href="order">Orders</a></li>
+           
             </c:if>
+             <c:if test="${ sessionScope.acc.getRole()==2 }"><li><a href="seller">Seller Chanel</a></li></c:if>
             <li class="dropdown">
               <a href="cart-item">
                 Cart     

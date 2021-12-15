@@ -1,17 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+t<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
 <div class="page-container">
 
-	<%@include file = "/common/admin/sidebar.jsp" %> 
-
+	<c:if test="${ sessionScope.acc.getRole()==1 }"><li><%@include file = "/common/admin/sidebar.jsp" %></li></c:if>
+	  <c:if test="${ sessionScope.acc.getRole()==2 }"><li><%@include file = "/common/seller/sidebar.jsp" %></li></c:if>
 	<!-- BEGIN CONTENT -->
 	<div class="page-content-wrapper">
 		<div class="page-content">
 			<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
-			<div class="modal fade"id="portlet-config" tabindex="-1"
+			<div class="modal fade" id="portlet-config" tabindex="-1"
 				role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div clodal-dialog">
+				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal"
@@ -173,20 +173,28 @@
 								</div>
 							</div>
 						</div>
+
 						<div class="portlet-body">
 							<div class="tabbable">
 								<ul class="nav nav-tabs nav-tabs-lg">
 									<li class="active"><a href="#tab_1" data-toggle="tab">
-							All </a></li>
+											All <span class="badge badge-success"> ${ quantity.allQuantity }
+										</span>
+									</a></li>
 									<li><a href="#tab_2" data-toggle="tab"> Sold <span
-											class="badge badge-success"> 4 </span>
+											class="badge badge-success"> ${ quantity.soldQuantity }
+										</span>
 									</a></li>
-									<li><a href="#tab_3" data-toggle="tab"> Pending </a>
-									</li>
+									<li><a href="#tab_3" data-toggle="tab"> Pending <span
+											class="badge badge-danger"> ${ quantity.waitingQuantity }
+										</span></a></li>
 									<li><a href="#tab_4" data-toggle="tab"> Shipping <span
-											class="badge badge-danger"> 2 </span>
+											class="badge badge-danger"> ${ quantity.shippingQuantity }
+										</span>
 									</a></li>
-									<li><a href="#tab_5" data-toggle="tab"> Canceled </a></li>
+									<li><a href="#tab_5" data-toggle="tab"> Canceled <span
+											class="badge badge-danger"> ${ quantity.canceledQuantity }
+										</span></a></li>
 								</ul>
 								<div class="tab-content">
 									<div class="tab-pane active" id="tab_1">
@@ -204,38 +212,85 @@
 														</div>
 													</div>
 													<div class="portlet-body">
-														<div class="table-responsive">
+														<div class="table-container">
 															<table
 																class="table table-striped table-bordered table-hover"
 																id="datatable_products">
 																<thead>
 																	<tr role="row" class="heading">
 																		<th width="5%">ID</th>
-																		<th width="10%">Customer</th>
+																		<th width="8%">Customer</th>
 																		<th width="10%">Address</th>
 																		<th width="15%">Product&nbsp;Name</th>
-																		<th width="10%">Price</th>
+																		<th width="5%">Price</th>
 																		<th width="5%">Quantity</th>
 																		<th width="10%">Total</th>
+																		<th width="10%">Create Date</th>
 																		<th width="10%">Product Status</th>
-																		<th width="15%">Actions</th>
+																		<th width="10%">Receipt Status</th>
+
 																	</tr>
-																	<tr role="row" class="filter">
-																		<td>1</td>
-																		<td>Jonh</td>
-																		<td>Ha Noi</td>
-																		<td>MacBook Air</td>
-																		<td>1000$</td>
-																		<td>1</td>
-																		<td>1000$</td>
-																		<td>
-																			<span class="label label-sm label-success">Available </span>
-																		</td>
-																		
-																	</tr>
+
+
 																</thead>
 																<tbody>
+																	<c:forEach items="${ listDetail }" var="re">
+																		<tr role="row" class="filter">
+																			<td>${ re.rdId }</td>
+																			<td>${ re.receipt.user.user }</td>
+																			<td>${ re.city.name }</td>
+
+																			<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
+																			<%-- <td><a
+																		href="productdetail?pid=${ re.product.pId }"
+																		class="fancybox-button" data-rel="fancybox-button">
+																			<img class="img-responsive"
+																			src="${ re.product.pImage }"
+																			alt="${ re.product.pName }"
+																			style="width: 50px; height: 50px;">
+																	</a></td> --%>
+																			<td>${ re.price }</td>
+																			<td>${ re.quantity }</td>
+																			<td>${ re.price * re.quantity}</td>
+																			<td>${ re.receipt.date }</td>
+
+																			<c:if test="${ re.product.pAmount>=re.quantity }">
+																				<td><span class="label label-sm label-success">
+																						Available </span></td>
+																			</c:if>
+																			<c:if test="${ re.product.pAmount<re.quantity }">
+																				<td><span class="label label-sm label-danger">
+																						Unavailable </span></td>
+																			</c:if>
+
+																			<c:if test="${re.status=='Sold' }">
+																				<td>Sold</td>
+																			</c:if>
+																			<c:if test="${re.status=='Waiting' }">
+																				<td>Waiting for Accept</td>
+																			</c:if>
+																			<c:if test="${re.status=='Shipping' }">
+																				<td>Shipping</td>
+																			</c:if>
+																			<c:if test="${re.status=='Confirm' }">
+																				<td>Confirm</td>
+																			</c:if>
+																			<c:if test="${re.status=='Canceled' }">
+																				<td>Canceled</td>
+																			</c:if>
+																			<%-- <c:if
+																				test="${re.status=='Waiting' &&  re.product.pAmount>=re.quantity }">
+																				<td><div class="margin-bottom-5">
+																						<button onclick="Cancel(${ re.product.pId })"
+																							class="btn btn-sm red">
+																							<i class="fa"></i> Cancel
+																						</button>
+																					</div></td>
+																			</c:if> --%>
+																		</tr>
+																	</c:forEach>
 																</tbody>
+
 															</table>
 														</div>
 													</div>
@@ -248,23 +303,24 @@
 												<div class="well">
 													<div class="row static-info align-reverse">
 														<div class="col-md-8 name">Total Order:</div>
-														<div class="col-md-3 value">1</div>
+														<div class="col-md-3 value">${ quantity.allQuantity }</div>
 													</div>
 													<div class="row static-info align-reverse">
-														<div class="col-md-8 name">Total Money</div>
-														<div class="col-md-3 value">$40.50</div>
+														<div class="col-md-8 name">Total Money:</div>
+														<div class="col-md-3 value">${ total.allTotal }$</div>
 													</div>
 												</div>
 											</div>
 										</div>
+
 									</div>
-									<div class="tab-pane" id="tab_2">
-									<div class="row">
+									<div class="tab-pane active" id="tab_2">
+										<div class="row">
 											<div class="col-md-12 col-sm-12">
 												<div class="portlet grey-cascade box">
 													<div class="portlet-title">
 														<div class="caption">
-															<i class="fa fa-cogs"></i>Sold Oders
+															<i class="fa fa-cogs"></i>Sold Orders
 														</div>
 														<div class="actions">
 															<a href="#" class="btn btn-default btn-sm"> <i
@@ -273,61 +329,247 @@
 														</div>
 													</div>
 													<div class="portlet-body">
-														<div class="table-responsive">
+														<div class="table-container">
 															<table
 																class="table table-striped table-bordered table-hover"
 																id="datatable_products">
 																<thead>
 																	<tr role="row" class="heading">
 																		<th width="5%">ID</th>
-																		<th width="10%">Customer</th>
+																		<th width="8%">Customer</th>
 																		<th width="10%">Address</th>
-																		<th width="15%">Product&nbsp;Name</th>
-																		<th width="10%">Price</th>
+																		<th width="15%">ProducName</th>
+																		<th width="10%">Product&nbsp;Image</th>
+																		<th width="5%">Price</th>
 																		<th width="5%">Quantity</th>
 																		<th width="10%">Total</th>
+																		<th width="10%">Create Date</th>
 																		<th width="10%">Product Status</th>
+
+
 																	</tr>
-																	<tr role="row" class="filter">
-																		<td>1</td>
-																		<td>Jonh</td>
-																		<td>Ha Noi</td>
-																		<td>MacBook Air</td>
-																		<td>1000$</td>
-																		<td>1</td>
-																		<td>1000$</td>
-																		<td>
-																			<span class="label label-sm label-success">Available </span>
-																		</td>
-																		
-																	</tr>
+
+
 																</thead>
 																<tbody>
+																	<c:forEach items="${ listDetail }" var="re">
+																		<c:if test="${ re.status=='Sold' }">
+																			<tr role="row" class="filter">
+																				<td>${ re.rdId }</td>
+																				<td>${ re.receipt.user.user }</td>
+																				<td>${ re.city.name }</td>
+
+																				<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
+																				<td><a
+																					href="productdetail?pid=${ re.product.pId }"
+																					class="fancybox-button" data-rel="fancybox-button">
+																						<img class="img-responsive"
+																						src="${ re.product.pImage }"
+																						alt="${ re.product.pName }"
+																						style="width: 50px; height: 50px;">
+																				</a></td>
+																				<td>${ re.price }</td>
+																				<td>${ re.quantity }</td>
+																				<td>${ re.price * re.quantity}</td>
+																				<td>${ re.receipt.date }</td>
+
+																				<c:if test="${ re.product.pAmount>=re.quantity }">
+																					<td><span class="label label-sm label-success">
+																							Available </span></td>
+																				</c:if>
+																				<c:if test="${ re.product.pAmount<re.quantity }">
+																					<td><span class="label label-sm label-danger">
+																							Unavailable </span></td>
+																				</c:if>
+
+
+																				<%-- <c:if
+																				test="${re.status=='Waiting' &&  re.product.pAmount>=re.quantity }">
+																				<td><div class="margin-bottom-5">
+																						<button onclick="Cancel(${ re.product.pId })"
+																							class="btn btn-sm red">
+																							<i class="fa"></i> Cancel
+																						</button>
+																					</div></td>
+																			</c:if> --%>
+																			</tr>
+																		</c:if>
+																	</c:forEach>
 																</tbody>
+
 															</table>
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
-									<div class="row">
+										<div class="row">
 											<div class="col-md-6"></div>
 											<div class="col-md-6">
 												<div class="well">
 													<div class="row static-info align-reverse">
 														<div class="col-md-8 name">Total Order:</div>
-														<div class="col-md-3 value">1</div>
+														<div class="col-md-3 value">${ quantity.soldQuantity }</div>
 													</div>
 													<div class="row static-info align-reverse">
-														<div class="col-md-8 name">Total Money</div>
-														<div class="col-md-3 value">$40.50</div>
+														<div class="col-md-8 name">Total Money:</div>
+														<div class="col-md-3 value">${ total.soldTotal }$</div>
 													</div>
 												</div>
 											</div>
 										</div>
-
 									</div>
-									<div class="tab-pane" id="tab_3">
+									
+									<div class="tab-pane active" id="tab_4">
+										<div class="row">
+											<div class="col-md-12 col-sm-12">
+												<div class="portlet grey-cascade box">
+													<div class="portlet-title">
+														<div class="caption">
+															<i class="fa fa-cogs"></i>Shipping Orders
+														</div>
+														<div class="actions">
+															<a href="#" class="btn btn-default btn-sm"> <i
+																class="fa fa-pencil"></i> Edit
+															</a>
+														</div>
+													</div>
+													<div class="portlet-body">
+														<div class="table-container">
+															<table
+																class="table table-striped table-bordered table-hover"
+																id="datatable_products">
+																<thead>
+																	<tr role="row" class="heading">
+																		<th width="5%">ID</th>
+																		<th width="8%">Customer</th>
+																		<th width="10%">Address</th>
+																		<th width="15%">Product&nbsp;Name</th>
+																		<th width="10%">Product&nbsp;Image</th>
+																		<th width="5%">Price</th>
+																		<th width="5%">Quantity</th>
+																		<th width="10%">Total</th>
+																		<th width="10%">Create Date</th>
+																		<th width="10%">Product Status</th>
+																		<th width="8%">Receipt Status</th>
+
+																	</tr>
+
+
+																</thead>
+																<tbody>
+																	<c:forEach items="${ listDetail }" var="re">
+																		<c:if test="${ re.status=='Shipping' }">
+																			<tr role="row" class="filter">
+																				<td>${ re.rdId }</td>
+																				<td>${ re.receipt.user.user }</td>
+																				<td>${ re.city.name }</td>
+
+																				<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
+																				<td><a
+																					href="productdetail?pid=${ re.product.pId }"
+																					class="fancybox-button" data-rel="fancybox-button">
+																						<img class="img-responsive"
+																						src="${ re.product.pImage }"
+																						alt="${ re.product.pName }"
+																						style="width: 50px; height: 50px;">
+																				</a></td>
+																				<td>${ re.price }</td>
+																				<td>${ re.quantity }</td>
+																				<td>${ re.price * re.quantity}</td>
+																				<td>${ re.receipt.date }</td>
+
+																				<c:if test="${ re.product.pAmount>=re.quantity }">
+																					<td><span class="label label-sm label-success">
+																							Available </span></td>
+																				</c:if>
+																				<c:if test="${ re.product.pAmount<re.quantity }">
+																					<td><span class="label label-sm label-danger">
+																							Unavailable </span></td>
+																				</c:if>
+																				<td>Shipping</td>
+
+																				<%-- <c:if
+																				test="${re.status=='Waiting' &&  re.product.pAmount>=re.quantity }">
+																				<td><div class="margin-bottom-5">
+																						<button onclick="Cancel(${ re.product.pId })"
+																							class="btn btn-sm red">
+																							<i class="fa"></i> Cancel
+																						</button>
+																					</div></td>
+																			</c:if> --%>
+																			</tr>
+																		</c:if>
+																	</c:forEach>
+																	<c:forEach items="${ listDetail }" var="re">
+																		<c:if test="${ re.status=='Confirm' }">
+																			<tr role="row" class="filter">
+																				<td>${ re.rdId }</td>
+																				<td>${ re.receipt.user.user }</td>
+																				<td>${ re.city.name }</td>
+
+																				<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
+																				<td><a
+																					href="productdetail?pid=${ re.product.pId }"
+																					class="fancybox-button" data-rel="fancybox-button">
+																						<img class="img-responsive"
+																						src="${ re.product.pImage }"
+																						alt="${ re.product.pName }"
+																						style="width: 50px; height: 50px;">
+																				</a></td>
+																				<td>${ re.price }</td>
+																				<td>${ re.quantity }</td>
+																				<td>${ re.price * re.quantity}</td>
+																				<td>${ re.receipt.date }</td>
+
+																				<c:if test="${ re.product.pAmount>=re.quantity }">
+																					<td><span class="label label-sm label-success">
+																							Available </span></td>
+																				</c:if>
+																				<c:if test="${ re.product.pAmount<re.quantity }">
+																					<td><span class="label label-sm label-danger">
+																							Unavailable </span></td>
+																				</c:if>
+																				<td>Waiting for Receive</td>
+
+
+																				<%-- <c:if
+																				test="${re.status=='Waiting' &&  re.product.pAmount>=re.quantity }">
+																				<td><div class="margin-bottom-5">
+																						<button onclick="Cancel(${ re.product.pId })"
+																							class="btn btn-sm red">
+																							<i class="fa"></i> Cancel
+																						</button>
+																					</div></td>
+																			</c:if> --%>
+																			</tr>
+																		</c:if>
+																	</c:forEach>
+																</tbody>
+
+															</table>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-6"></div>
+											<div class="col-md-6">
+												<div class="well">
+													<div class="row static-info align-reverse">
+														<div class="col-md-8 name">Total Order:</div>
+														<div class="col-md-3 value">${ quantity.shippingQuantity }</div>
+													</div>
+													<div class="row static-info align-reverse">
+														<div class="col-md-8 name">Total Money:</div>
+														<div class="col-md-3 value">${ total.shippingTotal }$</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane active" id="tab_3">
 										<div class="row">
 											<div class="col-md-12 col-sm-12">
 												<div class="portlet grey-cascade box">
@@ -342,48 +584,80 @@
 														</div>
 													</div>
 													<div class="portlet-body">
-														<div class="table-responsive">
+														<div class="table-container">
 															<table
 																class="table table-striped table-bordered table-hover"
 																id="datatable_products">
 																<thead>
 																	<tr role="row" class="heading">
 																		<th width="5%">ID</th>
-																		<th width="10%">Customer</th>
+																		<th width="8%">Customer</th>
 																		<th width="10%">Address</th>
 																		<th width="15%">Product&nbsp;Name</th>
-																		<th width="10%">Price</th>
+																		<th width="10%">Product&nbsp;Image</th>
+																		<th width="5%">Price</th>
 																		<th width="5%">Quantity</th>
 																		<th width="10%">Total</th>
+																		<th width="10%">Create Date</th>
 																		<th width="10%">Product Status</th>
-																		<th width="15%">Actions</th>
+																		<th width="10%">Action</th>
 																	</tr>
-																	<tr role="row" class="filter">
-																		<td>1</td>
-																		<td>Jonh</td>
-																		<td>Ha Noi</td>
-																		<td>MacBook Air</td>
-																		<td>1000$</td>
-																		<td>1</td>
-																		<td>1000$</td>
-																		<td>
-																			<span class="label label-sm label-success">Available </span>
-																		</td>
-																		<td>
-																			<div class="margin-bottom-5">
-																				<button
-																					class="btn btn-sm yellow filter-submit margin-bottom">
-																					<i class="fa fa-search"></i> Accept
-																				</button>
-																				<button class="btn btn-sm red filter-cancel">
-																					<i class="fa fa-times"></i> Cancel
-																				</button>
-																			</div>
-																		</td>
-																	</tr>
+
+
 																</thead>
 																<tbody>
+																	<c:forEach items="${ listDetail }" var="re">
+																		<c:if test="${ re.status=='Waiting' }">
+																			<tr role="row" class="filter">
+																				<td>${ re.rdId }</td>
+																				<td>${ re.receipt.user.user }</td>
+																				<td>${ re.city.name }</td>
+
+																				<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
+																				<td><a
+																					href="productdetail?pid=${ re.product.pId }"
+																					class="fancybox-button" data-rel="fancybox-button">
+																						<img class="img-responsive"
+																						src="${ re.product.pImage }"
+																						alt="${ re.product.pName }"
+																						style="width: 50px; height: 50px;">
+																				</a></td>
+																				<td>${ re.price }</td>
+																				<td>${ re.quantity }</td>
+																				<td>${ re.price * re.quantity}</td>
+																				<td>${ re.receipt.date }</td>
+
+																				<c:if test="${ re.product.pAmount>=re.quantity }">
+																					<td><span class="label label-sm label-success">
+																							Available </span></td>
+																				</c:if>
+																				<c:if test="${ re.product.pAmount<re.quantity }">
+																					<td><span class="label label-sm label-danger">
+																							Unavailable </span></td>
+																				</c:if>
+
+																				<c:if test="${re.product.pAmount>=re.quantity }">
+																					<td><div class="margin-bottom-5">
+																							<button onclick="Accept(${ re.rdId })"
+																								class="btn btn-sm green">
+																								<i class="fa"></i> Accept
+																							</button>
+																						</div></td>
+																				</c:if>
+
+																				<c:if test="${re.product.pAmount<re.quantity }">
+																					<td><div class="margin-bottom-5">
+																							<button onclick="Cancel(${ re.rdId })"
+																								class="btn btn-sm red">
+																								<i class="fa"></i> Cancel
+																							</button>
+																						</div></td>
+																				</c:if>
+																			</tr>
+																		</c:if>
+																	</c:forEach>
 																</tbody>
+
 															</table>
 														</div>
 													</div>
@@ -396,19 +670,19 @@
 												<div class="well">
 													<div class="row static-info align-reverse">
 														<div class="col-md-8 name">Total Order:</div>
-														<div class="col-md-3 value">1</div>
+														<div class="col-md-3 value">${ quantity.waitingQuantity }</div>
 													</div>
 													<div class="row static-info align-reverse">
-														<div class="col-md-8 name">Total Money</div>
-														<div class="col-md-3 value">$40.50</div>
+														<div class="col-md-8 name">Total Money:</div>
+														<div class="col-md-3 value">${ total.waitingTotal }
+															$</div>
 													</div>
 												</div>
 											</div>
 										</div>
-									
 									</div>
-									<div class="tab-pane" id="tab_4">
-									<div class="row">
+									<div class="tab-pane active" id="tab_5">
+										<div class="row">
 											<div class="col-md-12 col-sm-12">
 												<div class="portlet grey-cascade box">
 													<div class="portlet-title">
@@ -422,38 +696,74 @@
 														</div>
 													</div>
 													<div class="portlet-body">
-														<div class="table-responsive">
+														<div class="table-container">
 															<table
 																class="table table-striped table-bordered table-hover"
 																id="datatable_products">
 																<thead>
 																	<tr role="row" class="heading">
 																		<th width="5%">ID</th>
-																		<th width="10%">Customer</th>
+																		<th width="8%">Customer</th>
 																		<th width="10%">Address</th>
 																		<th width="15%">Product&nbsp;Name</th>
-																		<th width="10%">Price</th>
+																		<th width="10%">Product&nbsp;Image</th>
+																		<th width="5%">Price</th>
 																		<th width="5%">Quantity</th>
 																		<th width="10%">Total</th>
+																		<th width="10%">Create Date</th>
 																		<th width="10%">Product Status</th>
-																		<th width="15%">Ship Status</th>
+
+
 																	</tr>
-																	<tr role="row" class="filter">
-																		<td>1</td>
-																		<td>Jonh</td>
-																		<td>Ha Noi</td>
-																		<td>MacBook Air</td>
-																		<td>1000$</td>
-																		<td>1</td>
-																		<td>1000$</td>
-																		<td>
-																			<span class="label label-sm label-success">Available </span>
-																		</td>
-																		<td>Còn X ngày</td>
-																	</tr>
+
+
 																</thead>
 																<tbody>
+																	<c:forEach items="${ listDetail }" var="re">
+																		<c:if test="${ re.status=='Canceled' }">
+																			<tr role="row" class="filter">
+																				<td>${ re.rdId }</td>
+																				<td>${ re.receipt.user.user }</td>
+																				<td>${ re.city.name }</td>
+
+																				<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
+																				<td><a
+																					href="productdetail?pid=${ re.product.pId }"
+																					class="fancybox-button" data-rel="fancybox-button">
+																						<img class="img-responsive"
+																						src="${ re.product.pImage }"
+																						alt="${ re.product.pName }"
+																						style="width: 50px; height: 50px;">
+																				</a></td>
+																				<td>${ re.price }</td>
+																				<td>${ re.quantity }</td>
+																				<td>${ re.price * re.quantity}</td>
+																				<td>${ re.receipt.date }</td>
+
+																				<c:if test="${ re.product.pAmount>=re.quantity }">
+																					<td><span class="label label-sm label-success">
+																							Available </span></td>
+																				</c:if>
+																				<c:if test="${ re.product.pAmount<re.quantity }">
+																					<td><span class="label label-sm label-danger">
+																							Unavailable </span></td>
+																				</c:if>
+
+
+																				<%-- <c:if
+																				test="${re.status=='Waiting' &&  re.product.pAmount>=re.quantity }">
+																				<td><div class="margin-bottom-5">
+																						<button onclick="Cancel(${ re.product.pId })"
+																							class="btn btn-sm red">
+																							<i class="fa"></i> Cancel
+																						</button>
+																					</div></td>
+																			</c:if> --%>
+																			</tr>
+																		</c:if>
+																	</c:forEach>
 																</tbody>
+
 															</table>
 														</div>
 													</div>
@@ -466,85 +776,17 @@
 												<div class="well">
 													<div class="row static-info align-reverse">
 														<div class="col-md-8 name">Total Order:</div>
-														<div class="col-md-3 value">1</div>
+														<div class="col-md-3 value">${ quantity.canceledQuantity }</div>
 													</div>
 													<div class="row static-info align-reverse">
-														<div class="col-md-8 name">Total Money</div>
-														<div class="col-md-3 value">$40.50</div>
+														<div class="col-md-8 name">Total Money:</div>
+														<div class="col-md-3 value">${ total.canceledTotal }$</div>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-									<div class="tab-pane" id="tab_5">
-									<div class="row">
-											<div class="col-md-12 col-sm-12">
-												<div class="portlet grey-cascade box">
-													<div class="portlet-title">
-														<div class="caption">
-															<i class="fa fa-cogs"></i>Canceled Orders
-														</div>
-														<div class="actions">
-															<a href="#" class="btn btn-default btn-sm"> <i
-																class="fa fa-pencil"></i> Edit
-															</a>
-														</div>
-													</div>
-													<div class="portlet-body">
-														<div class="table-responsive">
-															<table
-																class="table table-striped table-bordered table-hover"
-																id="datatable_products">
-																<thead>
-																	<tr role="row" class="heading">
-																		<th width="5%">ID</th>
-																		<th width="10%">Customer</th>
-																		<th width="10%">Address</th>
-																		<th width="15%">Product&nbsp;Name</th>
-																		<th width="10%">Price</th>
-																		<th width="5%">Quantity</th>
-																		<th width="10%">Total</th>
-																		<th width="10%">Product Status</th>
-																	</tr>
-																	<tr role="row" class="filter">
-																		<td>1</td>
-																		<td>Jonh</td>
-																		<td>Ha Noi</td>
-																		<td>MacBook Air</td>
-																		<td>1000$</td>
-																		<td>1</td>
-																		<td>1000$</td>
-																		<td>
-																			<span class="label label-sm label-success">Available </span>
-																		</td>
-																		
-																	</tr>
-																</thead>
-																<tbody>
-																</tbody>
-															</table>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-md-6"></div>
-											<div class="col-md-6">
-												<div class="well">
-													<div class="row static-info align-reverse">
-														<div class="col-md-8 name">Total Order:</div>
-														<div class="col-md-3 value">1</div>
-													</div>
-													<div class="row static-info align-reverse">
-														<div class="col-md-8 name">Total Money</div>
-														<div class="col-md-3 value">$40.50</div>
-													</div>
-												</div>
-											</div>
-										</div>
 									
-									</div>
 								</div>
 							</div>
 						</div>
@@ -555,4 +797,74 @@
 			<!-- END PAGE CONTENT-->
 		</div>
 	</div>
+	<!-- END CONTENT -->
+
 </div>
+<script>
+	$(document).ready(function() {
+		var table = $('#datatable_products').DataTable({
+			fixedHeader : true
+		});
+	});
+</script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>    
+function Cancel(id) {	
+	/*  tạo viên amount để Gọi và đếm classname là product */
+	if (confirm("Do you want to cancel this order?") == true) {
+	$.ajax({
+		url : "/Laptop/order-canceled",
+		type : "get", //send it through get method
+		data : {
+			rid : id
+		},
+		success : function(data) {
+			//cách 1
+			//$('#cart_quantity').val(data);
+			//cách 2
+			//$("#cart_quantity").append(data);
+			//var row = document.getElementById('cart_quantity');
+			//row.innerText = data; 
+			if (data=="404")
+				alert("Some error occur!");
+			else
+				location.reload();
+			//alert("ok");
+			
+		},
+		error : function(xhr) {
+			alert("Error")
+		}
+	});
+	};
+ };
+ function Accept(id) {	
+		/*  tạo viên amount để Gọi và đếm classname là product */
+		$.ajax({
+			url : "/Laptop/order-accept",
+			type : "get", //send it through get method
+			data : {
+				rid : id
+			},
+			success : function(data) {
+				//cách 1
+				//$('#cart_quantity').val(data);
+				//cách 2
+				//$("#cart_quantity").append(data);
+				//var row = document.getElementById('cart_quantity');
+				//row.innerText = data; 
+				if (data=="404")
+					alert("Some error occur!");
+				else
+					location.reload();
+				//alert("ok");
+				
+			},
+			error : function(xhr) {
+				alert("Error")
+			}
+		});
+	 };
+
+</script>

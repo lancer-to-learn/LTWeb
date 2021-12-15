@@ -35,17 +35,22 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void editUser(AccountModel acc) {
 		// TODO Auto-generated method stub
-		
+		user.editUser(acc);
 	}
 	@Override
 	public void changPassword(AccountModel acc) {
 		// TODO Auto-generated method stub
-		
+		user.changPassword(acc);
 	}
 	@Override
 	public void changToSeller(AccountModel acc) {
 		// TODO Auto-generated method stub
-		
+		user.changToSeller(acc);
+	}
+	@Override
+	public void changeAvatar(AccountModel acc) {
+		// TODO Auto-generated method stub
+		user.changeAvatar(acc);
 	}
 
 }

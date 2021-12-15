@@ -1,12 +1,10 @@
 package vn.group.controller.web;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 //import java.io.PrintWriter;
 import java.io.Serializable;
 //import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,11 +12,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import vn.group.model.BrandModel;
-//import vn.group.model.ProductModel;
-import vn.group.model.ReceiptDetailModel;
 import vn.group.service.BrandService;
 //import vn.group.service.ProductService;
 import vn.group.service.impl.BrandServiceImpl;
