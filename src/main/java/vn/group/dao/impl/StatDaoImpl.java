@@ -118,7 +118,12 @@ public class StatDaoImpl implements StatDao{
 
 	@Override
 	public List<StatModel> getStatByYear(List<StatModel> stat, int year) {
-		// TODO Auto-generated method stub
-		return null;
+		List<StatModel> pros = new ArrayList<StatModel>();
+		for(int i=0;i<stat.size();i++)
+		{
+			if (stat.get(i).getYear() == year)
+				pros.add(stat.get(i));
+		}
+		return pros;
 	}
 }

@@ -64,13 +64,14 @@ public class StatsController extends HttpServlet{
 					account = (AccountModel)user;
 				
 				List<StatModel> stat = statservice.getMonthYearStat(account.getId());
-				stat = statservice.modifYearStat(stat);
 				try {
-				int year = 0; 
-				year = Integer.parseInt(req.getParameter("year"));
+					int year = 0; 
+					year = Integer.parseInt(req.getParameter("year"));
+					stat = statservice.getStatByYear(stat, year);
 				}catch (Exception e) {
 					// TODO: handle exception
 				}
+				stat = statservice.modifYearStat(stat);
 				
 				List<MyColorModel> mycolor = new ArrayList<MyColorModel>();
 				for (int i=0; i<stat.size();i++)

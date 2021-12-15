@@ -54,7 +54,7 @@
 							</table>
 						</div>
 						<div class="col-md-7 col-xs-12">
-							<form action="/admin/stats-year">
+							<form action="${pageContext.request.contextPath}/admin/stats-year">
 								<div class="row">
 									<div class="col-md-3">
 										<input type="submit" value="Calculate" class="btn btn-danger">
