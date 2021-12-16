@@ -162,11 +162,13 @@ public class EditController extends HttpServlet {
 				req.setCharacterEncoding("UTF-8");
 
 				List<FileItem> items = servletFileUpload.parseRequest(req);
+				int pid = 0;
 				//name, image
 				for (FileItem item : items) {
 					if(item.getFieldName().equals("productid"))
 					{
 						product.setpId(Integer.parseInt(item.getString()));
+						pid = Integer.parseInt(item.getString());
 					}
 					else if (item.getFieldName().equals("name")) {
 						product.setpName(item.getString());
@@ -241,6 +243,8 @@ public class EditController extends HttpServlet {
 					detail.setProduct(product);
 				}
 				productservice.editDetail(detail);
+				
+				product = productservice.getProductById(pid);
 				if (product.getSeller().getRole()==1)
 					resp.sendRedirect(req.getContextPath() + "/admin/list-product");
 				else
