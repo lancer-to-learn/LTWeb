@@ -1,7 +1,6 @@
 package vn.group.controller.web;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import vn.group.model.CityModel;
 import vn.group.service.CityService;
@@ -33,8 +33,7 @@ public class GetShipController  extends HttpServlet{
 				total = total + ci.getPrice();			
 			}
 		}
-		PrintWriter out = resp.getWriter();
-        out.print(total);
-        System.out.print(total);
+		HttpSession session = req.getSession();
+		session.setAttribute("total", total);
 	}
 }

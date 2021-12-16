@@ -76,11 +76,7 @@
                           <input type="radio" name="paymentmethod"> Cash On Delivery
                         </label>
                       </div>
-                      <div class="radio-list">
-                        <label>
-                          <input type="radio" name="paymentmethod"> Pay With Credit Cart
-                        </label>
-                      </div>
+                      
                       <button class="btn btn-primary  pull-right" type="submit" id="button-payment-method" data-toggle="collapse" data-parent="#checkout-page" data-target="#confirm-content">Continue</button>
                     </div>
                   </div>
@@ -147,7 +143,7 @@
                             
                             <li class="shopping-total-price">
                               <em>Total Pay: </em>
-                              <strong class="price"><span id="totalPay"></span></strong>
+                              <strong class="price"><span id="totalPay">${ sessionScope.total } $</span></strong>
                             </li>
                           </ul>
                       </div>
@@ -185,17 +181,7 @@
 				total: tt
 			}),
 			success : function(res) {
-				//cách 1
-				//$('#totalPay').val(data);
-				//alert("ok");
-				//cách 2
-				var row = document.getElementById('totalPay');
-				row.innerText = res.total;
-				window.alert(res.total)
-				
-			},
-			error : function(xhr) {
-				alert("err");
+
 			}
 		});
 	 };

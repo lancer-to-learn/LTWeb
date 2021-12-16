@@ -117,7 +117,7 @@
 				<ul class="page-breadcrumb">
 					<li><i class="fa fa-home"></i> <a href="index.html">Home</a> <i
 						class="fa fa-angle-right"></i></li>
-					<li><a href="#">eCommerce</a> <i class="fa fa-angle-right"></i>
+					<li><a href="#">Order</a> <i class="fa fa-angle-right"></i>
 					</li>
 					<li><a href="#">Order View</a></li>
 				</ul>
@@ -215,15 +215,13 @@
 																<thead>
 																	<tr role="row" class="heading">
 																		<th width="5%">ID</th>
-																		<th width="8%">Customer</th>
-																		<th width="10%">Address</th>
 																		<th width="15%">Product&nbsp;Name</th>
-																		<th width="5%">Price</th>
+																		<th width="10%">Product Image</th>
+																		<th width="10%">Price</th>
 																		<th width="5%">Quantity</th>
 																		<th width="10%">Total</th>
-																		<th width="10%">Create Date</th>
-																		<th width="10%">Product Status</th>
-																		<th width="10%">Receipt Status</th>
+																		<th width="10%">Date Create</th>
+																		<th width="10%">Action</th>
 
 																	</tr>
 
@@ -233,46 +231,78 @@
 																	<c:forEach items="${ listDetail }" var="re">
 																		<tr role="row" class="filter">
 																			<td>${ re.rdId }</td>
-																			<td>${ re.receipt.user.user }</td>
-																			<td>${ re.city.name }</td>
 
 																			<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
-																			<%-- <td><a
-																		href="productdetail?pid=${ re.product.pId }"
-																		class="fancybox-button" data-rel="fancybox-button">
-																			<img class="img-responsive"
-																			src="${ re.product.pImage }"
-																			alt="${ re.product.pName }"
-																			style="width: 50px; height: 50px;">
-																	</a></td> --%>
+																			<c:choose>
+																				<c:when test="${fn:contains(re.product.pImage, 'https')}">
+																				<td><a
+																					href="productdetail?pid=${ re.product.pId }"
+																					class="fancybox-button" data-rel="fancybox-button">
+																						<img class="img-responsive"
+																						src="${ re.product.pImage }"
+																						alt="${ re.product.pName }"
+																						style="width: 50px; height: 50px;">
+																				</a></td>
+																				</c:when>
+																				<c:otherwise>
+																				<c:url value = "/admin/image?fname=${re.product.pImage}" var = "imgUrl"></c:url>
+																				<td><a
+																					href="productdetail?pid=${ re.product.pId }"
+																					class="fancybox-button" data-rel="fancybox-button">
+																						<img class="img-responsive"
+																						src="${ imgUrl }"
+																						alt="${ re.product.pName }"
+																						style="width: 50px; height: 50px;">
+																				</a></td>
+																				</c:otherwise>
+																				</c:choose>
 																			<td>${ re.price }</td>
 																			<td>${ re.quantity }</td>
 																			<td>${ re.price * re.quantity}</td>
 																			<td>${ re.receipt.date }</td>
 
-																			<c:if test="${ re.product.pAmount>=re.quantity }">
-																				<td><span class="label label-sm label-success">
-																						Available </span></td>
-																			</c:if>
-																			<c:if test="${ re.product.pAmount<re.quantity }">
-																				<td><span class="label label-sm label-danger">
-																						Unavailable </span></td>
+																			<c:if test="${ re.status==Shipping }">
+																				<td><div class="margin-bottom-5">
+																						<button onclick="AddtoCart(${ re.product.pId })"
+																							class="btn btn-sm yellow">
+																							<i class="fa"></i> Buy again
+																						</button>
+																					</div></td>
 																			</c:if>
 
+
 																			<c:if test="${re.status=='Sold' }">
-																				<td>Sold</td>
+																				<td><div class="margin-bottom-5">
+																						<button onclick="AddtoCart(${ re.product.pId })"
+																							class="btn btn-sm yellow">
+																							<i class="fa"></i> Buy again
+																						</button>
+																					</div></td>
 																			</c:if>
 																			<c:if test="${re.status=='Waiting' }">
-																				<td>Waiting for Confirm</td>
+																				<td><div class="margin-bottom-5">
+																						<button onclick="Cancel(${ re.rdId })"
+																							class="btn btn-sm red">
+																							Cancel
+																						</button>
+																					</div></td>
 																			</c:if>
-																			<c:if test="${re.status=='Shipping' }">
-																				<td>Shipping</td>
-																			</c:if>
+																			
 																			<c:if test="${re.status=='Confirm' }">
-																				<td>Waiting for Receive</td>
+																				<td><div class="margin-bottom-5">
+																						<button onclick="Confirm(${ re.rdId })"
+																							class="btn btn-sm yellow">
+																							<i class="fa"></i> Received
+																						</button>
+																					</div></td>
 																			</c:if>
 																			<c:if test="${re.status=='Canceled' }">
-																				<td>Canceled</td>
+																				<td><div class="margin-bottom-5">
+																						<button onclick="AddtoCart(${ re.product.pId })"
+																							class="btn btn-sm yellow">
+																							<i class="fa"></i> Buy again
+																						</button>
+																					</div></td>
 																			</c:if>
 																			<%-- <c:if
 																				test="${re.status=='Waiting' &&  re.product.pAmount>=re.quantity }">
@@ -333,7 +363,7 @@
 																	<tr role="row" class="heading">
 																		<th width="5%">ID</th>
 																		<th width="15%">Product&nbsp;Name</th>
-																		<th width="10%">Image</th>
+																		<th width="10%">Product Image</th>
 																		<th width="10%">Price</th>
 																		<th width="5%">Quantity</th>
 																		<th width="10%">Total</th>

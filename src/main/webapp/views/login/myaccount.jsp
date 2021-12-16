@@ -60,14 +60,25 @@
 					<!-- PORTLET MAIN -->
 					<div class="portlet light profile-sidebar-portlet">
 						<!-- SIDEBAR USERPIC -->
+						<c:choose>
+						<c:when test="${fn:contains(sessionScope.acc.image, 'https')}">
 						<div class="profile-userpic">
-							<img src="${ sessionScope.acc.getImage() }"
-								class="img-responsive" alt="${ sessionScope.acc.getUser() }">
+							<img src="${ sessionScope.acc.image }"
+								class="img-responsive" alt="${ sessionScope.acc.user }">
 						</div>
+						</c:when>
+						<c:otherwise>
+						<c:url value = "/admin/image?fname=${sessionScope.acc.image}" var = "imgUrl"></c:url>
+						<div class="profile-userpic">
+							<img src="${ imgUrl}"
+								class="img-responsive" alt="${ sessionScope.acc.user }">
+						</div>
+						</c:otherwise>
+						</c:choose>
 						<!-- END SIDEBAR USERPIC -->
 						<!-- SIDEBAR USER TITLE -->
 						<div class="profile-usertitle">
-							<div class="profile-usertitle-name">${ sessionScope.acc.getUser() }
+							<div class="profile-usertitle-name">${ sessionScope.acc.user }
 							</div>
 							<div class="profile-usertitle-job">${ role }</div>
 						</div>
@@ -166,7 +177,7 @@
 													<div class="fileinput fileinput-new"
 														data-provides="fileinput">
 													<c:choose>
-													<c:when test="${sessionScope.acc.image, 'https')}">
+													<c:when test="${fn:contains(sessionScope.acc.image, 'https')}">
 														<div class="fileinput-new thumbnail"
 															style="width: 200px; height: 150px;">
 															<img

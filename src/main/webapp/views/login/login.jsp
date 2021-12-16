@@ -43,11 +43,7 @@
                         class="form-control" placeholder="Password" required>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-lg-8 col-md-offset-4 padding-left-0">
-                        <a href="page-forgotton-password.html">Quên mật khẩu?</a>
-                      </div>
-                    </div>
+
                     <div class="row">
                       <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20">
                         <button type="submit" class="btn btn-primary">Đăng nhập</button>

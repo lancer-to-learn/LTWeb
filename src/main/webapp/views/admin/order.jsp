@@ -360,6 +360,8 @@ t<%@ page language="java" contentType="text/html; charset=UTF-8"
 																				<td>${ re.city.name }</td>
 
 																				<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
+																				<c:choose>
+																				<c:when test="${fn:contains(re.product.pImage, 'https')}">
 																				<td><a
 																					href="productdetail?pid=${ re.product.pId }"
 																					class="fancybox-button" data-rel="fancybox-button">
@@ -368,6 +370,19 @@ t<%@ page language="java" contentType="text/html; charset=UTF-8"
 																						alt="${ re.product.pName }"
 																						style="width: 50px; height: 50px;">
 																				</a></td>
+																				</c:when>
+																				<c:otherwise>
+																				<c:url value = "/admin/image?fname=${re.product.pImage}" var = "imgUrl"></c:url>
+																				<td><a
+																					href="productdetail?pid=${ re.product.pId }"
+																					class="fancybox-button" data-rel="fancybox-button">
+																						<img class="img-responsive"
+																						src="${ imgUrl }"
+																						alt="${ re.product.pName }"
+																						style="width: 50px; height: 50px;">
+																				</a></td>
+																				</c:otherwise>
+																				</c:choose>
 																				<td>${ re.price }</td>
 																				<td>${ re.quantity }</td>
 																				<td>${ re.price * re.quantity}</td>
@@ -466,6 +481,8 @@ t<%@ page language="java" contentType="text/html; charset=UTF-8"
 																				<td>${ re.city.name }</td>
 
 																				<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
+																				<c:choose>
+																				<c:when test="${fn:contains(re.product.pImage, 'https')}">
 																				<td><a
 																					href="productdetail?pid=${ re.product.pId }"
 																					class="fancybox-button" data-rel="fancybox-button">
@@ -474,6 +491,19 @@ t<%@ page language="java" contentType="text/html; charset=UTF-8"
 																						alt="${ re.product.pName }"
 																						style="width: 50px; height: 50px;">
 																				</a></td>
+																				</c:when>
+																				<c:otherwise>
+																				<c:url value = "/admin/image?fname=${re.product.pImage}" var = "imgUrl"></c:url>
+																				<td><a
+																					href="productdetail?pid=${ re.product.pId }"
+																					class="fancybox-button" data-rel="fancybox-button">
+																						<img class="img-responsive"
+																						src="${ imgUrl }"
+																						alt="${ re.product.pName }"
+																						style="width: 50px; height: 50px;">
+																				</a></td>
+																				</c:otherwise>
+																				</c:choose>
 																				<td>${ re.price }</td>
 																				<td>${ re.quantity }</td>
 																				<td>${ re.price * re.quantity}</td>
@@ -509,6 +539,8 @@ t<%@ page language="java" contentType="text/html; charset=UTF-8"
 																				<td>${ re.city.name }</td>
 
 																				<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
+																				<c:choose>
+																				<c:when test="${fn:contains(re.product.pImage, 'https')}">
 																				<td><a
 																					href="productdetail?pid=${ re.product.pId }"
 																					class="fancybox-button" data-rel="fancybox-button">
@@ -517,6 +549,19 @@ t<%@ page language="java" contentType="text/html; charset=UTF-8"
 																						alt="${ re.product.pName }"
 																						style="width: 50px; height: 50px;">
 																				</a></td>
+																				</c:when>
+																				<c:otherwise>
+																				<c:url value = "/admin/image?fname=${re.product.pImage}" var = "imgUrl"></c:url>
+																				<td><a
+																					href="productdetail?pid=${ re.product.pId }"
+																					class="fancybox-button" data-rel="fancybox-button">
+																						<img class="img-responsive"
+																						src="${ imgUrl }"
+																						alt="${ re.product.pName }"
+																						style="width: 50px; height: 50px;">
+																				</a></td>
+																				</c:otherwise>
+																				</c:choose>
 																				<td>${ re.price }</td>
 																				<td>${ re.quantity }</td>
 																				<td>${ re.price * re.quantity}</td>
@@ -614,6 +659,8 @@ t<%@ page language="java" contentType="text/html; charset=UTF-8"
 																				<td>${ re.city.name }</td>
 
 																				<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
+																				<c:choose>
+																				<c:when test="${fn:contains(re.product.pImage, 'https')}">
 																				<td><a
 																					href="productdetail?pid=${ re.product.pId }"
 																					class="fancybox-button" data-rel="fancybox-button">
@@ -622,6 +669,19 @@ t<%@ page language="java" contentType="text/html; charset=UTF-8"
 																						alt="${ re.product.pName }"
 																						style="width: 50px; height: 50px;">
 																				</a></td>
+																				</c:when>
+																				<c:otherwise>
+																				<c:url value = "/admin/image?fname=${re.product.pImage}" var = "imgUrl"></c:url>
+																				<td><a
+																					href="productdetail?pid=${ re.product.pId }"
+																					class="fancybox-button" data-rel="fancybox-button">
+																						<img class="img-responsive"
+																						src="${ imgUrl }"
+																						alt="${ re.product.pName }"
+																						style="width: 50px; height: 50px;">
+																				</a></td>
+																				</c:otherwise>
+																				</c:choose>
 																				<td>${ re.price }</td>
 																				<td>${ re.quantity }</td>
 																				<td>${ re.price * re.quantity}</td>

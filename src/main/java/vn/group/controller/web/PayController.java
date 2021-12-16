@@ -57,6 +57,7 @@ public class PayController extends HttpServlet {
 					if (re.insert(item)) {
 						httpSession.removeAttribute("cart_quantity");
 						httpSession.removeAttribute("cart");
+						httpSession.removeAttribute("total");
 						resp.sendRedirect("order");
 					}
 				}
