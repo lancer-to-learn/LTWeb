@@ -7,7 +7,6 @@
       <div class="container">
         <ul class="breadcrumb">
             <li><a href="home">Home</a></li>
-            <li><a href="#">Pages</a></li>
             <li class="active">Login</li>
         </ul>
         <!-- BEGIN SIDEBAR & CONTENT -->
@@ -15,8 +14,7 @@
           <!-- BEGIN SIDEBAR -->
           <div class="sidebar col-md-3 col-sm-3">
             <ul class="list-group margin-bottom-25 sidebar-menu">
-              <li class="list-group-item clearfix"><a href="#"><i class="fa fa-angle-right"></i> Đăng ký</a></li>
-              <li class="list-group-item clearfix"><a href="#"><i class="fa fa-angle-right"></i> Khôi phục mật khẩu</a></li>
+              <li class="list-group-item clearfix"><a href="signup"><i class="fa fa-angle-right"></i> Đăng ký</a></li>
                 </ul>
           </div>
           <!-- END SIDEBAR -->

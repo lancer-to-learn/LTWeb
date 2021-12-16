@@ -161,14 +161,25 @@
 
 											<form action="user-image" method="post" role="form" enctype="multipart/form-data">
 												<div class="form-group">
+												
+														
 													<div class="fileinput fileinput-new"
 														data-provides="fileinput">
+													<c:choose>
+													<c:when test="${sessionScope.acc.image, 'https')}">
 														<div class="fileinput-new thumbnail"
 															style="width: 200px; height: 150px;">
 															<img
 																src="${ sessionScope.acc.image }"
 																alt="" />
 														</div>
+													</c:when>
+													<c:otherwise>
+													<c:url value = "/admin/image?fname=${sessionScope.acc.image}" var = "imgUrl"></c:url>
+														<img class="img-responsive center" src="${imgUrl}"
+															style="width: 100px; height: 100px;" alt="Image Error">
+													</c:otherwise>
+													</c:choose>
 														<div class="fileinput-preview fileinput-exists thumbnail"
 															style="max-width: 200px; max-height: 150px;"></div>
 														<div>

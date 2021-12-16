@@ -4,16 +4,15 @@
 <div class="main">
 	<div class="container">
 		<ul class="breadcrumb">
-			<li><a href="index.html">Home</a></li>
-			<li><a href="#">Pages</a></li>
-			<li class="active">Register</li>
+			<li><a href="home">Home</a></li>
+			<li class="active"><a href="#">Register</a></li>
 		</ul>
 		<!-- BEGIN SIDEBAR & CONTENT -->
 		<div class="row margin-bottom-40">
 			<!-- BEGIN SIDEBAR -->
 			<div class="sidebar col-md-3 col-sm-3">
 				<ul class="list-group margin-bottom-25 sidebar-menu">
-					<li class="list-group-item clearfix"><a href="#"><i
+					<li class="list-group-item clearfix"><a href="login"><i
 							class="fa fa-angle-right"></i> Đăng Nhập</a></li>
 				</ul>
 			</div>
