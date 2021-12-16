@@ -2,7 +2,7 @@ package vn.group.service;
 
 import java.util.List;
 
-import vn.group.model.BrandModel;
+
 import vn.group.model.ProductDetailModel;
 import vn.group.model.ProductModel;
 
@@ -26,5 +26,6 @@ public interface ProductService {
 	boolean insertDetail(ProductDetailModel dm);
 	boolean deleteDetail(int id);
 	boolean editDetail(ProductDetailModel dm);
+	boolean sellProduct(int quantity, ProductModel pro);
 	
 }

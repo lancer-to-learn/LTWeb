@@ -112,4 +112,10 @@ public class ProductServiceImpl implements ProductService{
 		return product.getLastestProduct();
 	}
 
+	@Override
+	public boolean sellProduct(int quantity, ProductModel pro) {
+		// TODO Auto-generated method stub
+		return product.sellProduct(quantity, pro);
+	}
+
 }

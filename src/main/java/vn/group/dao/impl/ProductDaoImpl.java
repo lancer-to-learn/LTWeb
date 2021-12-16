@@ -162,13 +162,12 @@ public class ProductDaoImpl implements ProductDao{
 	@Override
 	public List<ProductModel> searchProduct(String kw) {
 		List<ProductModel> list = new ArrayList<ProductModel>();
-		String sql = "select * from Product where name like N'%?%'";
+		String sql = "select * from Product where name like '%" +kw+ "%' ";
 		try {
 			// mở kết nối database
 			conn = new DBConnect().getConnection();
 			// Ném câu query qua sql
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, kw);
 			// chạy query và nhận kết quả
 			rs = ps.executeQuery();
 			// lấy ResultSet đổ vào List
@@ -409,6 +408,23 @@ public class ProductDaoImpl implements ProductDao{
 			System.out.print("Eror:"+e);
 		}
 		return null;
+	}
+
+	@Override
+	public boolean sellProduct(int quantity, ProductModel pro) {
+		String sql = "update Product set amount=?, amountSelled=? where id=?";
+		try {
+			conn = new DBConnect().getConnection();
+			ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, pro.getpAmount()-quantity);
+			ps.setInt(2, pro.getpAmountSelled()+quantity);
+			ps.setInt(3, pro.getpId());
+			return ps.execute();
+		} catch (Exception e) {
+			System.out.print("Eror:"+e);
+		}
+		return true;
 	}
 	
 

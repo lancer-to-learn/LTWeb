@@ -460,7 +460,7 @@
 	<div class="container">
 		<div class="owl-carousel owl-carousel6-brands">
 			<c:forEach items="${allBrand}" var="b">
-				<a href="shop-product-list.html"><img src="${ b.bImage }"
+				<a href="product?bid=${ b.bId }"><img src="${ b.bImage }"
 					alt="canon" title="canon" style="width: 60px; height: 50px;"></a>
 			</c:forEach>
 		</div>

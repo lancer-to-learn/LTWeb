@@ -14,11 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import vn.group.model.AccountModel;
+import vn.group.model.ProductModel;
 import vn.group.model.QuantityModel;
 import vn.group.model.ReceiptDetailModel;
 import vn.group.model.ReceiptModel;
 import vn.group.model.TotalMoneyModel;
+import vn.group.service.ProductService;
 import vn.group.service.ReceiptService;
+import vn.group.service.impl.ProductServiceImpl;
 import vn.group.service.impl.ReceiptServiceImpl;
 
 @SuppressWarnings("serial")
@@ -74,6 +77,7 @@ public class OrderController extends HttpServlet {
 				RequestDispatcher rq = req.getRequestDispatcher("/views/admin/order.jsp");
 				rq.forward(req, resp);
 			} else {
+				
 					List<ReceiptDetailModel> listReceiptDetail = re.getReceiptByUser(acc.getId());
 					List<ReceiptModel> listReceipt = re.getReceipt(acc.getId());
 
@@ -98,11 +102,16 @@ public class OrderController extends HttpServlet {
 							item.setStatus("Confirm");
 						}
 					}
+					
+					ProductService productService =  new ProductServiceImpl(); 
+					
+					List<ProductModel> list = productService.getSellestProduct();
 
 					req.setAttribute("listDetail", listReceiptDetail);
 					req.setAttribute("listAllReceipt", listReceipt);
 					req.setAttribute("quantity", quantity);
 					req.setAttribute("total", total);
+					req.setAttribute("list", list );
 
 					RequestDispatcher rq = req.getRequestDispatcher("/views/web/order.jsp");
 					rq.forward(req, resp);

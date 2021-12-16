@@ -25,5 +25,6 @@ public interface ProductDao {
 	boolean insertDetail(ProductDetailModel dm);
 	boolean deleteDetail(int id);
 	boolean editDetail(ProductDetailModel dm);
+	boolean sellProduct(int quantity, ProductModel pro);
 }
 

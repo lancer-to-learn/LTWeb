@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
 <!-- BEGIN CONTAINER -->
@@ -179,6 +179,7 @@
 											<th width="10%">Brand</th>
 											<th width="10%">Amount</th>
 											<th width="10%">Selled Amount</th>
+											<th width="10%">Seller</th>
 											<th width="10%">Actions</th>
 										</tr>
 									</thead>
@@ -203,6 +204,12 @@
 											<td>${product.brand.bName}</td>
 											<td>${product.pAmount}</td>
 											<td>${product.pAmountSelled}</td>
+											<c:if test="${ product.seller.role == 1 }">
+											<td>Admin</td>
+											</c:if>
+											<c:if test="${ product.seller.role == 2 }">
+											<td>${ product.seller.user }</td>
+											</c:if>
 											<td>
 											<a class="center"
 													href="${pageContext.request.contextPath}/admin/edit/list-product?id=${product.pId}">

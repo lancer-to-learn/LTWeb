@@ -36,16 +36,11 @@ public class ListProductController extends HttpServlet {
 				resp.setContentType("text/html");
 				ProductService productservice = new ProductServiceImpl();
 				List<ProductModel> products = productservice.getAllProduct();
-				List<ProductModel> pros = new ArrayList<ProductModel>();
+				
 
-				for (int i = 0; i < products.size(); i++) {
-					ProductModel pro1 = products.get(i);
-					if (pro1.getSeller().getRole() == 1) {
-						pros.add(pro1);
-					}
-				}
+				
 
-				req.setAttribute("products", pros);
+				req.setAttribute("products", products);
 				RequestDispatcher rq = req.getRequestDispatcher("/views/admin/listproduct.jsp");
 				rq.forward(req, resp);
 			} else if (url.contains("admin/custom-product")) {

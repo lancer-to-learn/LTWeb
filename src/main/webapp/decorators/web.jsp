@@ -82,12 +82,19 @@
 	rel="stylesheet">
 	<link href="${ url }/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css">
 <!-- Page level plugin styles END -->
+<link href="${ url }/global/css/plugins.css" rel="stylesheet"
+	type="text/css" />
 
 <!-- Theme styles START -->
 <link href="${ url }/global/css/components.css" rel="stylesheet">
 <link href="${ url }/frontend/layout/css/style.css" rel="stylesheet">
 <link href="${ url }/frontend/pages/css/style-revolution-slider.css"
 	rel="stylesheet">
+	<link href="${ url }/global/css/components-rounded.css"
+	id="style_components" rel="stylesheet" type="text/css">
+<link href="${ url }/global/css/components.css" id="style_components"
+	rel="stylesheet" type="text/css" />
+
 <!-- metronic revo slider styles -->
 <link href="${ url }/frontend/layout/css/style-responsive.css"
 	rel="stylesheet">
@@ -135,6 +142,12 @@
 	<!--end footer-->
 
 <!-- END CORE PLUGINS -->
+<script src="${ url }/global/plugins/respond.min.js"></script>
+	<script src="${ url }/global/plugins/excanvas.min.js"></script>
+	<script src="${ url }/global/plugins/jquery.min.js"
+		type="text/javascript"></script>
+	<script src="${ url }/global/plugins/jquery-migrate.min.js"
+		type="text/javascript"></script>
 	<script src="${ url }/global/plugins/jquery.min.js"
 		type="text/javascript"></script>
 	<script src="${ url }/global/plugins/jquery-migrate.min.js"
@@ -189,14 +202,6 @@
 
 	<script src="${ url }/frontend/layout/scripts/layout.js"
 		type="text/javascript"></script>
-	<script type="text/javascript">
-		jQuery(document).ready(function() {
-			RevosliderInit.initRevoSlider();
-			Layout.initTwitter();
-			Layout.initFixHeaderWithPreHeader(); /* Switch On Header Fixing (only if you have pre-header) */
-			Layout.initNavScrolling();
-		});
-	</script>
 	<script
 		src="${ url }/global/plugins/fancybox/source/jquery.fancybox.pack.js"
 		type="text/javascript"></script>
@@ -231,7 +236,11 @@
 		<script src="${ url }/admin/pages/scripts/table-advanced.js"></script>
 	<script src="${ url }/global/scripts/datatable.js"></script>
 		<script src="${ url }/admin/pages/scripts/ecommerce-products.js"></script>
-		<script type="text/javascript"
+	<!-- END LayerSlider -->
+		<!-- BEGIN PAGE LEVEL PLUGINS -->
+	<script type="text/javascript"
+		src="${ url }/global/plugins/select2/select2.min.js"></script>
+	<script type="text/javascript"
 		src="${ url }/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript"
 		src="${ url }/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
@@ -241,18 +250,23 @@
 		src="${ url }/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js"></script>
 	<script type="text/javascript"
 		src="${ url }/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
-	<!-- END LayerSlider -->
+	<script type="text/javascript"
+		src="${ url }/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+	<!-- END PAGE LEVEL PLUGINS -->
 	<script type="text/javascript">
 		jQuery(document).ready(function() {
 			Layout.init();
 			Layout.initOWL();
+			RevosliderInit.initRevoSlider();
+			//Layout.initTwitter();
+			Layout.initFixHeaderWithPreHeader(); /* Switch On Header Fixing (only if you have pre-header) */
+			Layout.initNavScrolling();
 			LayersliderInit.initLayerSlider();
 			Layout.initImageZoom();
 			Layout.initTouchspin();
-			Layout.initTwitter();
 			Demo.init();
 			EcommerceProducts.init();
-			EcommerceOrdersView.init();
+			//EcommerceOrdersView.init();
 			TableAdvanced.init();
 		});
 	</script>

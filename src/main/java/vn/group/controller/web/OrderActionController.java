@@ -14,7 +14,9 @@ import javax.servlet.http.HttpSession;
 
 import vn.group.model.AccountModel;
 import vn.group.model.ReceiptDetailModel;
+import vn.group.service.ProductService;
 import vn.group.service.ReceiptService;
+import vn.group.service.impl.ProductServiceImpl;
 import vn.group.service.impl.ReceiptServiceImpl;
 
 @SuppressWarnings("serial")
@@ -63,6 +65,7 @@ public class OrderActionController extends HttpServlet {
 			if (url.contains("order-confirm")) {
 				if (obj != null) {
 					AccountModel acc = (AccountModel) obj;
+					ProductService pro = new ProductServiceImpl();
 					String id = req.getParameter("rid");
 					ReceiptService re = new ReceiptServiceImpl();
 					List<ReceiptDetailModel> listReceiptDetail = re.getReceiptByUser(acc.getId());
@@ -70,6 +73,7 @@ public class OrderActionController extends HttpServlet {
 						if (item.getRdId() == Integer.parseInt(id)) {
 							System.out.println(item.getProduct().getpName());
 							if (re.editReceipt(item, "Sold")) {
+								pro.sellProduct(item.getQuantity(), item.getProduct());
 								PrintWriter out = resp.getWriter();
 								out.print("200");
 							} else {

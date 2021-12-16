@@ -5,6 +5,7 @@
 	<!-- BEGIN CONTENT -->
 	<div class="page-content-wrapper">
 		<div class="page-content">
+
 			<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 			<div class="modal fade" id="portlet-config" tabindex="-1"
 				role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -117,8 +118,7 @@
 				<ul class="page-breadcrumb">
 					<li><i class="fa fa-home"></i> <a href="index.html">Home</a> <i
 						class="fa fa-angle-right"></i></li>
-					<li><a href="#">Order</a> <i class="fa fa-angle-right"></i>
-					</li>
+					<li><a href="#">Order</a> <i class="fa fa-angle-right"></i></li>
 					<li><a href="#">Order View</a></li>
 				</ul>
 				<div class="page-toolbar">
@@ -232,36 +232,39 @@
 																		<tr role="row" class="filter">
 																			<td>${ re.rdId }</td>
 
-																			<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
+																			<td><a
+																				href="productdetail?pid=${ re.product.pId }">${ re.product.pName }</a></td>
 																			<c:choose>
-																				<c:when test="${fn:contains(re.product.pImage, 'https')}">
-																				<td><a
-																					href="productdetail?pid=${ re.product.pId }"
-																					class="fancybox-button" data-rel="fancybox-button">
-																						<img class="img-responsive"
-																						src="${ re.product.pImage }"
-																						alt="${ re.product.pName }"
-																						style="width: 50px; height: 50px;">
-																				</a></td>
+																				<c:when
+																					test="${fn:contains(re.product.pImage, 'https')}">
+																					<td><a
+																						href="productdetail?pid=${ re.product.pId }"
+																						class="fancybox-button" data-rel="fancybox-button">
+																							<img class="img-responsive"
+																							src="${ re.product.pImage }"
+																							alt="${ re.product.pName }"
+																							style="width: 50px; height: 50px;">
+																					</a></td>
 																				</c:when>
 																				<c:otherwise>
-																				<c:url value = "/admin/image?fname=${re.product.pImage}" var = "imgUrl"></c:url>
-																				<td><a
-																					href="productdetail?pid=${ re.product.pId }"
-																					class="fancybox-button" data-rel="fancybox-button">
-																						<img class="img-responsive"
-																						src="${ imgUrl }"
-																						alt="${ re.product.pName }"
-																						style="width: 50px; height: 50px;">
-																				</a></td>
+																					<c:url
+																						value="/admin/image?fname=${re.product.pImage}"
+																						var="imgUrl"></c:url>
+																					<td><a
+																						href="productdetail?pid=${ re.product.pId }"
+																						class="fancybox-button" data-rel="fancybox-button">
+																							<img class="img-responsive" src="${ imgUrl }"
+																							alt="${ re.product.pName }"
+																							style="width: 50px; height: 50px;">
+																					</a></td>
 																				</c:otherwise>
-																				</c:choose>
+																			</c:choose>
 																			<td>${ re.price }</td>
 																			<td>${ re.quantity }</td>
 																			<td>${ re.price * re.quantity}</td>
 																			<td>${ re.receipt.date }</td>
 
-																			<c:if test="${ re.status==Shipping }">
+																			<c:if test="${ re.status=='Shipping' }">
 																				<td><div class="margin-bottom-5">
 																						<button onclick="AddtoCart(${ re.product.pId })"
 																							class="btn btn-sm yellow">
@@ -282,12 +285,10 @@
 																			<c:if test="${re.status=='Waiting' }">
 																				<td><div class="margin-bottom-5">
 																						<button onclick="Cancel(${ re.rdId })"
-																							class="btn btn-sm red">
-																							Cancel
-																						</button>
+																							class="btn btn-sm red">Cancel</button>
 																					</div></td>
 																			</c:if>
-																			
+
 																			<c:if test="${re.status=='Confirm' }">
 																				<td><div class="margin-bottom-5">
 																						<button onclick="Confirm(${ re.rdId })"
@@ -378,7 +379,8 @@
 																		<c:if test="${ re.status == 'Sold' }">
 																			<tr role="row" class="filter">
 																				<td>${ re.rdId }</td>
-																				<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
+																				<td><a
+																					href="productdetail?pid=${ re.product.pId }">${ re.product.pName }</a></td>
 																				<td><a
 																					href="productdetail?pid=${ re.product.pId }"
 																					class="fancybox-button" data-rel="fancybox-button">
@@ -463,7 +465,8 @@
 																		<c:if test="${ re.status == 'Shipping' }">
 																			<tr role="row" class="filter">
 																				<td>${ re.rdId }</td>
-																				<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
+																				<td><a
+																					href="productdetail?pid=${ re.product.pId }">${ re.product.pName }</a></td>
 																				<td><a
 																					href="productdetail?pid=${ re.product.pId }"
 																					class="fancybox-button" data-rel="fancybox-button">
@@ -488,7 +491,8 @@
 																		<c:if test="${ re.status == 'Confirm' }">
 																			<tr role="row" class="filter">
 																				<td>${ re.rdId }</td>
-																				<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
+																				<td><a
+																					href="productdetail?pid=${ re.product.pId }">${ re.product.pName }</a></td>
 																				<td><a
 																					href="productdetail?pid=${ re.product.pId }"
 																					class="fancybox-button" data-rel="fancybox-button">
@@ -572,7 +576,8 @@
 																		<c:if test="${ re.status == 'Waiting' }">
 																			<tr role="row" class="filter">
 																				<td>${ re.rdId }</td>
-																				<td><a href="productdetail?${ re.product.pId }">${ re.product.pName }</a></td>
+																				<td><a
+																					href="productdetail?pid=${ re.product.pId }">${ re.product.pName }</a></td>
 																				<td><a
 																					href="productdetail?pid=${ re.product.pId }"
 																					class="fancybox-button" data-rel="fancybox-button">
@@ -587,9 +592,7 @@
 																				<td>${ re.receipt.date }</td>
 																				<td><div class="margin-bottom-5">
 																						<button onclick="Cancel(${ re.rdId })"
-																							class="btn btn-sm red">
-																							Cancel
-																						</button>
+																							class="btn btn-sm red">Cancel</button>
 																					</div></td>
 																			</tr>
 																		</c:if>
@@ -714,13 +717,13 @@
 		</div>
 	</div>
 </div>
-<script>
+<!-- <script>
 	$(document).ready(function() {
 		var table = $('#datatable_products').DataTable({
 			fixedHeader : true
 		});
 	});
-</script>
+</script> -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script>    

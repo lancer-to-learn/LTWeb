@@ -24,6 +24,8 @@ public class ProductDetailController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 				resp.setContentType("text/html");
+				resp.setCharacterEncoding("UTF-8");
+				req.setCharacterEncoding("UTF-8");
 				String pId = req.getParameter("pid");
 				int id = Integer.parseInt(pId);
 				
