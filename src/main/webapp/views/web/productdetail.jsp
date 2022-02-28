@@ -23,7 +23,6 @@
               <c:forEach items="${ list }" var="item">
               <div class="item">
                 <a href="productdetail?${ item.pId }"><img src="${ item.pImage }" alt="${ item.pName }"></a>
-                <div class="sticker sticker-sale"></div>
                 <h3><a href="productdetail?${ item.pId }">${ item.pName }</a></h3>
                 <div class="price">${ item.pPrice }</div>
                 
@@ -48,10 +47,13 @@
                     <div class="price">
                       <strong><span>$</span>${ product.pPrice }</strong>
                     </div>
+                  </div>
+                  <div class="availability">
+                      Selled: <strong>${ product.pAmountSelled }</strong>
+                    </div>
                     <div class="availability">
                       Availability: <strong>${ product.pAmount }</strong>
                     </div>
-                  </div>
                   <div class="description">
                     <p>${ productdetail.description }</p>
                   </div>
@@ -67,7 +69,7 @@
                 <div class="product-page-content">
                   <ul id="myTab" class="nav nav-tabs">
                     <li><a href="#Description" data-toggle="tab">Description</a></li>
-                    <li class="active"><a  href="#Information" data-toggle="tab">Information</a></li>
+                    <li ><a  href="#Information" data-toggle="tab">Information</a></li>
                   </ul>
                   <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade" id="Description">

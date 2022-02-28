@@ -44,38 +44,46 @@ public class ProductController extends HttpServlet {
 			indexPage = "1";
 		}
 		int index = Integer.parseInt(indexPage);
-		int bId1 = Integer.parseInt(bId);
+		
 
 		BrandModel brand = null;
+		if (bId != null) {
+			int bId1 = Integer.parseInt(bId);
+			if ("0".equals(bId)) { // All product
+				List<ProductModel> list = new ArrayList<ProductModel>();
 
-		if ("0".equals(bId)) { // All product
-			List<ProductModel> list = new ArrayList<ProductModel>();
-			if (kw != null) {
-				list = productService.pagingProduct(index);
-				req.setAttribute("endP", 1);
-				req.setAttribute("allProduct", list);
-			} else {
 				int count = productService.countProduct();
 
 				// chia trang cho count
-				int endPage = count / 8;
-				if (count % 8 != 0) {
+				int endPage = count / 4;
+				if (count % 4 != 0) {
 					endPage++;
 				}
 				list = productService.pagingProduct(index);
 				req.setAttribute("endP", endPage);
 				req.setAttribute("allProduct", list);
+
+			} else {
+				brand = brandService.getBrandById(bId1);// Lấy brand theo id
+				int count = productService.countProductByBId(bId1);
+				int endPage = count / 4;
+				if (count % 4 != 0) {
+					endPage++;
+				}
+				List<ProductModel> listPC = productService.pagingProductByBId(index, bId1);
+				req.setAttribute("allProduct", listPC);
+				req.setAttribute("endP", endPage);
 			}
-		} else {
-			brand = brandService.getBrandById(bId1);// Lấy brand theo id
-			int count = productService.countProductByBId(bId1);
-			int endPage = count / 8;
-			if (count % 8 != 0) {
-				endPage++;
-			}
-			List<ProductModel> listPC = productService.pagingProductByBId(index, bId1);
-			req.setAttribute("allProduct", listPC);
-			req.setAttribute("endP", endPage);
+		}
+		if (kw!=null)
+		{
+			
+			List<ProductModel> list = new ArrayList<ProductModel>();
+			list = productService.searchProduct(kw);
+			req.setAttribute("endP", 1);
+			req.setAttribute("allProduct", list);
+			System.out.print(list);
+			
 		}
 
 		// Truyền dữ liệu lên views
@@ -92,7 +100,7 @@ public class ProductController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		super.doPost(req, resp);
+
 	}
 
 }

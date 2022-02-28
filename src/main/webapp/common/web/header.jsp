@@ -108,9 +108,9 @@
 				<li class="menu-search"><span class="sep"></span> <i
 					class="fa fa-search search-btn"></i>
 					<div class="search-box">
-						<form action="#">
+						<form action="product" method="get">
 							<div class="input-group">
-								<input type="text" placeholder="Tìm kiếm" class="form-control">
+								<input type="text" placeholder="Tìm kiếm" class="form-control" name="kw">
 								<span class="input-group-btn">
 									<button class="btn btn-primary" type="submit">Search</button>
 								</span>
