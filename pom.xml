@@ -15,7 +15,7 @@
 		<mssql-version>9.4.0.jre8</mssql-version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<paypal-version>1.4.3</paypal-version>
+		<paypal-version>1.7.2</paypal-version>
 		<fileupload.version>1.4</fileupload.version>
 		<weld.servlet.version>2.4.8.Final</weld.servlet.version>
 	</properties>
